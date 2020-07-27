@@ -1,10 +1,15 @@
-import mobx, { decorate } from 'mobx';
-import { observable } from 'mobx-react';
+import { observable, action } from "mobx";
+import SampleRepository from "../repositories/SampleRepository";
+import SampleModel from "../models/SampleModel";
 
 class SampleStore {
-	user;
+  @observable sampleList = [];
+
+  @action fetchSample() {
+    const user = SampleRepository.findUser();
+    const sampleModel = new SampleModel(user);
+    this.sampleList.push(sampleModel);
+  }
 }
 
-decorate(SampleStore, {
-	user: observable,
-});
+export default SampleStore;

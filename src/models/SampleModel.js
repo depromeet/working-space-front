@@ -1,12 +1,23 @@
-class SampleModel {
-	count = 0;
+import { observable, action, computed, set } from 'mobx';
 
-	get doubleCount() {
-		return count * 2;
+class SampleModel {
+	@observable name;
+	@observable email;
+	@observable card;
+
+	constructor({name, email, card}) {
+		set(this, {name, email, card});
+	};
+
+	@computed get nameAndEmail() {
+		return this.name + this.email;
 	}
 
-	setRandomCount() {
-		this.count = Math.random();
+	@action init() {
+		this.name = '심재철';
+		this.email = 'simsimjae@naver.com';
+		this.card = 'card'
 	}
 }
+
 export default SampleModel;

@@ -5,7 +5,7 @@ class SampleRepository {
 		return {
 			name: faker.name.findName(),
 			email: faker.internet.email(),
-			card: faker.helpers.craeteCard(),
+			card: faker.helpers.createCard(),
 		};
 	}
 }
