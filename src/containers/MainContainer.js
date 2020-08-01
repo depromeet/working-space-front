@@ -17,7 +17,7 @@ const MainContainer = () => {
 
   return (
     <>
-      <Header handleNavClick={onClickNavButton} localData={toJS(SampleStore.localData)} backColor={true} backBtn={false} shareBtn={false} mapBtn={true} localText={false} naviBox={true} />
+      <Header handleNavClick={onClickNavButton} localData={toJS(SampleStore.localData)} backColor mapBtn naviBox shareBtn={false} />
     </>
   );
 };
