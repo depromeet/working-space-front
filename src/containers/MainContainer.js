@@ -1,28 +1,25 @@
-import React, { useCallback, useEffect } from 'react';
-import { toJS } from 'mobx';
-import { observer } from 'mobx-react';
-import useStore from '../hooks/useStore';
-
-import Header from '../components/Header/Header';
-import Sample from '../components/Sample';
+import React, { useCallback, useEffect } from "react";
+import { toJS } from "mobx";
+import { observer } from "mobx-react";
+import useStore from "../hooks/useStore";
+import Header from "../components/Header/Header";
 
 const MainContainer = () => {
-	const { SampleStore } = useStore();
+  const { SampleStore } = useStore();
 
-	useEffect(() => {
-		SampleStore.fetchSample();
-	}, [SampleStore]);
+  useEffect(() => {
+    SampleStore.fetchSample();
+  }, [SampleStore]);
 
-	const onClickNavButton = useCallback(() => {
-		console.log(toJS(SampleStore.localData));
-	}, [SampleStore.localData]);
+  const onClickNavButton = useCallback(() => {
+    console.log(toJS(SampleStore.localData));
+  }, [SampleStore.localData]);
 
-	return (
-		<div>
-			<Sample />
-			<Header handleNavClick={onClickNavButton} localData={toJS(SampleStore.localData)} backColor={true} backBtn={false} shareBtn={false} mapBtn={true} localText={false} naviBox={true} />
-		</div>
-	);
+  return (
+    <>
+      <Header handleNavClick={onClickNavButton} localData={toJS(SampleStore.localData)} backColor={true} backBtn={false} shareBtn={false} mapBtn={true} localText={false} naviBox={true} />
+    </>
+  );
 };
 
 export default observer(MainContainer);
