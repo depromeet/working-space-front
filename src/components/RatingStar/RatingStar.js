@@ -3,33 +3,36 @@ import ReactStars from 'react-rating-stars-component';
 import RatingStarStyled from './RatingStar.styles';
 
 const RatingStar = props => {
-	const { count, size, activeColor, isHalf, color } = props;
-	const [value, setValue] = useState(props.value);
+	const { starSize, starActiveColor, isStarHalf, starColor, isStarEditable, isSimpleMode, starCount, attendantCount } = props;
+	const [rating, setRating] = useState(props.rating);
+	let ratingCount = isSimpleMode ? `${rating}` : `${rating} / ${starCount}`;
+	if (isSimpleMode && attendantCount !== 0) ratingCount += `(${attendantCount})`;
 
 	const onRatingChanged = useCallback(newRating => {
-		setValue(newRating);
+		setRating(newRating);
 		props.onRatingChanged && props.onRatingChanged();
 	}, []);
 
 	return (
-		<RatingStarStyled>
+		<RatingStarStyled simple={isSimpleMode}>
 			<div className="rating_area">
-				<ReactStars count={count} value={value} size={size} color={color} activeColor={activeColor} isHalf={isHalf} onChange={onRatingChanged} />
+				<ReactStars count={starCount} value={rating} edit={isStarEditable} size={starSize} color={starColor} activeColor={starActiveColor} isHalf={isStarHalf} onChange={onRatingChanged} />
 			</div>
-			<p className="rating_count">
-				{value} / {count}
-			</p>
+			<p className="rating_count">{ratingCount}</p>
 		</RatingStarStyled>
 	);
 };
 
 RatingStar.defaultProps = {
-	value: 1,
-	count: 5,
-	size: 30,
-	color: '#e0e0e0',
-	activeColor: '#000',
-	isHalf: false,
+	rating: 4.5,
+	starCount: 5,
+	starSize: 30,
+	starColor: '#e0e0e0',
+	starActiveColor: '#000',
+	isStarHalf: true,
+	isStarEditable: true,
+	isSimpleMode: false,
+	attendantCount: 0,
 };
 
 export default RatingStar;
