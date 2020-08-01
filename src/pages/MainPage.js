@@ -1,14 +1,17 @@
 import React from 'react';
-// import SampleContainer from '../containers/SampleContainer';
+import Modal from '../components/Modal/Modal';
+import RatingStar from '../components/RatingStar/RatingStar';
 import MainContainer from '../containers/MainContainer';
 
 const MainPage = () => {
 	return (
-		<div>
-			{/* <h1>hello depromeet</h1> */}
-			{/* <SampleContainer /> */}
-			<MainContainer />
-		</div>
+		<>
+			<RatingStar starCount={5} rating={1} starSize={30} isStarHalf={true} />
+			<RatingStar starCount={1} isStarEditable={false} starSize={15} attendantCount={30} isSimpleMode={true} />
+			<RatingStar starCount={1} isStarEditable={false} starSize={15} isSimpleMode={true} />
+			<Modal />
+      <MainContainer />
+		</>
 	);
 };
 
