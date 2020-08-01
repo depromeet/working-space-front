@@ -14,6 +14,7 @@ module.exports = {
 		'no-console': 0,
 		'no-undef': 0,
 		'lines-between-class-members': 0,
+		'react/display-name': 0,
 	},
 	settings: {
 		react: {
