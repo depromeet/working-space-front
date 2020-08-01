@@ -1,5 +1,5 @@
-import SampleStore from './SampleStore';
 import { createContext } from 'react';
+import SampleStore from './SampleStore';
 
 class RootStore {
 	constructor() {

@@ -5,9 +5,9 @@ class SampleModel {
 	@observable email;
 	@observable card;
 
-	constructor({name, email, card}) {
-		set(this, {name, email, card});
-	};
+	constructor({ name, email, card }) {
+		set(this, { name, email, card });
+	}
 
 	@computed get nameAndEmail() {
 		return this.name + this.email;
@@ -16,7 +16,7 @@ class SampleModel {
 	@action init() {
 		this.name = '심재철';
 		this.email = 'simsimjae@naver.com';
-		this.card = 'card'
+		this.card = 'card';
 	}
 }
 
