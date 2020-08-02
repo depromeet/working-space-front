@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import HeaderStyled from "./Header.styles";
 
 const Header = props => {
-  const { localTitle, hasBackgroundColor, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasNaviBox } = props;
+  const { title, hasBackgroundColor, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasNaviBox } = props;
 
   const onLocationButtonClick = useCallback(() => {
     props.onLocationButtonClick && props.onLocationButtonClick();
@@ -12,10 +12,10 @@ const Header = props => {
     <HeaderStyled hasBackgroundColor={hasBackgroundColor}>
       <div className="left-box">
         {hasBackButton && <button className="back-btn">&lt;</button>}
-        {hasLocalText && <p className="navi-text">{localTitle}</p>}
+        {hasLocalText && <p className="navi-text">{title}</p>}
         {hasNaviBox && (
           <div className="navi-box">
-            <p className="navi-text">{localTitle}</p>
+            <p className="navi-text">{title}</p>
             <button className="navi-btn" onClick={onLocationButtonClick}>
               P
             </button>
@@ -31,7 +31,7 @@ const Header = props => {
 };
 
 Header.defaultProps = {
-  localTitle: "현위치: 서울 서초구 양재천로 131",
+  title: "현위치: 서울 서초구 양재천로 131",
   hasBackgroundColor: true,
   hasBackButton: false,
   hasShareButton: true,
