@@ -1,12 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'mobx-react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import resetCss from 'reset-css';
-import { createGlobalStyle } from 'styled-components';
-import RootStore from './stores';
-import MainPage from './pages/MainPage';
-import MapPage from './pages/MapPage';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "mobx-react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import resetCss from "reset-css";
+import { createGlobalStyle } from "styled-components";
+import RootStore from "./stores";
+import MainPage from "./pages/MainPage";
+import MapPage from "./pages/MapPage";
+import DetailPage from "./pages/DetailPage";
 
 const GlobalStyle = createGlobalStyle`
 	${resetCss};
@@ -17,14 +18,15 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 ReactDOM.render(
-	<Provider rootStore={RootStore}>
-		<BrowserRouter>
-			<Switch>
-				<Route path="/" exact component={MainPage} />
-				<Route path="/map" exact component={MapPage} />
-			</Switch>
-		</BrowserRouter>
-		<GlobalStyle />
-	</Provider>,
-	document.getElementById('root'),
+  <Provider rootStore={RootStore}>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact component={MainPage} />
+        <Route path="/map" exact component={MapPage} />
+        <Route path="/detail" exact component={DetailPage} />
+      </Switch>
+    </BrowserRouter>
+    <GlobalStyle />
+  </Provider>,
+  document.getElementById("root"),
 );
