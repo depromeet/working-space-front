@@ -1,43 +1,43 @@
-import React, { useCallback } from 'react';
-import HeaderStyled from './Header.styles';
+import React, { useCallback } from "react";
+import HeaderStyled from "./Header.styles";
 
 const Header = props => {
-	const { localData, backColor, backBtn, shareBtn, mapBtn, localText, naviBox } = props;
+  const { localTitle, hasBackgroundColor, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasNaviBox } = props;
 
-	const handleNavClick = useCallback(() => {
-		props.handleNavClick && props.handleNavClick();
-	}, [props]);
+  const onLocationButtonClick = useCallback(() => {
+    props.onLocationButtonClick && props.onLocationButtonClick();
+  }, [props.onLocationButtonClick]);
 
-	return (
-		<HeaderStyled backColor={backColor}>
-			<div className="left-box">
-				{backBtn ? <button className="back-btn">&lt;</button> : null}
-				{localText ? <p className="navi-text">{localData.title}</p> : null}
-				{naviBox ? (
-					<div className="navi-box">
-						<p className="navi-text">{localData.title}</p>
-						<button className="navi-btn" onClick={handleNavClick}>
-							P
-						</button>
-					</div>
-				) : null}
-			</div>
-			<div className="right-box">
-				{shareBtn ? <button className="share-btn">L</button> : null}
-				{mapBtn ? <button className="map-btn">M</button> : null}
-			</div>
-		</HeaderStyled>
-	);
+  return (
+    <HeaderStyled hasBackgroundColor={hasBackgroundColor}>
+      <div className="left-box">
+        {hasBackButton && <button className="back-btn">&lt;</button>}
+        {hasLocalText && <p className="navi-text">{localTitle}</p>}
+        {hasNaviBox && (
+          <div className="navi-box">
+            <p className="navi-text">{localTitle}</p>
+            <button className="navi-btn" onClick={onLocationButtonClick}>
+              P
+            </button>
+          </div>
+        )}
+      </div>
+      <div className="right-box">
+        {hasShareButton && <button className="share-btn">L</button>}
+        {hasMapButton && <button className="map-btn">M</button>}
+      </div>
+    </HeaderStyled>
+  );
 };
 
 Header.defaultProps = {
-	localData: { title: '현위치: 서울 서초구 양재천로 131' },
-	backColor: true,
-	backBtn: false,
-	shareBtn: true,
-	mapBtn: false,
-	localText: false,
-	naviBox: true,
+  localTitle: "현위치: 서울 서초구 양재천로 131",
+  hasBackgroundColor: true,
+  hasBackButton: false,
+  hasShareButton: true,
+  hasMapButton: false,
+  hasLocalText: false,
+  hasNaviBox: true,
 };
 
 export default Header;

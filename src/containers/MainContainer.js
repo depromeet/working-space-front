@@ -11,13 +11,22 @@ const MainContainer = () => {
     SampleStore.fetchSample();
   }, [SampleStore]);
 
-  const onClickNavButton = useCallback(() => {
-    console.log(toJS(SampleStore.localData));
-  }, [SampleStore.localData]);
+  const handleLocationButtonClick = useCallback(() => {
+    console.log(toJS(SampleStore.localTitle));
+  }, [SampleStore.localTitle]);
 
   return (
     <>
-      <Header handleNavClick={onClickNavButton} localData={toJS(SampleStore.localData)} backColor={true} backBtn={false} shareBtn={false} mapBtn={true} localText={false} naviBox={true} />
+      <Header
+        onLocationButtonClick={handleLocationButtonClick}
+        localTitle={toJS(SampleStore.localTitle)}
+        hasBackgroundColor={true}
+        hasBackButton={false}
+        hasShareButton={false}
+        hasMapButton={true}
+        hasLocalText={false}
+        hasNaviBox={true}
+      />
     </>
   );
 };

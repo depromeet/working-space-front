@@ -4,12 +4,13 @@ const HeaderStyled = styled.div`
   width: 100vw;
   height: 50px;
   display: flex;
-  position: fixed;
+  position: sticky;
   top: 0;
   padding: 0 10px;
   box-sizing: border-box;
   margin: 0 auto;
-  background-color: ${props => (props.backColor ? "rgba(255,255,255,1)" : "rgba(255,255,255,0)")};
+  z-index: 1;
+  background-color: ${props => (props.hasBackgroundColor ? "rgba(255,255,255,1)" : "rgba(255,255,255,0)")};
 
   .left-box {
     width: 80%;
@@ -56,7 +57,10 @@ const HeaderStyled = styled.div`
     justify-content: flex-end;
     align-items: center;
 
-    .map-btn,
+    .map-btn {
+      width: 30px;
+      height: 30px;
+    }
     .share-btn {
       width: 30px;
       height: 30px;
