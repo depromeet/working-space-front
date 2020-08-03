@@ -12,15 +12,14 @@ const SwiperStyled = styled.div`
     width: 100%;
     height: 100%;
     overflow: hidden;
-
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background-color: #e0e0e0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  }
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
