@@ -1,12 +1,12 @@
 import React from "react";
 import HeaderContainer from "../containers/HeaderContainer";
-import SwipeContainer from "../containers/SwipeContainer";
+import SwiperContainer from "../containers/SwiperContainer";
 
 const DetailPage = () => {
   return (
     <>
       <HeaderContainer hasBackgroundColor={false} hasBackButton={true} hasShareButton={true} hasMapButton={false} hasLocalText={false} hasNaviBox={false} />
-      <SwipeContainer />
+      <SwiperContainer />
     </>
   );
 };

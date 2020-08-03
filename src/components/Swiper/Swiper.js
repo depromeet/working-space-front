@@ -1,26 +1,26 @@
 import React from "react";
 import SwiperCore, { Navigation, Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwipeStyled from "./Swipe.styles";
+import * as SwiperReact from "swiper/react";
+import SwiperStyled from "./Swiper.styles";
 
 SwiperCore.use([Navigation, Pagination]);
 
-const Swipe = props => {
-  const { swipeImage } = props;
+const Swiper = props => {
+  const { swiperImage } = props;
 
   return (
-    <SwipeStyled>
-      <Swiper slidesPerView={1} navigation pagination={{ clickable: true }}>
-        {swipeImage.map((x, i) => (
-          <SwiperSlide key={i}>{x}</SwiperSlide>
+    <SwiperStyled>
+      <SwiperReact.Swiper slidesPerView={1} navigation pagination={{ clickable: true }}>
+        {swiperImage.map((x, i) => (
+          <SwiperReact.SwiperSlide key={i}>{x}</SwiperReact.SwiperSlide>
         ))}
-      </Swiper>
-    </SwipeStyled>
+      </SwiperReact.Swiper>
+    </SwiperStyled>
   );
 };
 
-Swipe.defaultProps = {
-  swipeImage: ["slide1", "slide2", "slide3", "slide4", "slide5"],
+Swiper.defaultProps = {
+  swiperImage: ["slide1", "slide2", "slide3", "slide4", "slide5"],
 };
 
-export default Swipe;
+export default Swiper;

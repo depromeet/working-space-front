@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import "swiper/swiper-bundle.css";
 
-const SwipeStyled = styled.div`
+const SwiperStyled = styled.div`
   width: 100vw;
   height: 220px;
   position: absolute;
@@ -24,4 +24,4 @@ const SwipeStyled = styled.div`
   }
 `;
 
-export default SwipeStyled;
+export default SwiperStyled;
