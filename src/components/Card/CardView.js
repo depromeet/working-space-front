@@ -2,18 +2,21 @@ import React from "react";
 import CardViewStyled from "./CardView.styles";
 
 const CardView = props => {
-  const { image, distance } = props;
+  const { imageUrl, imageAlt, distance } = props;
 
   return (
     <CardViewStyled>
-      <div className="card-image">{image}</div>
+      <div className="card-image">
+        <img src={imageUrl} alt={imageAlt} />
+      </div>
       <div className="distance">{distance}</div>
     </CardViewStyled>
   );
 };
 
 CardView.defaultProps = {
-  image: "Image",
+  imageUrl: "https://placehold.it/375x160",
+  imageAlt: "카드 이미지",
   distance: 1,
 };
 

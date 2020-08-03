@@ -7,6 +7,9 @@ const CardStyled = styled.div`
   flex-direction: column;
   background-color: #fff;
   margin: 10px 0;
+  &:first-of-type {
+    margin-top: 0;
+  }
 `;
 
 export default CardStyled;
