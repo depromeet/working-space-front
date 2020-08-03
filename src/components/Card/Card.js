@@ -15,7 +15,7 @@ const Card = props => {
 };
 
 Card.defaultProps = {
-  cardData: { title: "Cafe", location: "Location", imageUrl: "https://placehold.it/375x160", imageAlt: "카드 이미지", distance: "2.2km", rating: 4.5 },
+  cardData: { title: "Cafe", location: "Location", imageUrl: "https://placehold.it/360x160", imageAlt: "카드 이미지", distance: "2.2km", rating: 4.5 },
 };
 
 export default Card;

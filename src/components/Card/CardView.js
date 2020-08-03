@@ -15,7 +15,7 @@ const CardView = props => {
 };
 
 CardView.defaultProps = {
-  imageUrl: "https://placehold.it/375x160",
+  imageUrl: "https://placehold.it/360x160",
   imageAlt: "카드 이미지",
   distance: 1,
 };
