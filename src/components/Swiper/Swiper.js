@@ -6,13 +6,13 @@ import SwiperStyled from "./Swiper.styles";
 SwiperCore.use([Navigation, Pagination]);
 
 const Swiper = props => {
-  const { swiperImage } = props;
+  const { slides } = props;
 
   return (
     <SwiperStyled>
-      <SwiperReact.Swiper slidesPerView={1} navigation pagination={{ clickable: true }}>
-        {swiperImage.map((x, i) => (
-          <SwiperReact.SwiperSlide key={i}>{x}</SwiperReact.SwiperSlide>
+      <SwiperReact.Swiper slidesPerView={1} pagination={{ clickable: true }}>
+        {slides.map((slide, index) => (
+          <SwiperReact.SwiperSlide key={index}>{slide}</SwiperReact.SwiperSlide>
         ))}
       </SwiperReact.Swiper>
     </SwiperStyled>
@@ -20,7 +20,7 @@ const Swiper = props => {
 };
 
 Swiper.defaultProps = {
-  swiperImage: ["slide1", "slide2", "slide3", "slide4", "slide5"],
+  slides: ["slide1", "slide2", "slide3", "slide4", "slide5"],
 };
 
 export default Swiper;
