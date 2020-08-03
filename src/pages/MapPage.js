@@ -1,8 +1,8 @@
-import React from 'react';
-import MapContainer from '../containers/MapContainer';
+import React from "react";
+import MapContainer from "../containers/MapContainer";
 
 const MapPage = () => {
-	return <MapContainer />;
+  return <MapContainer />;
 };
 
 export default MapPage;
