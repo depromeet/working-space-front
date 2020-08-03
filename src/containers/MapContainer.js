@@ -1,10 +1,11 @@
 /* global kakao */
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Map from "../components/Map/Map";
 import useGeoLocation from "../hooks/useGeoLocation";
 
 const MapContainer = () => {
-  const [map, setMap] = useState(null);
+  const mapRef = useRef(null);
+  const [mapInstance, setMapInstance] = useState(null);
   const [markers] = useState([
     {
       title: "독립문",
@@ -14,7 +15,7 @@ const MapContainer = () => {
   const { currentCoordinates } = useGeoLocation();
 
   const getKakaoMapObject = useCallback(() => {
-    const container = document.getElementById("map");
+    const container = mapRef.current;
     const options = {
       center: new kakao.maps.LatLng(33.450701, 126.570667),
       level: 3,
@@ -29,9 +30,9 @@ const MapContainer = () => {
       const lat = currentCoordinates.latitude;
       const lng = currentCoordinates.longitude;
       const nowLatLng = new kakao.maps.LatLng(lat, lng);
-      map.setCenter(nowLatLng);
+      mapInstance.setCenter(nowLatLng);
     }
-  }, [currentCoordinates, map]);
+  }, [currentCoordinates, mapInstance]);
 
   const showMarkers = useCallback(() => {
     markers.forEach(marker => {
@@ -39,13 +40,13 @@ const MapContainer = () => {
         position: marker.latlng,
         title: marker.title,
       });
-      newMarker.setMap(map);
+      newMarker.setMap(mapInstance);
     });
-  }, [markers, map]);
+  }, [markers, mapInstance]);
 
   useEffect(() => {
     const kakaoMap = getKakaoMapObject();
-    setMap(kakaoMap);
+    setMapInstance(kakaoMap);
   }, [getKakaoMapObject]);
 
   useEffect(() => {
@@ -56,7 +57,7 @@ const MapContainer = () => {
     showMarkers();
   }, [showMarkers, markers]);
 
-  return <Map />;
+  return <Map mapRef={mapRef} />;
 };
 
 export default MapContainer;
