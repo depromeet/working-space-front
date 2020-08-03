@@ -9,6 +9,10 @@ const CardViewStyled = styled.div`
   align-items: center;
   background-color: #e0e0e0;
 
+  .card-image {
+    display: flex;
+  }
+
   .distance {
     position: absolute;
     right: 11px;

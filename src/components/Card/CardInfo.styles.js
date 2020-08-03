@@ -6,22 +6,19 @@ const CardInfoStyled = styled.div`
   padding: 10px;
   box-sizing: border-box;
 
-  .card-info {
-    .info-top {
-      display: flex;
-      align-items: center;
-      padding-bottom: 8px;
+  .info-top {
+    display: flex;
+    align-items: center;
+    padding-bottom: 8px;
+  }
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 5px;
+  }
 
-      .card-title {
-        font-size: 18px;
-        font-weight: bold;
-        padding-right: 5px;
-      }
-    }
-
-    .location {
-      font-size: 12px;
-    }
+  .location {
+    font-size: 12px;
   }
 `;
 

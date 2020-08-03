@@ -8,14 +8,14 @@ const Card = props => {
 
   return (
     <CardStyled>
-      <CardView image={cardData.image} distance={cardData.distance} />
+      <CardView imageUrl={cardData.imageUrl} imageAlt={cardData.imageAlt} distance={cardData.distance} />
       <CardInfo title={cardData.title} location={cardData.location} rating={cardData.rating} />
     </CardStyled>
   );
 };
 
 Card.defaultProps = {
-  cardData: { title: "Cafe", location: "Location", image: "Image", distance: "2.2km", rating: 4.5 },
+  cardData: { title: "Cafe", location: "Location", imageUrl: "https://placehold.it/375x160", imageAlt: "카드 이미지", distance: "2.2km", rating: 4.5 },
 };
 
 export default Card;
