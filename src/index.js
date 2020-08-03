@@ -7,6 +7,7 @@ import { createGlobalStyle } from "styled-components";
 import RootStore from "./stores";
 import MainPage from "./pages/MainPage";
 import MapPage from "./pages/MapPage";
+import DetailPage from "./pages/DetailPage";
 
 const GlobalStyle = createGlobalStyle`
 	${resetCss};
@@ -22,6 +23,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/" exact component={MainPage} />
         <Route path="/map" exact component={MapPage} />
+        <Route path="/detail" exact component={DetailPage} />
       </Switch>
     </BrowserRouter>
     <GlobalStyle />
