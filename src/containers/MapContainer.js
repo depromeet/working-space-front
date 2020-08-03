@@ -7,11 +7,11 @@ const MapContainer = () => {
   const [map, setMap] = useState(null);
   const [markers] = useState([
     {
-      title: "집",
+      title: "독립문",
       latlng: new kakao.maps.LatLng(37.57273868595916, 126.95938401319184),
     },
   ]);
-  const [coordinates] = useGeoLocation();
+  const { currentCoordinates } = useGeoLocation();
 
   const getKakaoMapObject = useCallback(() => {
     const container = document.getElementById("map");
@@ -24,6 +24,15 @@ const MapContainer = () => {
     return kakaoMap;
   }, []);
 
+  const moveToCurrentCoordinates = useCallback(() => {
+    if (currentCoordinates) {
+      const lat = currentCoordinates.latitude;
+      const lng = currentCoordinates.longitude;
+      const nowLatLng = new kakao.maps.LatLng(lat, lng);
+      map.setCenter(nowLatLng);
+    }
+  }, [currentCoordinates, map]);
+
   const showMarkers = useCallback(() => {
     markers.forEach(marker => {
       const newMarker = new kakao.maps.Marker({
@@ -34,23 +43,15 @@ const MapContainer = () => {
     });
   }, [markers, map]);
 
-  // 카카오맵 Object를 가져옴
   useEffect(() => {
     const kakaoMap = getKakaoMapObject();
     setMap(kakaoMap);
   }, [getKakaoMapObject]);
 
-  // 현위치 데이터를 가져온 뒤, 현위치로 지도 이동
   useEffect(() => {
-    if (coordinates) {
-      const lat = coordinates.latitude;
-      const lng = coordinates.longitude;
-      const nowLatLng = new kakao.maps.LatLng(lat, lng);
-      map.setCenter(nowLatLng);
-    }
-  }, [coordinates, map]);
+    moveToCurrentCoordinates();
+  }, [moveToCurrentCoordinates]);
 
-  // 지도에 마커 표시
   useEffect(() => {
     showMarkers();
   }, [showMarkers, markers]);

@@ -1,9 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
 
 const useGeoLocation = () => {
-  const [coordinates, setCoordinates] = useState();
+  const [currentCoordinates, setCurrentCoordinates] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
 
   const updateGeoLocation = useCallback(() => {
     return new Promise((resolve, reject) => {
@@ -29,7 +29,7 @@ const useGeoLocation = () => {
     setIsFetching(true);
     try {
       const coords = await updateGeoLocation();
-      setCoordinates(coords);
+      setCurrentCoordinates(coords);
     } catch (err) {
       setError(err);
     }
@@ -40,7 +40,12 @@ const useGeoLocation = () => {
     fetch();
   }, [fetch]);
 
-  return [coordinates, updateGeoLocation, isFetching, error];
+  return {
+    currentCoordinates,
+    updateGeoLocation,
+    isFetching,
+    error,
+  };
 };
 
 export default useGeoLocation;
