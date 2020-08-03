@@ -1,20 +1,27 @@
 import React from "react";
 import CardInfoStyled from "./CardInfo.styles";
+import RatingStar from "../RatingStar/RatingStar";
 
 const CardInfo = props => {
-  const { title, location } = props;
+  const { title, location, rating } = props;
 
   return (
     <CardInfoStyled>
-      <div className="cardTitle">{title}</div>
-      <div className="location">{location}</div>
+      <div className="card-info">
+        <div className="info-top">
+          <h2 className="card-title">{title}</h2>
+          <RatingStar starCount={1} isStarEditable={false} starSize={15} isSimpleMode={true} rating={rating} />
+        </div>
+        <p className="location">{location}</p>
+      </div>
     </CardInfoStyled>
   );
 };
 
 CardInfo.defaultProps = {
-  title: "카페",
-  location: "서울특별시 관악구 22길",
+  title: "Cafe",
+  location: "Location",
+  rating: 4.5,
 };
 
 export default CardInfo;

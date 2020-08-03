@@ -6,15 +6,15 @@ const CardView = props => {
 
   return (
     <CardViewStyled>
-      <div className="cardImage">{image}</div>
+      <div className="card-image">{image}</div>
       <div className="distance">{distance}</div>
     </CardViewStyled>
   );
 };
 
 CardView.defaultProps = {
-  image: "이미지",
-  distance: 2.2,
+  image: "Image",
+  distance: 1,
 };
 
 export default CardView;
