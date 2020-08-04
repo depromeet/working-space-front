@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const MapStyled = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 50px);
 
   #map {
     width: 100%;
