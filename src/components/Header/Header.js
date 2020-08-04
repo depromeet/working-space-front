@@ -1,34 +1,53 @@
 import React, { useCallback } from "react";
-import { Link } from "react-router-dom";
 import HeaderStyled from "./Header.styles";
 
 const Header = props => {
   const { title, hasBackgroundColor, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasNaviBox } = props;
 
-  const onLocationButtonClick = useCallback(() => {
+  const handleLocationButtonClick = useCallback(() => {
     props.onLocationButtonClick && props.onLocationButtonClick();
   }, [props.onLocationButtonClick]);
+
+  const handleBackButtonClick = useCallback(() => {
+    props.onBackButtonClick && props.onBackButtonClick();
+  }, [props.onBackButtonClick]);
+
+  const handleMapLinkButtonClick = useCallback(() => {
+    props.onMapLinkButtonClick && props.onMapLinkButtonClick();
+  }, [props.onMapLinkButtonClick]);
+
+  const handleShareButtonClick = useCallback(() => {
+    props.onShareButtonClick && props.onShareButtonClick();
+  }, [props.onShareButtonClick]);
 
   return (
     <HeaderStyled hasBackgroundColor={hasBackgroundColor}>
       <div className="left-box">
-        {hasBackButton && <button className="back-btn">&lt;</button>}
+        {hasBackButton && (
+          <button className="back-btn" onClick={handleBackButtonClick}>
+            &lt;
+          </button>
+        )}
         {hasLocalText && <p className="navi-text">{title}</p>}
         {hasNaviBox && (
           <div className="navi-box">
             <p className="navi-text">{title}</p>
-            <button className="navi-btn" onClick={onLocationButtonClick}>
+            <button className="navi-btn" onClick={handleLocationButtonClick}>
               P
             </button>
           </div>
         )}
       </div>
       <div className="right-box">
-        {hasShareButton && <button className="share-btn">L</button>}
+        {hasShareButton && (
+          <button className="share-btn" onClick={handleShareButtonClick}>
+            L
+          </button>
+        )}
         {hasMapButton && (
-          <Link to="/map">
-            <button className="map-btn">M</button>
-          </Link>
+          <button className="map-btn" onClick={handleMapLinkButtonClick}>
+            M
+          </button>
         )}
       </div>
     </HeaderStyled>
