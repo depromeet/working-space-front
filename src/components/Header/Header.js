@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { Link } from "react-router-dom";
 import HeaderStyled from "./Header.styles";
 
 const Header = props => {
@@ -24,7 +25,11 @@ const Header = props => {
       </div>
       <div className="right-box">
         {hasShareButton && <button className="share-btn">L</button>}
-        {hasMapButton && <button className="map-btn">M</button>}
+        {hasMapButton && (
+          <Link to="/map">
+            <button className="map-btn">M</button>
+          </Link>
+        )}
       </div>
     </HeaderStyled>
   );
