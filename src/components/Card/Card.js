@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import CardStyled from "./Card.styles";
 import CardView from "./CardView";
 import CardInfo from "./CardInfo";
@@ -6,8 +6,12 @@ import CardInfo from "./CardInfo";
 const Card = props => {
   const { cardData } = props;
 
+  const onCardLinkClick = useCallback(() => {
+    props.onCardLinkClick && props.onCardLinkClick(cardData);
+  }, [props.onCardLinkClick]);
+
   return (
-    <CardStyled>
+    <CardStyled onClick={onCardLinkClick}>
       <CardView imageUrl={cardData.imageUrl} imageAlt={cardData.imageAlt} distance={cardData.distance} />
       <CardInfo title={cardData.title} location={cardData.location} rating={cardData.rating} />
     </CardStyled>
