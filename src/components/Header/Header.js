@@ -4,19 +4,19 @@ import HeaderStyled from "./Header.styles";
 const Header = props => {
   const { title, hasBackgroundColor, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasNaviBox } = props;
 
-  const onLocationButtonClick = useCallback(() => {
+  const handleLocationButtonClick = useCallback(() => {
     props.onLocationButtonClick && props.onLocationButtonClick();
   }, [props.onLocationButtonClick]);
 
-  const onBackButtonClick = useCallback(() => {
+  const handleBackButtonClick = useCallback(() => {
     props.onBackButtonClick && props.onBackButtonClick();
   }, [props.onBackButtonClick]);
 
-  const onMapLinkButtonClick = useCallback(() => {
+  const handleMapLinkButtonClick = useCallback(() => {
     props.onMapLinkButtonClick && props.onMapLinkButtonClick();
   }, [props.onMapLinkButtonClick]);
 
-  const onShareButtonClick = useCallback(() => {
+  const handleShareButtonClick = useCallback(() => {
     props.onShareButtonClick && props.onShareButtonClick();
   }, [props.onShareButtonClick]);
 
@@ -24,7 +24,7 @@ const Header = props => {
     <HeaderStyled hasBackgroundColor={hasBackgroundColor}>
       <div className="left-box">
         {hasBackButton && (
-          <button className="back-btn" onClick={onBackButtonClick}>
+          <button className="back-btn" onClick={handleBackButtonClick}>
             &lt;
           </button>
         )}
@@ -32,7 +32,7 @@ const Header = props => {
         {hasNaviBox && (
           <div className="navi-box">
             <p className="navi-text">{title}</p>
-            <button className="navi-btn" onClick={onLocationButtonClick}>
+            <button className="navi-btn" onClick={handleLocationButtonClick}>
               P
             </button>
           </div>
@@ -40,12 +40,12 @@ const Header = props => {
       </div>
       <div className="right-box">
         {hasShareButton && (
-          <button className="share-btn" onClick={onShareButtonClick}>
+          <button className="share-btn" onClick={handleShareButtonClick}>
             L
           </button>
         )}
         {hasMapButton && (
-          <button className="map-btn" onClick={onMapLinkButtonClick}>
+          <button className="map-btn" onClick={handleMapLinkButtonClick}>
             M
           </button>
         )}
