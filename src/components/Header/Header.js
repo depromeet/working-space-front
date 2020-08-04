@@ -8,10 +8,26 @@ const Header = props => {
     props.onLocationButtonClick && props.onLocationButtonClick();
   }, [props.onLocationButtonClick]);
 
+  const onBackButtonClick = useCallback(() => {
+    props.onBackButtonClick && props.onBackButtonClick();
+  }, [props.onBackButtonClick]);
+
+  const onMapLinkButtonClick = useCallback(() => {
+    props.onMapLinkButtonClick && props.onMapLinkButtonClick();
+  }, [props.onMapLinkButtonClick]);
+
+  const onShareButtonClick = useCallback(() => {
+    props.onShareButtonClick && props.onShareButtonClick();
+  }, [props.onShareButtonClick]);
+
   return (
     <HeaderStyled hasBackgroundColor={hasBackgroundColor}>
       <div className="left-box">
-        {hasBackButton && <button className="back-btn">&lt;</button>}
+        {hasBackButton && (
+          <button className="back-btn" onClick={onBackButtonClick}>
+            &lt;
+          </button>
+        )}
         {hasLocalText && <p className="navi-text">{title}</p>}
         {hasNaviBox && (
           <div className="navi-box">
@@ -23,8 +39,16 @@ const Header = props => {
         )}
       </div>
       <div className="right-box">
-        {hasShareButton && <button className="share-btn">L</button>}
-        {hasMapButton && <button className="map-btn">M</button>}
+        {hasShareButton && (
+          <button className="share-btn" onClick={onShareButtonClick}>
+            L
+          </button>
+        )}
+        {hasMapButton && (
+          <button className="map-btn" onClick={onMapLinkButtonClick}>
+            M
+          </button>
+        )}
       </div>
     </HeaderStyled>
   );
