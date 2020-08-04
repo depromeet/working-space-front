@@ -6,12 +6,12 @@ import CardInfo from "./CardInfo";
 const Card = props => {
   const { cardData } = props;
 
-  const onCardLinkClick = useCallback(() => {
+  const handleCardLinkClick = useCallback(() => {
     props.onCardLinkClick && props.onCardLinkClick(cardData);
   }, [props.onCardLinkClick]);
 
   return (
-    <CardStyled onClick={onCardLinkClick}>
+    <CardStyled onClick={handleCardLinkClick}>
       <CardView imageUrl={cardData.imageUrl} imageAlt={cardData.imageAlt} distance={cardData.distance} />
       <CardInfo title={cardData.title} location={cardData.location} rating={cardData.rating} />
     </CardStyled>
