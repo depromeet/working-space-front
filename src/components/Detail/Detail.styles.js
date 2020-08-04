@@ -5,10 +5,6 @@ const DetailStyled = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
-  top: 170px;
-  padding: 16px;
-  box-sizing: border-box;
 `;
 
 export default DetailStyled;

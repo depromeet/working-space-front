@@ -1,5 +1,7 @@
 import React from "react";
 import DetailStyled from "./Detail.styles";
+import Swiper from "../Swiper/Swiper";
+import DetailTitle from "../DetailInfo/DetailTitle";
 import DetailInfo from "../DetailInfo/DetailInfo";
 import DetailLocation from "../DetailInfo/DetailLocation";
 import AllTag from "../Tag/AllTag";
@@ -9,6 +11,8 @@ const Detail = props => {
 
   return (
     <DetailStyled>
+      <DetailTitle />
+      <Swiper />
       <DetailInfo title={card.title} />
       <AllTag />
       <DetailLocation />

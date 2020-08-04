@@ -3,10 +3,9 @@ import "swiper/swiper-bundle.css";
 
 const SwiperStyled = styled.div`
   width: 100vw;
-  height: 220px;
-  position: absolute;
+  height: 240px;
+  position: relative;
   top: 0;
-  z-index: 0;
 
   .swiper-container {
     width: 100%;

@@ -2,11 +2,13 @@ import styled from "styled-components";
 
 const AllTagStyled = styled.div`
   width: 100%;
-  height: 150px;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  padding: 0 16px;
+  box-sizing: border-box;
   border-bottom: 1px solid #f5f5f5;
+  margin-top: 20px;
 
   .tag-title {
     display: flex;
@@ -26,13 +28,19 @@ const AllTagStyled = styled.div`
   .tag-box {
     width: 100%;
     line-height: 1.5;
-    display: flex;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 12px;
+    margin-bottom: 31px;
   }
   .tag {
-    padding: 5px 10px;
-    margin: 0 10px;
+    padding: 8px 12px;
+    margin: 4px;
     border-radius: 20px;
-    border: 1px solid #f5f5f5;
+    border: 1px solid #555555;
+    font-size: 12px;
+    line-height: 16px;
   }
 `;
 
