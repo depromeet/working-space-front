@@ -4,7 +4,7 @@ import HeaderContainer from "../containers/HeaderContainer";
 const MapPage = () => {
   return (
     <>
-      <HeaderContainer hasBackgroundColor={false} hasBackButton={true} hasShareButton={false} hasMapButton={true} hasLocalText={true} hasNaviBox={false} />
+      <HeaderContainer hasBackgroundColor={false} hasBackButton={true} hasShareButton={false} hasMapButton={false} hasLocalText={true} hasNaviBox={false} />
     </>
   );
 };
