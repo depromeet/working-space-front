@@ -23,7 +23,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/" exact component={MainPage} />
         <Route path="/map" exact component={MapPage} />
-        <Route path="/detail" exact component={DetailPage} />
+        <Route path="/detail/:id" exact component={DetailPage} />
       </Switch>
     </BrowserRouter>
     <GlobalStyle />
