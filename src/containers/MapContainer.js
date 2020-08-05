@@ -1,6 +1,8 @@
 /* global kakao */
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Map from "../components/Map/Map";
+import { ReactComponent as LocationIcon } from "../images/icon-locate.svg";
+import FloatingActionButton from "../components/FloatingActionButton/FloatingActionButton";
 import useGeoLocation from "../hooks/useGeoLocation";
 
 const MapContainer = () => {
@@ -12,7 +14,7 @@ const MapContainer = () => {
       latlng: new kakao.maps.LatLng(37.57273868595916, 126.95938401319184),
     },
   ]);
-  const { currentCoordinates } = useGeoLocation();
+  const { currentCoordinates, updateGeoLocation } = useGeoLocation();
 
   const getKakaoMapObject = useCallback(() => {
     const container = mapRef.current;
@@ -44,6 +46,11 @@ const MapContainer = () => {
     });
   }, [markers, mapInstance]);
 
+  const getCurrentCoordinates = useCallback(async () => {
+    const coordinates = await updateGeoLocation();
+    console.log(coordinates);
+  }, [updateGeoLocation]);
+
   useEffect(() => {
     const kakaoMap = getKakaoMapObject();
     setMapInstance(kakaoMap);
@@ -57,7 +64,14 @@ const MapContainer = () => {
     showMarkers();
   }, [showMarkers, markers]);
 
-  return <Map mapRef={mapRef} />;
+  return (
+    <>
+      <Map mapRef={mapRef} />
+      <FloatingActionButton onGetCurrentCoordinates={getCurrentCoordinates}>
+        <LocationIcon />
+      </FloatingActionButton>
+    </>
+  );
 };
 
 export default MapContainer;
