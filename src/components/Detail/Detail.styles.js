@@ -5,6 +5,7 @@ const DetailStyled = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  padding-bottom: 60px;
 `;
 
 export default DetailStyled;

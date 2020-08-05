@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const DetailLocationStyled = styled.div`
   width: 100%;
-  height: 300px;
+  height: 250px;
   margin-top: 20px;
   padding: 0 16px;
   box-sizing: border-box;

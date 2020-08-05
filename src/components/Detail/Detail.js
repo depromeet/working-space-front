@@ -11,9 +11,9 @@ const Detail = props => {
 
   return (
     <DetailStyled>
-      <DetailTitle />
+      <DetailTitle title={card.title} />
       <Swiper />
-      <DetailInfo title={card.title} />
+      <DetailInfo />
       <AllTag />
       <DetailLocation />
     </DetailStyled>
@@ -21,7 +21,7 @@ const Detail = props => {
 };
 
 Detail.defaultProps = {
-  card: { title: "Cafe1", location: "서울특별시 관악구 22길", imageUrl: "https://placehold.it/360x160", imageAlt: "카드 이미지", distance: "2.2km", rating: 4.3 },
+  card: { title: "Cafe1" },
 };
 
 export default Detail;
