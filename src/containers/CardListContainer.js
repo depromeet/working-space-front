@@ -4,20 +4,26 @@ import { toJS } from "mobx";
 import { observer } from "mobx-react";
 import useStore from "../hooks/useStore";
 import CardList from "../components/CardList/CardList";
+import CardListSort from "../components/CardList/CardListSort";
 
 const CardListContainer = () => {
   const history = useHistory();
-  const { SampleStore } = useStore();
+  const { CardStore } = useStore();
 
   useEffect(() => {
-    SampleStore.fetchSample();
-  }, [SampleStore]);
+    CardStore.fetchCard();
+  }, [CardStore]);
 
   const handleCardLinkClick = useCallback(card => {
     history.push(`/detail/${card.id}`);
   }, []);
 
-  return <CardList cardList={toJS(SampleStore.cardList)} onCardLinkClick={handleCardLinkClick} />;
+  return (
+    <>
+      <CardListSort />
+      <CardList cardList={toJS(CardStore.cardList)} onCardLinkClick={handleCardLinkClick} />
+    </>
+  );
 };
 
 export default observer(CardListContainer);
