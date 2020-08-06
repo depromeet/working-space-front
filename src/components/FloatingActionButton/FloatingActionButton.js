@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useCallback } from "react";
 import FloatingActionButtonStyled from "./FloatingActionButton.styles";
 
 export default function FloatingActionButton(props) {
-  const { children, onGetCurrentCoordinates } = props;
+  const { children } = props;
 
-  return <FloatingActionButtonStyled onClick={() => onGetCurrentCoordinates()}>{children}</FloatingActionButtonStyled>;
+  const handleGetCurrentCoordinates = useCallback(() => {
+    props.onGetCurrentCoordinates && props.onGetCurrentCoordinates();
+  }, []);
+
+  return <FloatingActionButtonStyled onClick={handleGetCurrentCoordinates}>{children}</FloatingActionButtonStyled>;
 }
 
 FloatingActionButton.defaultProps = {
