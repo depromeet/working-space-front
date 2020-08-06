@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const AllTagStyled = styled.div`
+const TagListStyled = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -34,14 +34,6 @@ const AllTagStyled = styled.div`
     margin-top: 12px;
     margin-bottom: 31px;
   }
-  .tag {
-    padding: 8px 12px;
-    margin: 4px;
-    border-radius: 20px;
-    border: 1px solid #555555;
-    font-size: 12px;
-    line-height: 16px;
-  }
 `;
 
-export default AllTagStyled;
+export default TagListStyled;

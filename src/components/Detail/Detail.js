@@ -4,7 +4,7 @@ import Swiper from "../Swiper/Swiper";
 import DetailTitle from "../DetailInfo/DetailTitle";
 import DetailInfo from "../DetailInfo/DetailInfo";
 import DetailLocation from "../DetailInfo/DetailLocation";
-import AllTag from "../Tag/AllTag";
+import TagList from "../Tag/TagList";
 
 const Detail = props => {
   const { card } = props;
@@ -14,7 +14,7 @@ const Detail = props => {
       <DetailTitle title={card.title} />
       <Swiper />
       <DetailInfo />
-      <AllTag />
+      <TagList />
       <DetailLocation />
     </DetailStyled>
   );
