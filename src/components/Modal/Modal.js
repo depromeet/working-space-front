@@ -16,9 +16,9 @@ const Modal = props => {
     <>
       <OpenButton onClick={onClickOpen} />
       {isOpen && (
-        <Motion defaultStyle={{ top: 900 }} style={{ top: spring(0, { stiffness: 120, damping: 17 }) }}>
+        <Motion defaultStyle={{ top: window.innerHeight }} style={{ top: spring(0, { stiffness: 330, damping: 30 }) }}>
           {style => (
-            <ModalStyled top={style.top}>
+            <ModalStyled style={{ top: style.top }}>
               <div className="header">
                 <div className="header_left"></div>
                 <div className="header_center">
