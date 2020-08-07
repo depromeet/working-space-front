@@ -9,8 +9,9 @@ const HeaderStyled = styled.div`
   padding: 0 10px;
   box-sizing: border-box;
   margin: 0 auto;
-  z-index: 1;
-  background-color: ${props => (props.hasBackgroundColor ? "rgba(255,255,255,1)" : "rgba(255,255,255,0)")};
+  z-index: 2;
+  background-color: #fff;
+  border-bottom: 1px solid #cccccc;
 
   .left-box {
     width: 80%;
