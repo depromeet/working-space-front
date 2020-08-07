@@ -8,15 +8,15 @@ import Header from "../components/Header/Header";
 const HeaderContainer = props => {
   const { hasBackgroundColor, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasNaviBox } = props;
   const history = useHistory();
-  const { SampleStore } = useStore();
+  const { CardStore } = useStore();
 
   useEffect(() => {
-    SampleStore.fetchSample();
-  }, [SampleStore]);
+    CardStore.fetchCard();
+  }, [CardStore]);
 
   const handleLocationButtonClick = useCallback(() => {
-    console.log(toJS(SampleStore.title));
-  }, [SampleStore.title]);
+    console.log(toJS(CardStore.title));
+  }, [CardStore.title]);
 
   const handleBackButtonClick = useCallback(() => {
     history.goBack();
@@ -51,7 +51,7 @@ const HeaderContainer = props => {
         onBackButtonClick={handleBackButtonClick}
         onMapLinkButtonClick={handleMapLinkButtonClick}
         onShareButtonClick={handleShareButtonClick}
-        title={toJS(SampleStore.title)}
+        title={toJS(CardStore.title)}
         hasBackgroundColor={hasBackgroundColor}
         hasBackButton={hasBackButton}
         hasShareButton={hasShareButton}

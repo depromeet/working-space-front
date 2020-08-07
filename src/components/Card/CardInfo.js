@@ -4,7 +4,6 @@ import RatingStar from "../RatingStar/RatingStar";
 
 const CardInfo = props => {
   const { title, location, rating } = props;
-
   return (
     <CardInfoStyled>
       <div className="card-info">

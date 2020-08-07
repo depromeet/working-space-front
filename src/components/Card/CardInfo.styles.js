@@ -15,6 +15,7 @@ const CardInfoStyled = styled.div`
     font-size: 18px;
     font-weight: bold;
     padding-right: 5px;
+    width: 100%;
   }
 
   .location {
