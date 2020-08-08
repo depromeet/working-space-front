@@ -4,7 +4,7 @@ import Card from "../Card/Card";
 import InfiniteScroller from "../InfiniteScroller/InfiniteScroller";
 
 const CardList = props => {
-  const { cardDatas, onCardLinkClick, cardHeight, loadNextPage, LoadingIndicator, hasNextPage, isNextPageLoading } = props;
+  const { standard, cardDatas, onCardLinkClick, cardHeight, loadNextPage, LoadingIndicator, hasNextPage, isNextPageLoading } = props;
 
   /* prettier-ignore */
   const Item = useCallback(({ data }) => {
@@ -13,6 +13,13 @@ const CardList = props => {
 
   return (
     <CardListStyled>
+      <div className="card-list-sort">
+        <div className="sort-title">
+          지금 나와 가장
+          <br /> {standard} 작업 공간은?
+        </div>
+        <button className="sort-button">S</button>
+      </div>
       <InfiniteScroller
         datas={cardDatas}
         Item={Item}
@@ -28,6 +35,7 @@ const CardList = props => {
 };
 
 CardList.defaultProps = {
+  standard: "가까운",
   cardDatas: Array.from(Array(10), (v, i) => ({
     id: i,
     title: `Cafe${i + 1}`,

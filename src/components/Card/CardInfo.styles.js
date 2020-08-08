@@ -18,6 +18,11 @@ const CardInfoStyled = styled.div`
     padding-right: 5px;
     width: 100%;
   }
+  .distance {
+    font-size: 12px;
+    line-height: 1.33;
+    text-align: right;
+  }
 
   .location {
     font-size: 11px;
