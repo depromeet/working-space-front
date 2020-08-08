@@ -3,12 +3,12 @@ import CardRepository from "../repositories/CardRepository";
 import CardModel from "../models/CardModel";
 
 class CardStore {
-  @observable cardList = [];
+  @observable cardDatas = [];
 
-  @action fetchCard() {
-    // 초기화 필요
-    const cards = CardRepository.findCard().params;
-    cards.map(card => this.cardList.push(new CardModel(card)));
+  @action fetchCard(pageNumber) {
+    const cards = CardRepository.getCards(pageNumber);
+    const cardModels = cards.map(card => new CardModel(card));
+    this.cardDatas = this.cardDatas.concat(cardModels);
   }
 }
 

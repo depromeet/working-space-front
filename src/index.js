@@ -11,6 +11,9 @@ import DetailPage from "./pages/DetailPage";
 
 const GlobalStyle = createGlobalStyle`
 	${resetCss};
+  #root {
+    height: 100vh;
+  }
 	button {
 		border: none;
 		padding: 0;

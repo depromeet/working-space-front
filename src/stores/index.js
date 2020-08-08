@@ -1,10 +1,8 @@
 import { createContext } from "react";
-import SampleStore from "./SampleStore";
-import CardStore from "./CardStore.js";
+import CardStore from "./CardStore";
 
 class RootStore {
   constructor() {
-    this.SampleStore = new SampleStore();
     this.CardStore = new CardStore();
   }
 }

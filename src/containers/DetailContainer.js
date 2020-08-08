@@ -4,11 +4,11 @@ import useStore from "../hooks/useStore";
 import Detail from "../components/Detail/Detail";
 
 const DetailContainer = () => {
-  const { SampleStore } = useStore();
+  const { CardStore } = useStore();
 
   useEffect(() => {
-    SampleStore.fetchSample();
-  }, [SampleStore]);
+    CardStore.fetchCard();
+  }, [CardStore]);
 
   return <Detail />;
 };

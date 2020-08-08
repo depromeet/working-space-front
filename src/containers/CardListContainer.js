@@ -1,28 +1,36 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toJS } from "mobx";
 import { observer } from "mobx-react";
 import useStore from "../hooks/useStore";
 import CardList from "../components/CardList/CardList";
-import CardListSort from "../components/CardList/CardListSort";
 
 const CardListContainer = () => {
   const history = useHistory();
   const { CardStore } = useStore();
-
-  useEffect(() => {
-    CardStore.fetchCard();
-  }, [CardStore]);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const handleCardLinkClick = useCallback(card => {
     history.push(`/detail/${card.id}`);
   }, []);
 
+  const loadNextPage = useCallback(async () => {
+    await CardStore.fetchCard(pageNumber);
+    setPageNumber(pageNumber + 1);
+  }, [pageNumber]);
+
+  const LoadingIndicator = useCallback(() => "로딩중입니다...", []);
+
   return (
-    <>
-      <CardListSort />
-      <CardList cardList={toJS(CardStore.cardList)} onCardLinkClick={handleCardLinkClick} />
-    </>
+    <CardList
+      cardDatas={toJS(CardStore.cardDatas)}
+      onCardLinkClick={handleCardLinkClick}
+      cardHeight={260}
+      hasNextPage={true}
+      isNextPageLoading={false}
+      loadNextPage={loadNextPage}
+      LoadingIndicator={LoadingIndicator}
+    />
   );
 };
 

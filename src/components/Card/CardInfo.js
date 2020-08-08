@@ -20,7 +20,7 @@ const CardInfo = props => {
 CardInfo.defaultProps = {
   title: "Cafe",
   location: "Location",
-  rating: 4.5,
+  distance: "2.2km",
 };
 
 export default CardInfo;
