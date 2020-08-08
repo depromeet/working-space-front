@@ -19,9 +19,13 @@ const CardInfoStyled = styled.div`
     width: 100%;
   }
   .distance {
-    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
     line-height: 1.33;
-    text-align: right;
+    font-size: 12px;
+  }
+  .distance > span {
+    margin-left: 4px;
   }
 
   .location {

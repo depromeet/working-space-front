@@ -6,7 +6,7 @@ import useStore from "../hooks/useStore";
 import Header from "../components/Header/Header";
 
 const HeaderContainer = props => {
-  const { hasBackgroundColor, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasNaviBox } = props;
+  const { hasBackgroundColor, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasLocationButton } = props;
   const history = useHistory();
   const { CardStore } = useStore();
 
@@ -57,7 +57,7 @@ const HeaderContainer = props => {
         hasShareButton={hasShareButton}
         hasMapButton={hasMapButton}
         hasLocalText={hasLocalText}
-        hasNaviBox={hasNaviBox}
+        hasLocationButton={hasLocationButton}
       />
     </>
   );
