@@ -1,10 +1,10 @@
-import { createContext } from 'react';
-import SampleStore from './SampleStore';
+import { createContext } from "react";
+import CardStore from "./CardStore";
 
 class RootStore {
-	constructor() {
-		this.SampleStore = new SampleStore();
-	}
+  constructor() {
+    this.CardStore = new CardStore();
+  }
 }
 const rootStoreContext = createContext(new RootStore());
 

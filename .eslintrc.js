@@ -13,6 +13,7 @@ module.exports = {
     "react/prop-types": 0,
     "no-console": 0,
     "no-undef": 0,
+    "no-debugger": 0,
     "lines-between-class-members": 0,
     "react/display-name": 0,
   },
