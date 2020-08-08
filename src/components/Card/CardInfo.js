@@ -17,4 +17,10 @@ const CardInfo = props => {
   );
 };
 
+CardInfo.defaultProps = {
+  title: "Cafe",
+  location: "Location",
+  rating: 4.5,
+};
+
 export default CardInfo;
