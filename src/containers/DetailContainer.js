@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import useStore from "../hooks/useStore";
-import Swiper from "../components/Swiper/Swiper";
+import Detail from "../components/Detail/Detail";
 
-const SwiperContainer = () => {
+const DetailContainer = () => {
   const { SampleStore } = useStore();
 
   useEffect(() => {
     SampleStore.fetchSample();
   }, [SampleStore]);
 
-  return <Swiper />;
+  return <Detail />;
 };
 
-export default observer(SwiperContainer);
+export default observer(DetailContainer);
