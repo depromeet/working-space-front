@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const CardInfoStyled = styled.div`
   width: 100%;
-  height: 100px;
+  height: 96px;
   margin-top: 13px;
 
   .info-top {

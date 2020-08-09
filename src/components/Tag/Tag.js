@@ -4,10 +4,7 @@ import TagStyled from "./Tag.styles";
 const Tag = ({ tag }) => {
   return (
     <TagStyled>
-      <div className="tag">
-        {tag.text}
-        <span>+{tag.follow}</span>
-      </div>
+      <div className="tag">{tag.text}</div>
     </TagStyled>
   );
 };
