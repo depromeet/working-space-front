@@ -4,66 +4,70 @@ const HeaderStyled = styled.div`
   width: 100vw;
   height: 50px;
   display: flex;
+  justify-content: space-between;
   position: sticky;
   top: 0;
-  padding: 0 10px;
   box-sizing: border-box;
   margin: 0 auto;
   z-index: 2;
   background-color: #fff;
   border-bottom: 1px solid #cccccc;
 
+  button {
+    background-color: #fff;
+  }
   .left-box {
-    width: 80%;
+    width: 100%;
     height: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
   }
   .back-btn {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
+    margin-left: 16px;
   }
   .navi-text {
     font-size: 14px;
-    color: #e0e0e0;
-    padding-left: 10px;
-  }
-  .navi-box {
-    width: 100%;
-    height: 30px;
-    overflow: hidden;
-    display: flex;
-    border: 1px solid #e0e0e0;
-    border-radius: 50px;
-    padding-right: 5px;
-  }
-  .navi-box > p {
-    flex: 1 1 auto;
-    margin: 0;
-    font-size: 14px;
-    line-height: 30px;
-  }
-  .navi-btn {
-    width: 30px;
-    height: 30px;
-    flex: none;
+    line-height: 1.43;
+    color: #a7a7a7;
+    margin-left: 16px;
   }
 
   .right-box {
-    width: 20%;
+    width: 81px;
     height: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-right: 16px;
+  }
+  .navi-btn {
+    width: 24px;
+    height: 24px;
+    flex: none;
+    margin-right: 16px;
+  }
+  .map-btn-box {
+    width: 41px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   .map-btn {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
+  }
+  .map-btn-left-line {
+    width: 1px;
+    height: 16px;
+    background-color: #cccccc;
   }
   .share-btn {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
   }
 `;
 

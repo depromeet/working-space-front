@@ -1,5 +1,6 @@
 import React from "react";
 import CardInfoStyled from "./CardInfo.styles";
+import { ReactComponent as SmallMarkIcon } from "../../images/icon-small-location-fill.svg";
 
 const CardInfo = props => {
   const { title, location, distance } = props;
@@ -9,7 +10,10 @@ const CardInfo = props => {
       <div className="card-info">
         <div className="info-top">
           <h2 className="card-title">{title}</h2>
-          <span className="distance">{distance}</span>
+          <div className="distance">
+            <SmallMarkIcon />
+            <span>{distance}</span>
+          </div>
         </div>
         <p className="location">{location}</p>
       </div>

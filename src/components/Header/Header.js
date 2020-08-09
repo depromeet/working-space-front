@@ -1,8 +1,11 @@
 import React, { useCallback } from "react";
 import HeaderStyled from "./Header.styles";
+import { ReactComponent as BackIcon } from "../../images/icon-back.svg";
+import { ReactComponent as MapIcon } from "../../images/icon-map.svg";
+import { ReactComponent as LocationIcon } from "../../images/icon-locate.svg";
 
 const Header = props => {
-  const { title, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasNaviBox } = props;
+  const { title, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasLocationButton } = props;
 
   const handleLocationButtonClick = useCallback(() => {
     props.onLocationButtonClick && props.onLocationButtonClick();
@@ -25,29 +28,29 @@ const Header = props => {
       <div className="left-box">
         {hasBackButton && (
           <button className="back-btn" onClick={handleBackButtonClick}>
-            &lt;
+            <BackIcon />
           </button>
         )}
-        {hasLocalText && <p className="navi-text">{title}</p>}
-        {hasNaviBox && (
-          <div className="navi-box">
-            <p className="navi-text">{title}</p>
-            <button className="navi-btn" onClick={handleLocationButtonClick}>
-              P
-            </button>
-          </div>
-        )}
+        {hasLocalText && <p className="navi-text">현위치: {title}</p>}
       </div>
       <div className="right-box">
+        {hasLocationButton && (
+          <button className="navi-btn" onClick={handleLocationButtonClick}>
+            <LocationIcon />
+          </button>
+        )}
         {hasShareButton && (
           <button className="share-btn" onClick={handleShareButtonClick}>
             L
           </button>
         )}
         {hasMapButton && (
-          <button className="map-btn" onClick={handleMapLinkButtonClick}>
-            M
-          </button>
+          <div className="map-btn-box">
+            <div className="map-btn-left-line"></div>
+            <button className="map-btn" onClick={handleMapLinkButtonClick}>
+              <MapIcon />
+            </button>
+          </div>
         )}
       </div>
     </HeaderStyled>
@@ -55,12 +58,12 @@ const Header = props => {
 };
 
 Header.defaultProps = {
-  title: "현위치: 서울 서초구 양재천로 131",
+  title: "서울 서초구 양재천로 131",
   hasBackButton: false,
   hasShareButton: true,
   hasMapButton: false,
   hasLocalText: false,
-  hasNaviBox: true,
+  hasLocationButton: true,
 };
 
 export default Header;

@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import CardListStyled from "./CardList.styles";
 import Card from "../Card/Card";
 import InfiniteScroller from "../InfiniteScroller/InfiniteScroller";
+import { ReactComponent as FilterIcon } from "../../images/icon-filter.svg";
 
 const CardList = props => {
   const { standard, cardDatas, onCardLinkClick, cardHeight, loadNextPage, LoadingIndicator, hasNextPage, isNextPageLoading } = props;
@@ -18,7 +19,9 @@ const CardList = props => {
           지금 나와 가장
           <br /> {standard} 작업 공간은?
         </div>
-        <button className="sort-button">S</button>
+        <button className="sort-button">
+          <FilterIcon />
+        </button>
       </div>
       <InfiniteScroller
         datas={cardDatas}

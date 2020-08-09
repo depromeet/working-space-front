@@ -7,6 +7,9 @@ const CardListStyled = styled.div`
   padding: 0 16px;
   box-sizing: border-box;
 
+  button {
+    background-color: #fff;
+  }
   .card-list-sort {
     width: 100%;
     height: 56px;
@@ -16,7 +19,6 @@ const CardListStyled = styled.div`
     justify-content: space-between;
     margin-top: 32px;
     margin-bottom: 16px;
-    padding: 0 16px;
     box-sizing: border-box;
   }
   .sort-title {

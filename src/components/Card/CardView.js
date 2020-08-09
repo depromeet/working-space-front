@@ -14,7 +14,7 @@ const CardView = props => {
         <div className="image-info-box">
           <RatingStar starCount={1} isStarEditable={false} starSize={15} isSimpleMode={true} rating={rating} />
         </div>
-        <div className="image-info-box">{tagLength}</div>
+        <div className="image-info-box">태그 {tagLength}개</div>
       </div>
     </CardViewStyled>
   );
