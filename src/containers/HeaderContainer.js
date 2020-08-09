@@ -4,19 +4,22 @@ import { toJS } from "mobx";
 import { observer } from "mobx-react";
 import useStore from "../hooks/useStore";
 import Header from "../components/Header/Header";
+import useGeoLocation from "../hooks/useGeoLocation";
 
 const HeaderContainer = props => {
   const { hasBackgroundColor, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasLocationButton } = props;
   const history = useHistory();
   const { CardStore } = useStore();
+  const { updateGeoLocation } = useGeoLocation();
 
   useEffect(() => {
     CardStore.fetchCard();
   }, [CardStore]);
 
-  const handleLocationButtonClick = useCallback(() => {
-    console.log(toJS(CardStore.title));
-  }, [CardStore.title]);
+  const handleLocationButtonClick = useCallback(async () => {
+    const coordinates = await updateGeoLocation();
+    console.log(coordinates);
+  }, [updateGeoLocation]);
 
   const handleBackButtonClick = useCallback(() => {
     history.goBack();
