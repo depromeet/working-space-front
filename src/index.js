@@ -12,7 +12,10 @@ import DetailPage from "./pages/DetailPage";
 const GlobalStyle = createGlobalStyle`
 	${resetCss};
   #root {
+    width: 100%;
     height: 100vh;
+    font-family: 'Spoqa Han Sans', sans-serif;
+    font-weight: normal;
   }
 	button {
 		border: none;
