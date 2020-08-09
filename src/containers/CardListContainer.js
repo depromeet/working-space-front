@@ -5,7 +5,8 @@ import { observer } from "mobx-react";
 import useStore from "../hooks/useStore";
 import CardList from "../components/CardList/CardList";
 
-const CardListContainer = () => {
+const CardListContainer = props => {
+  const { mainShow } = props;
   const history = useHistory();
   const { CardStore } = useStore();
   const [pageNumber, setPageNumber] = useState(1);
@@ -30,6 +31,7 @@ const CardListContainer = () => {
       isNextPageLoading={false}
       loadNextPage={loadNextPage}
       LoadingIndicator={LoadingIndicator}
+      mainShow={mainShow}
     />
   );
 };

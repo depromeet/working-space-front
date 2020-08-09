@@ -6,7 +6,7 @@ const DetailPage = () => {
   return (
     <>
       <HeaderContainer hasBackButton={true} hasShareButton={true} hasMapButton={false} hasLocalText={false} hasLocationButton={false} />
-      <DetailContainer />
+      <DetailContainer mainShow={false} />
     </>
   );
 };

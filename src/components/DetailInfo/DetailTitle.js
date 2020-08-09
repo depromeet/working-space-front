@@ -1,22 +1,34 @@
 import React from "react";
 import DetailTitleStyled from "./DetailTitle.styles";
 import RatingStar from "../RatingStar/RatingStar";
+import { ReactComponent as SmallMarkIcon } from "../../images/icon-small-location-fill.svg";
+import { ReactComponent as SmallTagIcon } from "../../images/icon-small-tag-fill.svg";
 
 const DetailTitle = props => {
-  const { title, distance } = props;
+  const { title, distance, tagLength } = props;
 
   return (
     <DetailTitleStyled>
-      <div className="top-left">
+      <div className="title-top">
         <h2 className="info-title">{title}</h2>
-        <RatingStar starCount={5} isStarEditable={false} starSize={24} attendantCount={30} isSimpleMode={true} />
+        <div className="icon-align">
+          <SmallMarkIcon />
+          <span>{distance}</span>
+        </div>
       </div>
-      <div className="top-right">{distance}</div>
+      <div className="title-bottom">
+        <RatingStar starCount={5} isStarEditable={false} starSize={24} attendantCount={30} isSimpleMode={true} />
+        <div className="icon-align">
+          <SmallTagIcon style={{ color: "#222222" }} />
+          <span>태그 {tagLength}개</span>
+        </div>
+      </div>
     </DetailTitleStyled>
   );
 };
 
 DetailTitle.defaultProps = {
+  tagLength: 5,
   title: "Cafe1",
   distance: "2.2km",
 };

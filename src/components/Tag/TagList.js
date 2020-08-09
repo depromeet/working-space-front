@@ -2,28 +2,32 @@ import React from "react";
 import TagListStyled from "./TagList.styles";
 import Tag from "./Tag";
 
-const makeTagList = (tags, contraction) => {
+const makeTagList = (tags, contraction, mainShow) => {
   if (tags.length === 0) {
-    return <div className="non-tag">태그가 없습니다. 카페를 이용한 후 평가를 남겨주세요.</div>;
+    if (mainShow === true) {
+      return <div className="main-non-tag">태그가 없습니다. 카페를 이용한 후 평가를 남겨주세요.</div>;
+    }
+    return <div className="non-tag">아직 등록된 태그가 없습니다</div>;
   }
   if (contraction === true) {
-    return tags?.filter((tag, i) => i < 2).map((tag, i) => <Tag key={i} tag={tag} />);
+    return tags?.filter((tag, i) => i < 2).map((tag, i) => <Tag key={i} tag={tag} showFollow={false} />);
   }
   return tags?.map((tag, i) => {
-    return <Tag key={i} tag={tag} />;
+    return <Tag key={i} tag={tag} showFollow={true} />;
   });
 };
 
-const TagList = ({ tags, contraction, show }) => {
+const TagList = ({ tags, contraction, show, mainShow }) => {
   return (
     <TagListStyled>
-      {makeTagList(tags, contraction)}
+      {makeTagList(tags, contraction, mainShow)}
       {tags.length !== 0 && show ? <span className="more-tag-length">+{tags.length - 2}</span> : null}
     </TagListStyled>
   );
 };
 
 TagList.defaultProps = {
+  mainShow: true,
   show: true,
   contraction: true,
   tags: [

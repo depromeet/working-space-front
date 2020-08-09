@@ -11,7 +11,7 @@ const titleLength = title => {
 };
 
 const CardInfo = props => {
-  const { title, location, distance } = props;
+  const { title, location, distance, mainShow } = props;
 
   return (
     <CardInfoStyled>
@@ -25,7 +25,7 @@ const CardInfo = props => {
         </div>
         <p className="location">{location}</p>
       </div>
-      <TagList show={true} contraction={true} />
+      <TagList show={true} contraction={true} mainShow={mainShow} />
     </CardInfoStyled>
   );
 };

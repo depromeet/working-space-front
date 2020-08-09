@@ -4,7 +4,8 @@ import useStore from "../hooks/useStore";
 import Detail from "../components/Detail/Detail";
 import Modal from "../components/Modal/Modal";
 
-const DetailContainer = () => {
+const DetailContainer = props => {
+  const { mainShow } = props;
   const { CardStore } = useStore();
 
   useEffect(() => {
@@ -13,7 +14,7 @@ const DetailContainer = () => {
 
   return (
     <>
-      <Detail />
+      <Detail mainShow={mainShow} />
       <Modal />
     </>
   );

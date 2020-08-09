@@ -16,7 +16,7 @@ const CardView = props => {
           <RatingStar starCount={1} isStarEditable={false} starSize={15} isSimpleMode={true} rating={rating} />
         </div>
         <div className="image-info-box">
-          <SmallTagIcon />
+          <SmallTagIcon style={{ color: "#ffffff" }} />
           태그 {tagLength}개
         </div>
       </div>
