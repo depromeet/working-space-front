@@ -29,6 +29,7 @@ const useGeoLocation = () => {
     setIsFetching(true);
     try {
       const coords = await updateGeoLocation();
+      console.log(coords);
       setCurrentCoordinates(coords);
     } catch (err) {
       setError(err);
@@ -42,7 +43,7 @@ const useGeoLocation = () => {
 
   return {
     currentCoordinates,
-    updateGeoLocation,
+    fetch,
     isFetching,
     error,
   };
