@@ -35,6 +35,9 @@ const CardViewStyled = styled.div`
     line-height: 1.33;
     color: #fff;
   }
+  .image-info-box > svg {
+    margin-right: 4px;
+  }
 `;
 
 export default CardViewStyled;

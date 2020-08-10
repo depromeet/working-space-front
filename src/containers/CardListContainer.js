@@ -25,7 +25,7 @@ const CardListContainer = () => {
     <CardList
       cardDatas={toJS(CardStore.cardDatas)}
       onCardLinkClick={handleCardLinkClick}
-      cardHeight={260}
+      cardHeight={288}
       hasNextPage={true}
       isNextPageLoading={false}
       loadNextPage={loadNextPage}

@@ -10,7 +10,7 @@ class CardRepository {
         title: faker.company.companyName(),
         location: faker.address.streetAddress(),
         imageUrl: faker.image.city(),
-        distance: `${parseFloat(Math.random() * 10).toFixed(2)}km`,
+        distance: `${parseFloat(Math.random() * 10).toFixed(1)}km`,
         rating: parseFloat(Math.random() * 5).toFixed(2),
       }));
   }
