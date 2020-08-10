@@ -1,6 +1,7 @@
 import React from "react";
 import CardInfoStyled from "./CardInfo.styles";
 import { ReactComponent as SmallMarkIcon } from "../../images/icon-small-location-fill.svg";
+import TagList from "../Tag/TagList";
 
 const CardInfo = props => {
   const { title, location, distance } = props;
@@ -17,6 +18,7 @@ const CardInfo = props => {
         </div>
         <p className="location">{location}</p>
       </div>
+      <TagList showMoreTags={true} contraction={true} />
     </CardInfoStyled>
   );
 };

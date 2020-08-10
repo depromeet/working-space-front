@@ -28,7 +28,7 @@ const Modal = props => {
           <Motion defaultStyle={{ top: window.innerHeight }} style={{ top: spring(topPosition, { stiffness: 330, damping: 30 }) }}>
             {style => (
               <div className="modal" style={{ top: style.top }}>
-                <props.children onClickOpen={onClickOpen} onClickClose={onClickClose} isOpen={isOpen} setIsOpen={setIsOpen} />
+                {props.children({ onClickOpen, onClickClose, isOpen, setIsOpen })}
               </div>
             )}
           </Motion>

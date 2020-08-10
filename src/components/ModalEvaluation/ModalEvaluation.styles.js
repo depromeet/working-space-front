@@ -1,4 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const activeCss = css`
+  .footer_button {
+    background: #ffbb44;
+    color: white;
+  }
+`;
 
 export const ModalContents = styled.div`
   display: flex;
@@ -34,5 +41,9 @@ export const ModalContents = styled.div`
     width: 100%;
     height: 60px;
     font-size: 14px;
+    outline: none;
+    background: #ccc;
+    color: #222;
   }
+  ${({ isActive }) => isActive && activeCss}
 `;

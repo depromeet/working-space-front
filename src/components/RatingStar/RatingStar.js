@@ -5,7 +5,7 @@ import RatingStarStyled from "./RatingStar.styles";
 
 const RatingStar = props => {
   /* prettier-ignore */
-  const { starSize, starActiveColor, isStarHalf, starColor, isStarEditable, starCount, attendantCount, FilledIcon, EmptyIcon, isShowAttendantCount, attendantColor, ratingTextColor, isVertical, isRatingInteger, isShowRatingTotal, ratingTextSize, rowStarGutter } = props;
+  const { starSize, starActiveColor, isStarHalf, starColor, isStarEditable, starCount, attendantCount, FilledIcon, EmptyIcon, isShowAttendantCount, attendantColor, ratingTextColor, isVertical, isRatingInteger, isShowRatingTotal, ratingTextSize, rowStarGutter, ratingCurrentTextColor, ratingTotalTextColor } = props;
   const [rating, setRating] = useState(isRatingInteger ? parseInt(props.rating, 10) : parseFloat(props.rating).toFixed(1));
 
   const onRatingChanged = useCallback(
@@ -29,7 +29,14 @@ const RatingStar = props => {
   }, [isShowAttendantCount, isShowRatingTotal, starCount, attendantCount, rating]);
 
   return (
-    <RatingStarStyled attendantColor={attendantColor} ratingTextColor={ratingTextColor} ratingTextSize={ratingTextSize} isVertical={isVertical} rowStarGutter={rowStarGutter}>
+    <RatingStarStyled
+      attendantColor={attendantColor}
+      ratingCurrentTextColor={ratingCurrentTextColor}
+      ratingTotalTextColor={ratingTotalTextColor}
+      ratingTextSize={ratingTextSize}
+      isVertical={isVertical}
+      rowStarGutter={rowStarGutter}
+    >
       <div className="rating_area">
         <ReactStars
           count={starCount}
@@ -51,7 +58,8 @@ const RatingStar = props => {
 
 RatingStar.defaultProps = {
   rating: 4.5,
-  ratingTextColor: "#222",
+  ratingCurrentTextColor: "#ccc",
+  ratingTotalTextColor: "#222",
   ratingTextSize: 12,
   starCount: 5,
   starSize: 30,

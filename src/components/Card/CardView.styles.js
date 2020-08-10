@@ -41,6 +41,9 @@ const CardViewStyled = styled.div`
       margin-left: 4px;
     }
   }
+  .image-info-box > svg {
+    margin-right: 4px;
+  }
 `;
 
 export default CardViewStyled;

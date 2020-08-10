@@ -1,70 +1,77 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import Modal from "../Modal/Modal";
 import * as styled from "./ModalEvaluation.styles";
-import RatingStar from "../RatingStar/RatingStar";
-import { ReactComponent as FilledStarIcon } from "../../images/icon-star-fill.svg";
-import { ReactComponent as LineStarIcon } from "../../images/icon-star-line.svg";
-
-const EmptyIcon = () => <LineStarIcon width={32} height={32} style={{ color: "#ccc" }} />;
-const FilledIcon = () => <FilledStarIcon width={32} height={32} style={{ color: "#ffbb44" }} />;
+import FirstStep from "./FirstStep";
+import SecondStep from "./SecondStep";
 
 const ModalEvaluation = props => {
-  const { mainTitle, subTitle, totalStep } = props;
+  const { totalStep } = props;
   const [step, setStep] = useState(1);
-
-  const getStepText = useCallback(() => {
-    if (step === 1) return "평점을 입력해주세요";
-    if (step === totalStep) return "등록하기";
-    return "다음으로";
-  }, [step, totalStep]);
+  const [isActive, setIsActive] = useState(props.isActive);
+  const [mainTitle] = useState(props.mainTitle);
+  const [subTitle, setSubTitle] = useState(props.subTitle);
+  const [isFooterDisabled] = useState(props.isFooterDisabled);
+  const [footerButtonText, setFooterButtonText] = useState(props.footerButtonText);
 
   const handleFooterButtonClick = useCallback(() => {
-    setStep(prev => Math.min(prev + 1, totalStep));
-  }, [totalStep]);
+    if (isFooterDisabled) return;
+    setStep(Math.min(step + 1, totalStep));
+    setIsActive(false);
+    setFooterButtonText("");
+  }, [step, totalStep, isFooterDisabled]);
 
-  const ModalContents = useCallback(
-    modalProps => {
-      const { onClickOpen, onClickClose, isOpen, setIsOpen } = modalProps;
+  const handleRatingChange = useCallback(() => {
+    if (isFooterDisabled) return;
+    setIsActive(true);
+  }, [isFooterDisabled]);
 
-      return (
-        <styled.ModalContents>
+  useEffect(() => {
+    if (step === 1 && !isActive) {
+      setFooterButtonText("평점을 입력해주세요");
+      return;
+    }
+    if (step === 1 && isActive) {
+      setFooterButtonText("다음으로");
+      return;
+    }
+    if (step === 2 && !isActive) {
+      setSubTitle("이 카페에 대한 태그를 선택해주세요");
+      setFooterButtonText("최소 3개를 선택하셔야 등록이 가능합니다");
+      return;
+    }
+    if (step === 2 && isActive) {
+      setFooterButtonText("등록하기");
+    }
+  }, [step, isActive, isFooterDisabled]);
+
+  return (
+    <Modal>
+      {({ onClickOpen, onClickClose, isOpen, setIsOpen }) => (
+        <styled.ModalContents isActive={isActive}>
           <div className="header">
             <h1 className="main_title">{mainTitle}</h1>
             <h2 className="sub_title">{subTitle}</h2>
           </div>
-          <div className="rating">
-            <RatingStar
-              isVertical={true}
-              rating={0}
-              ratingTextSize={18}
-              isShowRatingTotal={true}
-              isRatingInteger={true}
-              starCount={5}
-              rowStarGutter={8}
-              isStarEditable={true}
-              isShowAttendantCount={false}
-              EmptyIcon={EmptyIcon}
-              FilledIcon={FilledIcon}
-            />
-          </div>
+          {step === 1 && <FirstStep onRatingChange={handleRatingChange} isActive={isActive} />}
+          {step === 2 && <SecondStep />}
           <div className="footer">
             <button type="button" className="footer_button" onClick={handleFooterButtonClick}>
-              {getStepText(step)}
+              {footerButtonText}
             </button>
           </div>
         </styled.ModalContents>
-      );
-    },
-    [step],
+      )}
+    </Modal>
   );
-
-  return <Modal>{ModalContents}</Modal>;
 };
 
 ModalEvaluation.defaultProps = {
   mainTitle: "캐틀앤비",
   subTitle: "이 카페의 평점은 몇점인가요?",
-  totalStep: 3,
+  totalStep: 2,
+  isActive: false,
+  footerButtonText: "",
+  isFooterDisabled: false,
 };
 
 export default ModalEvaluation;

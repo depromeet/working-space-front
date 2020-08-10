@@ -32,10 +32,15 @@ const RatingStarStyled = styled.div`
     font-size: 12px;
     margin-left: 5px;
   }
-  .rating_count {
+  .rating_count_current {
     font-weight: bold;
     font-size: ${props => `${props.ratingTextSize}px`};
-    color: ${props => props.ratingTextColor};
+    color: ${props => props.ratingCurrentTextColor};
+  }
+  .rating_count_total {
+    font-weight: normal;
+    font-size: ${props => `${props.ratingTextSize}px`};
+    color: ${props => props.ratingTotalTextColor};
   }
   .rating_attendant_count {
     letter-spacing: 0px;
