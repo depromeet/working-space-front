@@ -4,6 +4,7 @@ const RatingStarStyled = styled.div`
   display: flex;
   flex-direction: ${props => (props.simple ? "row" : "column")};
   align-items: center;
+
   .rating_area {
     margin-top: -2px;
   }

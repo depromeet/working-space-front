@@ -13,10 +13,14 @@ const CardInfoStyled = styled.div`
     color: #222222;
   }
   .card-title {
+    width: 250px;
+    height: 21px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 18px;
     font-weight: bold;
     padding-right: 5px;
-    width: 100%;
   }
   .distance {
     display: flex;
