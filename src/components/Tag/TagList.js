@@ -17,12 +17,14 @@ const makeTagList = (tags, contraction, selectable, toggleTag) => {
 const TagList = ({ tags, onSetTags, contraction, showMoreTags, selectable, onTagsChanged }) => {
   const toggleTag = useCallback(
     tag => {
-      onSetTags(prevState => {
-        const newTags = [...prevState];
-        const index = prevState.findIndex(prevTag => prevTag.text === tag.text);
-        newTags[index].selected = !newTags[index].selected;
-        return newTags;
-      });
+      if (onSetTags) {
+        onSetTags(prevState => {
+          const newTags = [...prevState];
+          const index = prevState.findIndex(prevTag => prevTag.text === tag.text);
+          newTags[index].selected = !newTags[index].selected;
+          return newTags;
+        });
+      }
     },
     [onSetTags],
   );
@@ -52,6 +54,7 @@ TagList.defaultProps = {
     { iconUrl: "", text: "주차장이 있는", follow: 7, selected: false },
     { iconUrl: "", text: "디저트가 다양한", follow: 5, selected: false },
   ],
+  onSetTags: null,
   onTagsChanged: null,
 };
 
