@@ -9,7 +9,7 @@ const DetailTitle = props => {
     <DetailTitleStyled>
       <div className="top-left">
         <h2 className="info-title">{title}</h2>
-        <RatingStar starCount={5} isStarEditable={false} starSize={24} attendantCount={30} isSimpleMode={true} />
+        <RatingStar starCount={5} isStarEditable={false} starSize={24} attendantCount={30} />
       </div>
       <div className="top-right">{distance}</div>
     </DetailTitleStyled>

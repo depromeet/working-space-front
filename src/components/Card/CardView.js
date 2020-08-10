@@ -1,7 +1,11 @@
 import React from "react";
 import CardViewStyled from "./CardView.styles";
 import RatingStar from "../RatingStar/RatingStar";
+import { ReactComponent as StarIcon } from "../../images/icon-star-fill.svg";
 import { ReactComponent as SmallTagIcon } from "../../images/icon-small-tag-fill.svg";
+
+const EmptyStarIcon = () => <StarIcon width={16} height={16} style={{ color: "#fff" }} />;
+const FilledStarIcon = () => <StarIcon width={16} height={16} style={{ color: "#fff" }} />;
 
 const CardView = props => {
   const { imageUrl, imageAlt, rating, tagLength } = props;
@@ -13,7 +17,7 @@ const CardView = props => {
       </div>
       <div className="card-image-info">
         <div className="image-info-box">
-          <RatingStar starCount={1} isStarEditable={false} starSize={15} isSimpleMode={true} rating={rating} />
+          <RatingStar starCount={1} isStarEditable={false} starSize={10} rating={rating} isShowAttendantCount={false} ratingTextColor="#fff" EmptyIcon={EmptyStarIcon} FilledIcon={FilledStarIcon} />
         </div>
         <div className="image-info-box">
           <SmallTagIcon />

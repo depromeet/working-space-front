@@ -1,18 +1,60 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const verticalModeCss = css`
+  & {
+    flex-direction: column;
+  }
+  .rating_info {
+    margin-top: 16px;
+  }
+  .rating_count_current {
+    color: #ccc;
+  }
+  .rating_count_total {
+    font-weight: normal;
+  }
+`;
 
 const RatingStarStyled = styled.div`
   display: flex;
-  flex-direction: ${props => (props.simple ? "row" : "column")};
-  align-items: center;
+  ${props => props.isVertical && verticalModeCss}
   width: 100%;
+  align-items: center;
+  outline: none;
   .rating_area {
-    margin-top: -2px;
+    line-height: 1;
+    display: flex;
   }
-
-  .rating_count {
+  .rating_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 12px;
-    margin-left: ${props => (props.simple ? "2px" : "0px")};
+    margin-left: 5px;
+  }
+  .rating_count_current {
+    font-weight: bold;
+    font-size: ${props => `${props.ratingTextSize}px`};
+    color: ${props => props.ratingCurrentTextColor};
+  }
+  .rating_count_total {
+    font-weight: normal;
+    font-size: ${props => `${props.ratingTextSize}px`};
+    color: ${props => props.ratingTotalTextColor};
+  }
+  .rating_attendant_count {
     letter-spacing: 0px;
+    color: ${props => props.attendantColor};
+    margin-left: 4px;
+  }
+  .react-stars {
+    outline: none;
+    > span {
+      margin-left: ${props => `${props.rowStarGutter}px`};
+      &:first-of-type {
+        margin-left: 0;
+      }
+    }
   }
 `;
 
