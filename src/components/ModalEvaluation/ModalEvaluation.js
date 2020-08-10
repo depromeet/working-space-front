@@ -69,7 +69,7 @@ const ModalEvaluation = props => {
             <h2 className="sub_title">{subTitle}</h2>
           </div>
           {step === 1 && <FirstStep onRatingChange={handleRatingChange} isActive={isActive} />}
-          {step === 2 && <SecondStep onTagsChange={handleTagsChange} isActive={isActive} tags={tags} onSetTags={setTags} />}
+          {step === 2 && <SecondStep onTagsChange={handleTagsChange} tags={tags} onSetTags={setTags} />}
           <div className="footer">
             <button type="button" className="footer_button" onClick={handleFooterButtonClick}>
               {footerButtonText}
