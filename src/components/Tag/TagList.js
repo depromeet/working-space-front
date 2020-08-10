@@ -14,17 +14,17 @@ const makeTagList = (tags, contraction) => {
   });
 };
 
-const TagList = ({ tags, contraction, show }) => {
+const TagList = ({ tags, contraction, showMoreTags }) => {
   return (
     <TagListStyled>
       {makeTagList(tags, contraction)}
-      {tags.length !== 0 && show ? <span className="more-tag-length">+{tags.length - 2}</span> : null}
+      {tags.length !== 0 && tags.length > 2 && showMoreTags ? <span className="more-tag-length">+{tags.length - 2}</span> : null}
     </TagListStyled>
   );
 };
 
 TagList.defaultProps = {
-  show: true,
+  showMoreTags: true,
   contraction: true,
   tags: [
     { iconUrl: "", text: "콘센트가 있는", follow: 12 },

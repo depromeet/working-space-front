@@ -19,7 +19,7 @@ const Detail = props => {
           <h2 className="tag-text">태그</h2>
           <p className="tag-length">{tagLength}개</p>
         </div>
-        <TagList show={false} contraction={false} />
+        <TagList showMoreTags={false} contraction={false} />
       </div>
       <DetailLocation />
     </DetailStyled>
