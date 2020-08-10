@@ -1,11 +1,28 @@
+/* global kakao */
 import { useState, useCallback, useEffect } from "react";
 
 const useGeoLocation = () => {
   const [currentCoordinates, setCurrentCoordinates] = useState(null);
+  const [currentAddress, setCurrentAddress] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState(null);
 
-  const updateGeoLocation = useCallback(() => {
+  const getAddressByCoordinates = useCallback(coords => {
+    return new Promise((resolve, reject) => {
+      const geocoder = new kakao.maps.services.Geocoder();
+      const { latitude, longitude } = coords;
+      geocoder.coord2Address(longitude, latitude, (result, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          const addressName = result[0].address.address_name;
+          resolve(addressName);
+        } else {
+          reject();
+        }
+      });
+    });
+  }, []);
+
+  const getGeoLocation = useCallback(() => {
     return new Promise((resolve, reject) => {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
@@ -28,14 +45,16 @@ const useGeoLocation = () => {
   const fetch = useCallback(async () => {
     setIsFetching(true);
     try {
-      const coords = await updateGeoLocation();
-      console.log(coords);
+      const coords = await getGeoLocation();
+      const addressName = await getAddressByCoordinates(coords);
       setCurrentCoordinates(coords);
+      setCurrentAddress(addressName);
     } catch (err) {
+      console.error(err);
       setError(err);
     }
     setIsFetching(false);
-  }, [updateGeoLocation]);
+  }, [getGeoLocation, getAddressByCoordinates]);
 
   useEffect(() => {
     fetch();
@@ -43,6 +62,7 @@ const useGeoLocation = () => {
 
   return {
     currentCoordinates,
+    currentAddress,
     fetch,
     isFetching,
     error,
