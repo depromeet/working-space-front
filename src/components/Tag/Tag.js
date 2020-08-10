@@ -19,6 +19,7 @@ const Tag = ({ tag, selectable, selected, onClick }) => {
 
 Tag.defaultProps = {
   tag: { iconUrl: "", text: "콘센트가 많아요", follow: 11 },
+  selectable: false,
   selected: false,
   onClick: null,
 };
