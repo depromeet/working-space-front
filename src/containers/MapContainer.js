@@ -14,23 +14,7 @@ const unselectedMarkerImage = new kakao.maps.MarkerImage(MapPickerImage, new kak
 const MapContainer = () => {
   const mapRef = useRef(null);
   const [mapInstance, setMapInstance] = useState(null);
-  const [locations, setLocations] = useState([
-    // {
-    //   title: "독립문",
-    //   latlng: new kakao.maps.LatLng(37.57273868595916, 126.95938401319184),
-    //   selected: false,
-    // },
-    // {
-    //   title: "다른 곳",
-    //   latlng: new kakao.maps.LatLng(37.57273868595916, 126.95924401319184),
-    //   selected: false,
-    // },
-    // {
-    //   title: "또 다른 곳",
-    //   latlng: new kakao.maps.LatLng(37.57273868595916, 126.95910401319184),
-    //   selected: false,
-    // },
-  ]);
+  const [locations, setLocations] = useState([]);
 
   // eslint-disable-next-line no-unused-vars
   const [markers, setMarkers] = useState([]);
