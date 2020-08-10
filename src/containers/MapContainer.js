@@ -15,26 +15,29 @@ const MapContainer = () => {
   const mapRef = useRef(null);
   const [mapInstance, setMapInstance] = useState(null);
   const [locations, setLocations] = useState([
-    {
-      title: "독립문",
-      latlng: new kakao.maps.LatLng(37.57273868595916, 126.95938401319184),
-      selected: false,
-    },
-    {
-      title: "다른 곳",
-      latlng: new kakao.maps.LatLng(37.57273868595916, 126.95924401319184),
-      selected: false,
-    },
-    {
-      title: "또 다른 곳",
-      latlng: new kakao.maps.LatLng(37.57273868595916, 126.95910401319184),
-      selected: false,
-    },
+    // {
+    //   title: "독립문",
+    //   latlng: new kakao.maps.LatLng(37.57273868595916, 126.95938401319184),
+    //   selected: false,
+    // },
+    // {
+    //   title: "다른 곳",
+    //   latlng: new kakao.maps.LatLng(37.57273868595916, 126.95924401319184),
+    //   selected: false,
+    // },
+    // {
+    //   title: "또 다른 곳",
+    //   latlng: new kakao.maps.LatLng(37.57273868595916, 126.95910401319184),
+    //   selected: false,
+    // },
   ]);
-  const [markers, setMarkers] = useState([]);
-  const [selectedMarkerIndex, setSelectedMarkerIndex] = useState(-1);
 
-  const { currentCoordinates, updateGeoLocation } = useGeoLocation();
+  // eslint-disable-next-line no-unused-vars
+  const [markers, setMarkers] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [selectedMarker, setSelectedMarker] = useState(null);
+
+  const { currentCoordinates, fetch } = useGeoLocation();
 
   const getKakaoMapObject = useCallback(() => {
     const container = mapRef.current;
@@ -47,46 +50,30 @@ const MapContainer = () => {
     return kakaoMap;
   }, []);
 
-  const deleteMarkers = useCallback(() => {
-    if (markers && markers !== []) {
-      markers.forEach(marker => {
-        marker.setMap(null);
-      });
-    }
-    setMarkers([]);
-  }, [markers]);
+  const handleClickMarker = useCallback(marker => {
+    setSelectedMarker(prevMarker => {
+      if (prevMarker) {
+        prevMarker.setImage(unselectedMarkerImage);
+      }
+      return marker;
+    });
+    marker.setImage(selectedMarkerImage);
+  }, []);
 
-  const handleClickMarker = useCallback(
-    (marker, index) => {
-      setSelectedMarkerIndex(index);
-      setLocations(prevState => {
-        const newLocations = [...prevState];
-        newLocations[index].selected = true;
-        if (selectedMarkerIndex >= 0) {
-          newLocations[selectedMarkerIndex].selected = false;
-        }
-        console.log(newLocations[index], newLocations[selectedMarkerIndex]);
-        return newLocations;
-      });
-    },
-    [selectedMarkerIndex],
-  );
-
-  const showMarkers = useCallback(() => {
-    if (!mapInstance) {
+  const showAllMarkers = useCallback(() => {
+    if (!mapInstance || locations.length <= 0) {
       return;
     }
-    console.log("showMarkers");
 
     const markersList = [];
-    locations.forEach((location, index) => {
+    locations.forEach(location => {
       const marker = new kakao.maps.Marker({
         position: location.latlng,
         title: location.title,
         clickable: true,
-        image: location.selected ? selectedMarkerImage : unselectedMarkerImage,
+        image: unselectedMarkerImage,
       });
-      kakao.maps.event.addListener(marker, "click", () => handleClickMarker(marker, index));
+      kakao.maps.event.addListener(marker, "click", () => handleClickMarker(marker));
       marker.setMap(mapInstance);
       markersList.push(marker);
     });
@@ -94,18 +81,47 @@ const MapContainer = () => {
   }, [handleClickMarker, locations, mapInstance]);
 
   const moveToCurrentCoordinates = useCallback(() => {
-    if (currentCoordinates) {
-      const lat = currentCoordinates.latitude;
-      const lng = currentCoordinates.longitude;
-      const nowLatLng = new kakao.maps.LatLng(lat, lng);
-      mapInstance.setCenter(nowLatLng);
+    if (!mapInstance || !currentCoordinates) {
+      return;
     }
+
+    const lat = currentCoordinates.latitude;
+    const lng = currentCoordinates.longitude;
+    const nowLatLng = new kakao.maps.LatLng(lat, lng);
+    mapInstance.setCenter(nowLatLng);
+
+    setLocations(prevState => {
+      const newLocations = [...prevState];
+      const currentLocationItem = {
+        title: "현위치",
+        latlng: nowLatLng,
+        selected: false,
+      };
+      newLocations.push(currentLocationItem);
+
+      // for click test
+      const testLatLng1 = new kakao.maps.LatLng(lat, lng - 0.0003);
+      const testLatLng2 = new kakao.maps.LatLng(lat, lng + 0.0003);
+      const testLocationItem1 = {
+        title: "테스트1",
+        latlng: testLatLng1,
+        selected: false,
+      };
+      const testLocationItem2 = {
+        title: "테스트2",
+        latlng: testLatLng2,
+        selected: false,
+      };
+      newLocations.push(testLocationItem1);
+      newLocations.push(testLocationItem2);
+
+      return newLocations;
+    });
   }, [currentCoordinates, mapInstance]);
 
-  const getCurrentCoordinates = useCallback(async () => {
-    const coordinates = await updateGeoLocation();
-    console.log(coordinates);
-  }, [updateGeoLocation]);
+  const getCurrentCoordinates = useCallback(() => {
+    fetch();
+  }, [fetch]);
 
   useEffect(() => {
     const kakaoMap = getKakaoMapObject();
@@ -117,11 +133,8 @@ const MapContainer = () => {
   }, [moveToCurrentCoordinates]);
 
   useEffect(() => {
-    deleteMarkers();
-    showMarkers();
-    // 주의 : deleteMarkers를 dependency array에 포함하지 말 것!
-    // markers의 변경으로 인해 무한 루프가 발생합니다.
-  }, [showMarkers, locations]);
+    showAllMarkers();
+  }, [showAllMarkers]);
 
   return (
     <>
