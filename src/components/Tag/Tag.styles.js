@@ -11,6 +11,13 @@ const TagStyled = styled.div`
     border: 1px solid #cccccc;
     font-size: 12px;
     line-height: 16px;
+    cursor: ${props => (props.selectable ? "pointer" : "default")};
+
+    &.selected {
+      background-color: #ffbb44;
+      color: #ffffff;
+      border: 1px solid #ffbb44;
+    }
   }
 `;
 

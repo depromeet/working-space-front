@@ -12,6 +12,13 @@ const ModalEvaluation = props => {
   const [subTitle, setSubTitle] = useState(props.subTitle);
   const [isFooterDisabled] = useState(props.isFooterDisabled);
   const [footerButtonText, setFooterButtonText] = useState(props.footerButtonText);
+  const [tags, setTags] = useState([
+    { iconUrl: "", text: "콘센트가 있는", follow: 12, selected: false },
+    { iconUrl: "", text: "분위기가 조용한", follow: 9, selected: false },
+    { iconUrl: "", text: "와이파이가 있는", follow: 8, selected: false },
+    { iconUrl: "", text: "주차장이 있는", follow: 7, selected: false },
+    { iconUrl: "", text: "디저트가 다양한", follow: 5, selected: false },
+  ]);
 
   const handleFooterButtonClick = useCallback(() => {
     if (isFooterDisabled) return;
@@ -24,6 +31,15 @@ const ModalEvaluation = props => {
     if (isFooterDisabled) return;
     setIsActive(true);
   }, [isFooterDisabled]);
+
+  const handleTagsChange = useCallback(() => {
+    const selectedTags = tags.filter(tag => tag.selected === true);
+    if (selectedTags.length >= 3) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [tags]);
 
   useEffect(() => {
     if (step === 1 && !isActive) {
@@ -53,7 +69,7 @@ const ModalEvaluation = props => {
             <h2 className="sub_title">{subTitle}</h2>
           </div>
           {step === 1 && <FirstStep onRatingChange={handleRatingChange} isActive={isActive} />}
-          {step === 2 && <SecondStep />}
+          {step === 2 && <SecondStep onTagsChange={handleTagsChange} isActive={isActive} tags={tags} onSetTags={setTags} />}
           <div className="footer">
             <button type="button" className="footer_button" onClick={handleFooterButtonClick}>
               {footerButtonText}
