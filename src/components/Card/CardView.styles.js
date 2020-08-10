@@ -17,6 +17,7 @@ const CardViewStyled = styled.div`
 
   .card-image-info {
     display: flex;
+    align-items: center;
     position: absolute;
     top: 8px;
     left: 8px;
@@ -24,6 +25,8 @@ const CardViewStyled = styled.div`
   .image-info-box {
     width: 73px;
     height: 24px;
+    box-sizing: border-box;
+    padding: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,6 +37,9 @@ const CardViewStyled = styled.div`
     font-weight: bold;
     line-height: 1.33;
     color: #fff;
+    .rating_info {
+      margin-left: 4px;
+    }
   }
 `;
 

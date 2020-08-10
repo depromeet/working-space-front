@@ -10,8 +10,8 @@ const MainPage = () => {
       <HeaderContainer hasBackButton={false} hasShareButton={false} hasMapButton={true} hasLocalText={true} hasLocationButton={true} />
       <CardListContainer />
       {/* <RatingStar starCount={5} rating={1} starSize={30} isStarHalf={true} />
-      <RatingStar starCount={1} isStarEditable={false} starSize={15} attendantCount={30} isSimpleMode={true} />
-      <RatingStar starCount={1} isStarEditable={false} starSize={15} isSimpleMode={true} />
+      <RatingStar starCount={1} isStarEditable={false} starSize={15} attendantCount={30} />
+      <RatingStar starCount={1} isStarEditable={false} starSize={15} />
       <Modal /> */}
     </>
   );
