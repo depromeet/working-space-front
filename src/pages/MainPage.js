@@ -8,7 +8,7 @@ const MainPage = () => {
   return (
     <>
       <HeaderContainer hasBackButton={false} hasShareButton={false} hasMapButton={true} hasLocalText={true} hasLocationButton={true} />
-      <CardListContainer mainShow={true} />
+      <CardListContainer hasMainShow={true} />
       {/* <RatingStar starCount={5} rating={1} starSize={30} isStarHalf={true} />
       <RatingStar starCount={1} isStarEditable={false} starSize={15} attendantCount={30} isSimpleMode={true} />
       <RatingStar starCount={1} isStarEditable={false} starSize={15} isSimpleMode={true} />

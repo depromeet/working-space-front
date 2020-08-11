@@ -1,15 +1,6 @@
 import React from "react";
 import DetailInfoStyled from "./DetailInfo.styles";
 
-const makeHoursBox = hours => {
-  if (hours.length > 1) {
-    return hours?.map((h, i) => {
-      return <p key={i}>{h}</p>;
-    });
-  }
-  return <span>{hours}</span>;
-};
-
 const DetailInfo = props => {
   const { location, hours, closed, number } = props;
 
@@ -23,7 +14,11 @@ const DetailInfo = props => {
         </p>
         <div className="info-hours">
           <span>영업시간</span>
-          <div className="info-hours-box">{makeHoursBox(hours)}</div>
+          <div className="info-hours-box">
+            {hours?.map((h, i) => (
+              <p key={i}>{h}</p>
+            ))}
+          </div>
         </div>
         <p>
           <span>휴무일</span>

@@ -4,7 +4,7 @@ import { ReactComponent as SmallMarkIcon } from "../../images/icon-small-locatio
 import TagList from "../Tag/TagList";
 
 const CardInfo = props => {
-  const { title, location, distance, mainShow } = props;
+  const { title, location, distance, hasMainShow } = props;
 
   return (
     <CardInfoStyled>
@@ -18,7 +18,7 @@ const CardInfo = props => {
         </div>
         <p className="location">{location}</p>
       </div>
-      <TagList show={true} contraction={true} mainShow={mainShow} />
+      <TagList hasContraction={true} hasMainShow={hasMainShow} hasMoreTags={true} />
     </CardInfoStyled>
   );
 };

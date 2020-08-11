@@ -5,11 +5,11 @@ import InfiniteScroller from "../InfiniteScroller/InfiniteScroller";
 import { ReactComponent as FilterIcon } from "../../images/icon-filter.svg";
 
 const CardList = props => {
-  const { standard, cardDatas, onCardLinkClick, cardHeight, loadNextPage, LoadingIndicator, hasNextPage, isNextPageLoading, mainShow } = props;
+  const { standard, cardDatas, onCardLinkClick, cardHeight, loadNextPage, LoadingIndicator, hasNextPage, isNextPageLoading, hasMainShow } = props;
 
   /* prettier-ignore */
   const Item = useCallback(({ data }) => {
-    return <Card cardData={data} onCardLinkClick={onCardLinkClick} mainShow={mainShow} />;
+    return <Card cardData={data} onCardLinkClick={onCardLinkClick} hasMainShow={hasMainShow} />;
   }, [onCardLinkClick]);
 
   return (

@@ -5,7 +5,7 @@ import Detail from "../components/Detail/Detail";
 import Modal from "../components/Modal/Modal";
 
 const DetailContainer = props => {
-  const { mainShow } = props;
+  const { hasMainShow } = props;
   const { CardStore } = useStore();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const DetailContainer = props => {
 
   return (
     <>
-      <Detail mainShow={mainShow} />
+      <Detail hasMainShow={hasMainShow} />
       <Modal />
     </>
   );
