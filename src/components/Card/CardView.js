@@ -4,7 +4,7 @@ import RatingStar from "../RatingStar/RatingStar";
 import { ReactComponent as SmallTagIcon } from "../../images/icon-small-tag-fill.svg";
 
 const CardView = props => {
-  const { imageUrl, imageAlt, rating, tagLength } = props;
+  const { imageUrl, imageAlt, rating, tagCount } = props;
 
   return (
     <CardViewStyled>
@@ -16,8 +16,8 @@ const CardView = props => {
           <RatingStar starCount={1} isStarEditable={false} starSize={15} isSimpleMode={true} rating={rating} />
         </div>
         <div className="image-info-box">
-          <SmallTagIcon />
-          태그 {tagLength}개
+          <SmallTagIcon style={{ color: "#ffffff" }} />
+          태그 {tagCount}개
         </div>
       </div>
     </CardViewStyled>
@@ -28,7 +28,7 @@ CardView.defaultProps = {
   imageUrl: "https://placehold.it/360x160",
   imageAlt: "카드 이미지",
   distance: 1,
-  tagLength: 5,
+  tagCount: 5,
 };
 
 export default CardView;

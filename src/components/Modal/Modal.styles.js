@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ModalStyled = styled.div`
+export const Modal = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -10,6 +10,7 @@ const ModalStyled = styled.div`
   right: 0;
   background: rgba(0, 0, 0, 0.2);
   padding-top: 70px;
+  z-index: 3;
 
   .header {
     display: flex;
@@ -46,20 +47,25 @@ const ModalStyled = styled.div`
     background: white;
   }
 
-  .footer {
-    padding: 16px;
-    box-sizing: border-box;
-    background: white;
-  }
-
   .submit_button {
-    height: 48px;
-    background: #e0e0e0;
     width: 100%;
-    border-radius: 8px;
+    height: 60px;
+    background: #e0e0e0;
     font-size: 14px;
     line-height: 1.5;
   }
 `;
 
-export default ModalStyled;
+export const OpenButton = styled.button`
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ffbb44;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.43;
+  color: #fff;
+`;
