@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback } from "react";
+import produce from "immer";
 import TagListStyled from "./TagList.styles";
 import Tag from "./Tag";
 
@@ -12,31 +13,24 @@ const makeTagList = (tags, contraction, isSelectable, toggleTag) => {
   return tags?.map((tag, i) => {
     return (
       <div className="tag_wrapper" key={i}>
-        <Tag tag={tag} isSelectable={isSelectable} isSelected={tag.isSelected} onClick={isSelectable && (() => toggleTag(tag))} />
+        <Tag tag={tag} isSelectable={isSelectable} isSelected={tag.isSelected} onClick={isSelectable && (() => toggleTag(i))} />
       </div>
     );
   });
 };
 
 const TagList = ({ tags, onSetTags, contraction, showMoreTags, isSelectable, onTagsChanged }) => {
-  const toggleTag = useCallback(
-    tag => {
-      if (onSetTags) {
-        onSetTags(prevState => {
-          const newTags = [...prevState];
-          const index = prevState.findIndex(prevTag => prevTag.text === tag.text);
-          newTags[index].isSelected = !newTags[index].isSelected;
-          return newTags;
-        });
-      }
-    },
-    [onSetTags],
-  );
+  /* prettier-ignore */
+  const toggleTag = useCallback(index => {
+		onSetTags && onSetTags(prevTags =>
+			produce(prevTags, draft => {
+				draft[index].isSelected = !draft[index].isSelected;
+			}),
+		);
+	}, [onSetTags]);
 
   useEffect(() => {
-    if (onTagsChanged) {
-      onTagsChanged();
-    }
+    onTagsChanged && onTagsChanged();
   }, [onTagsChanged]);
 
   return (

@@ -11,25 +11,23 @@ const ModalEvaluation = props => {
   const [isActive, setIsActive] = useState(props.isActive);
   const [mainTitle] = useState(props.mainTitle);
   const [subTitle, setSubTitle] = useState(props.subTitle);
-  const [isFooterDisabled] = useState(props.isFooterDisabled);
+  const [isFooterDisabled, setIsFooterDisabled] = useState(props.isFooterDisabled);
   const [footerButtonText, setFooterButtonText] = useState(props.footerButtonText);
   const [tags, setTags] = useState(props.tags);
 
   const handleFooterButtonClick = useCallback(() => {
     if (isFooterDisabled) return;
-    const isFinalStep = step === totalStep;
-    if (isFinalStep) {
-      return;
-    }
+    if (step === totalStep) return;
+
     setStep(prev => prev + 1);
     setIsActive(false);
     setFooterButtonText("");
   }, [step, totalStep, isFooterDisabled]);
 
   const handleRatingChange = useCallback(() => {
-    if (isFooterDisabled) return;
     setIsActive(true);
-  }, [isFooterDisabled]);
+    setIsFooterDisabled(false);
+  }, []);
 
   const handleTagsChange = useCallback(() => {
     const selectedTags = tags.filter(tag => tag.isSelected);
@@ -39,19 +37,23 @@ const ModalEvaluation = props => {
   useEffect(() => {
     if (step === 1 && !isActive) {
       setFooterButtonText("평점을 입력해주세요");
+      setIsFooterDisabled(true);
       return;
     }
     if (step === 1 && isActive) {
       setFooterButtonText("다음으로");
+      setIsFooterDisabled(false);
       return;
     }
     if (step === 2 && !isActive) {
       setSubTitle("이 카페에 대한 태그를 선택해주세요");
       setFooterButtonText("최소 3개를 선택하셔야 등록이 가능합니다");
+      setIsFooterDisabled(true);
       return;
     }
     if (step === 2 && isActive) {
       setFooterButtonText("등록하기");
+      setIsFooterDisabled(false);
     }
   }, [step, isActive, isFooterDisabled]);
 
