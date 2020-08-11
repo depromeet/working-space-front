@@ -7,8 +7,7 @@ const MainPage = () => {
   return (
     <>
       <HeaderContainer hasBackButton={false} hasShareButton={false} hasMapButton={true} hasLocalText={true} hasLocationButton={true} />
-      <ModalEvaluation />
-      <CardListContainer />
+      <CardListContainer hasMainShow={true} />
     </>
   );
 };

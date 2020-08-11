@@ -1,6 +1,6 @@
-import React, { useCallback, useState, useMemo } from "react";
+import React, { useCallback, useState, useMemo, useRef } from "react";
 import { spring, Motion } from "react-motion";
-import ModalStyled from "./Modal.styles";
+import * as styled from "./Modal.styles";
 
 const Modal = props => {
   const { OpenButton, topPosition, shouldCloseOnDimmedClick } = props;
@@ -22,9 +22,9 @@ const Modal = props => {
 
   return (
     <>
-      <OpenButton onClick={onClickOpen} />
+      <OpenButton onClick={onClickOpen} id="modal_open_button" />
       {isOpen && (
-        <ModalStyled>
+        <styled.Modal>
           <Motion defaultStyle={{ top: window.innerHeight }} style={{ top: spring(topPosition, { stiffness: 330, damping: 30 }) }}>
             {style => (
               <div className="modal" style={{ top: style.top }}>
@@ -33,7 +33,7 @@ const Modal = props => {
             )}
           </Motion>
           <div className="dimmed" onClick={onDimmedClick} />
-        </ModalStyled>
+        </styled.Modal>
       )}
     </>
   );
@@ -41,9 +41,9 @@ const Modal = props => {
 
 Modal.defaultProps = {
   OpenButton: props => (
-    <button type="button" {...props}>
-      열기
-    </button>
+    <styled.OpenButton type="button" {...props}>
+      이 카페에 대한 평가를 남겨주세요
+    </styled.OpenButton>
   ),
   topPosition: 160,
   shouldCloseOnDimmedClick: true,

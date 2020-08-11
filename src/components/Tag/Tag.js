@@ -28,7 +28,7 @@ const tagIcons = {
   chair: <ChairIcon />,
 };
 
-const Tag = ({ tag, isSelectable, isSelected, onClick }) => {
+const Tag = ({ tag, isSelectable, isSelected, isShowFollow, onClick }) => {
   const handleClick = useCallback(() => {
     onClick && onClick();
   }, [onClick]);
@@ -38,6 +38,7 @@ const Tag = ({ tag, isSelectable, isSelected, onClick }) => {
       <div className="tag" onClick={handleClick}>
         <span className="tag_icon">{tagIcons[tag.iconName]}</span>
         <span className="tag_text">{tag.text}</span>
+        {isShowFollow && tag.follow > 0 && <span className="tag_follow">+{tag.follow}</span>}
       </div>
     </TagStyled>
   );
@@ -45,6 +46,7 @@ const Tag = ({ tag, isSelectable, isSelected, onClick }) => {
 
 Tag.defaultProps = {
   tag: { iconName: "concent", text: "콘센트가 많아요", follow: 11 },
+  isShowFollow: true,
   isSelectable: false,
   isSelected: false,
   onClick: null,

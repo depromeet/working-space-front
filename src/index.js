@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
 	button {
 		border: none;
 		padding: 0;
+    font-family: 'Spoqa Han Sans', sans-serif;
 	}
 `;
 

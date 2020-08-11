@@ -34,6 +34,9 @@ const TagStyled = styled.div`
     margin-left: 2px;
     margin-top: -1px;
   }
+  .tag_follow {
+    margin-left: 4px;
+  }
 `;
 
 export default TagStyled;

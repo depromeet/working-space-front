@@ -7,19 +7,18 @@ import DetailLocation from "../DetailInfo/DetailLocation";
 import TagList from "../Tag/TagList";
 
 const Detail = props => {
-  const { card, tagLength } = props;
+  const { card, tagCount, hasMainShow } = props;
 
   return (
     <DetailStyled>
-      <DetailTitle title={card.title} />
+      <DetailTitle title={card.title} distance={card.distance} tagCount={tagCount} />
       <Swiper />
       <DetailInfo />
       <div className="tag-list-wrapper">
         <div className="tag-title">
           <h2 className="tag-text">태그</h2>
-          <p className="tag-length">{tagLength}개</p>
         </div>
-        <TagList showMoreTags={false} contraction={false} />
+        <TagList hasMainShow={hasMainShow} hasMoreTags={false} />
       </div>
       <DetailLocation />
     </DetailStyled>
@@ -27,8 +26,8 @@ const Detail = props => {
 };
 
 Detail.defaultProps = {
-  tagLength: 0,
-  card: { title: "Cafe1" },
+  tagCount: 5,
+  card: { title: "Cafe1", distance: "2.2km" },
 };
 
 export default Detail;
