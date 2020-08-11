@@ -17,18 +17,22 @@ const verticalModeCss = css`
 
 const RatingStarStyled = styled.div`
   display: flex;
-  ${props => props.isVertical && verticalModeCss}
-  width: 100%;
+  flex-direction: ${props => (props.simple ? "row" : "column")};
   align-items: center;
-  outline: none;
+
   .rating_area {
     line-height: 1;
     display: flex;
   }
-  .rating_info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .react-stars {
+    > span {
+      margin-left: 11px;
+    }
+    > span:first-of-type {
+      margin-left: 0;
+    }
+  }
+  .rating_count {
     font-size: 12px;
     margin-left: 5px;
   }

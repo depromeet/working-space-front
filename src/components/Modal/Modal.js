@@ -1,39 +1,40 @@
-import React, { useCallback, useState, useMemo } from "react";
+import React, { useCallback, useState } from "react";
 import { spring, Motion } from "react-motion";
-import ModalStyled from "./Modal.styles";
+import * as styled from "./Modal.styles";
 
 const Modal = props => {
-  const { OpenButton, topPosition, shouldCloseOnDimmedClick } = props;
+  const { OpenButton, CloseButton, title } = props;
   const [isOpen, setIsOpen] = useState(props.isOpen);
-
   const onClickOpen = useCallback(() => {
     setIsOpen(true);
-    document.body.style = "position:fixed";
   }, []);
-
   const onClickClose = useCallback(() => {
     setIsOpen(false);
-    document.body.style = "position:static";
   }, []);
-
-  const onDimmedClick = useCallback(() => {
-    shouldCloseOnDimmedClick && onClickClose();
-  }, [shouldCloseOnDimmedClick, onClickClose]);
 
   return (
     <>
       <OpenButton onClick={onClickOpen} />
       {isOpen && (
-        <ModalStyled>
-          <Motion defaultStyle={{ top: window.innerHeight }} style={{ top: spring(topPosition, { stiffness: 330, damping: 30 }) }}>
-            {style => (
-              <div className="modal" style={{ top: style.top }}>
-                {props.children({ onClickOpen, onClickClose, isOpen, setIsOpen })}
+        <Motion defaultStyle={{ top: window.innerHeight }} style={{ top: spring(0, { stiffness: 330, damping: 30 }) }}>
+          {style => (
+            <styled.Modal style={{ top: style.top }}>
+              <div className="header">
+                <div className="header_left"></div>
+                <div className="header_center">
+                  <span>{title}</span>
+                </div>
+                <div className="header_right">
+                  <CloseButton onClick={onClickClose}></CloseButton>
+                </div>
               </div>
-            )}
-          </Motion>
-          <div className="dimmed" onClick={onDimmedClick} />
-        </ModalStyled>
+              <div className="contents">this is contents</div>
+              <button type="button" className="submit_button">
+                등록하기
+              </button>
+            </styled.Modal>
+          )}
+        </Motion>
       )}
     </>
   );
@@ -41,14 +42,17 @@ const Modal = props => {
 
 Modal.defaultProps = {
   OpenButton: props => (
+    <styled.OpenButton type="button" {...props}>
+      이 카페에 대한 평가를 남겨주세요
+    </styled.OpenButton>
+  ),
+  CloseButton: props => (
     <button type="button" {...props}>
-      열기
+      닫기
     </button>
   ),
-  topPosition: 160,
-  shouldCloseOnDimmedClick: true,
+  title: "카페명",
   isOpen: false,
-  children: () => "contents",
 };
 
 export default Modal;

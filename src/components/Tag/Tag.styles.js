@@ -12,6 +12,9 @@ const TagStyled = styled.div`
     font-size: 12px;
     line-height: 16px;
   }
+  .tag > span {
+    margin-left: 4px;
+  }
 `;
 
 export default TagStyled;
