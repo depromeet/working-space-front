@@ -6,6 +6,7 @@ const TagListStyled = styled.div`
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  align-items: center;
   margin-top: 8px;
   margin-bottom: 15.5px;
 
@@ -19,7 +20,12 @@ const TagListStyled = styled.div`
     color: #a7a7a7;
   }
   .more-tag-length {
-    padding: 8px 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
     margin: 4px 0;
     border-radius: 20px;
     border: 1px solid #cccccc;
