@@ -35,19 +35,9 @@ const Header = props => {
         {hasLocalText && <p className="navi-text">현위치: {title}</p>}
       </div>
       <div className="right-box">
-        {hasLocationButton &&
-          (!currentCoordinates || isFetching ? (
-            <button className="navi-btn" onClick={handleLocationButtonClick}>
-              <LocationIcon />
-            </button>
-          ) : (
-            <button className="navi-btn" onClick={handleLocationButtonClick}>
-              <LocationActiveIcon />
-            </button>
-          ))}
-        {hasShareButton && (
-          <button className="share-btn" onClick={handleShareButtonClick}>
-            L
+        {hasLocationButton && (
+          <button className="navi-btn" onClick={handleLocationButtonClick}>
+            {!currentCoordinates || isFetching ? <LocationIcon /> : <LocationActiveIcon />}
           </button>
         )}
         {hasMapButton && (
