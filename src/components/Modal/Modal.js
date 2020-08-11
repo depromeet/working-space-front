@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { spring, Motion } from "react-motion";
-import ModalStyled from "./Modal.styles";
+import * as styled from "./Modal.styles";
 
 const Modal = props => {
   const { OpenButton, CloseButton, title } = props;
@@ -18,7 +18,7 @@ const Modal = props => {
       {isOpen && (
         <Motion defaultStyle={{ top: window.innerHeight }} style={{ top: spring(0, { stiffness: 330, damping: 30 }) }}>
           {style => (
-            <ModalStyled style={{ top: style.top }}>
+            <styled.Modal style={{ top: style.top }}>
               <div className="header">
                 <div className="header_left"></div>
                 <div className="header_center">
@@ -29,12 +29,10 @@ const Modal = props => {
                 </div>
               </div>
               <div className="contents">this is contents</div>
-              <div className="footer">
-                <button type="button" className="submit_button">
-                  완료
-                </button>
-              </div>
-            </ModalStyled>
+              <button type="button" className="submit_button">
+                등록하기
+              </button>
+            </styled.Modal>
           )}
         </Motion>
       )}
@@ -44,9 +42,9 @@ const Modal = props => {
 
 Modal.defaultProps = {
   OpenButton: props => (
-    <button type="button" {...props}>
-      열기
-    </button>
+    <styled.OpenButton type="button" {...props}>
+      이 카페에 대한 평가를 남겨주세요
+    </styled.OpenButton>
   ),
   CloseButton: props => (
     <button type="button" {...props}>

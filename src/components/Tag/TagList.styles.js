@@ -9,7 +9,7 @@ const TagListStyled = styled.div`
   margin-top: 8px;
   margin-bottom: 15.5px;
 
-  .non-tag {
+  .main-non-tag {
     padding: 8px 12px;
     margin: 4px 0;
     border-radius: 20px;
@@ -17,6 +17,14 @@ const TagListStyled = styled.div`
     font-size: 12px;
     line-height: 1.33;
     color: #a7a7a7;
+  }
+  .non-tag {
+    font-size: 12px;
+    line-height: 1.33;
+    color: #a7a7a7;
+    margin: auto;
+    margin-top: 12px;
+    margin-bottom: 31.5px;
   }
   .more-tag-length {
     padding: 8px 9px;

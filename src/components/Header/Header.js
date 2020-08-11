@@ -4,6 +4,7 @@ import { ReactComponent as BackIcon } from "../../images/icon-back.svg";
 import { ReactComponent as MapIcon } from "../../images/icon-map.svg";
 import { ReactComponent as LocationIcon } from "../../images/icon-locate.svg";
 import { ReactComponent as LocationActiveIcon } from "../../images/icon-locate-active.svg";
+import { ReactComponent as ShareIcon } from "../../images/icon-share.svg";
 
 const Header = props => {
   const { title, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasLocationButton, currentCoordinates, isFetching } = props;
@@ -47,7 +48,7 @@ const Header = props => {
           ))}
         {hasShareButton && (
           <button className="share-btn" onClick={handleShareButtonClick}>
-            L
+            <ShareIcon />
           </button>
         )}
         {hasMapButton && (

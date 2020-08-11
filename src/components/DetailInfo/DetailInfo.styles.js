@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const DetailInfoStyled = styled.div`
   width: 100%;
-  height: 180px;
+  height: 100%;
   padding: 16px;
   box-sizing: border-box;
   border-bottom: 1px solid #f5f5f5;
@@ -27,8 +27,27 @@ const DetailInfoStyled = styled.div`
   .info-text > p > span {
     width: 77px;
     height: 100%;
-    display: inline-block;
+    display: inline-flex;
     color: #a7a7a7;
+  }
+  .info-hours {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 6px 0;
+  }
+  .info-hours > span {
+    width: 77px;
+    height: 100%;
+    display: inline-flex;
+    color: #a7a7a7;
+  }
+  .info-hours-box > p {
+    margin-top: 8px;
+    &:first-child {
+      margin: 0;
+    }
   }
 `;
 
