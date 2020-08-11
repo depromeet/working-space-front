@@ -12,47 +12,19 @@ export const Modal = styled.div`
   padding-top: 70px;
   z-index: 3;
 
-  .header {
+  .modal {
     display: flex;
-    height: 50px;
-    width: 100%;
-    padding: 16px;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: white;
+    z-index: 10000;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
-    box-sizing: border-box;
-  }
-
-  .header_left {
-    display: flex;
-    width: 33.3%;
-  }
-
-  .header_center {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-  }
-
-  .header_right {
-    display: flex;
-    justify-content: flex-end;
-    width: 33.3%;
-  }
-
-  .contents {
-    background: orange;
-    flex: 1;
-    padding: 16px;
-    background: white;
-  }
-
-  .submit_button {
-    width: 100%;
-    height: 60px;
-    background: #e0e0e0;
-    font-size: 14px;
-    line-height: 1.5;
+    overflow: hidden;
   }
 `;
 

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import useStore from "../hooks/useStore";
 import Detail from "../components/Detail/Detail";
-import Modal from "../components/Modal/Modal";
+import ModalEvaluation from "../components/ModalEvaluation/ModalEvaluation";
 
 const DetailContainer = props => {
   const { hasMainShow } = props;
@@ -15,7 +15,7 @@ const DetailContainer = props => {
   return (
     <>
       <Detail hasMainShow={hasMainShow} />
-      <Modal />
+      <ModalEvaluation />
     </>
   );
 };

@@ -32,7 +32,6 @@ const CardList = props => {
         loadNextPage={loadNextPage}
         LoadingIndicator={LoadingIndicator}
       />
-      ;
     </CardListStyled>
   );
 };
