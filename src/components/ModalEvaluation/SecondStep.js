@@ -1,9 +1,14 @@
 import React from "react";
 import TagList from "../Tag/TagList";
+import * as styled from "./SecondStep.styles";
 
 const SecondStep = props => {
   const { onTagsChange, tags, onSetTags } = props;
-  return <TagList selectable={true} showMoreTags={false} contraction={false} tags={tags} onSetTags={onSetTags} onTagsChanged={onTagsChange}></TagList>;
+  return (
+    <styled.SecondStep>
+      <TagList isSelectable={true} showMoreTags={false} contraction={false} tags={tags} onSetTags={onSetTags} onTagsChanged={onTagsChange}></TagList>
+    </styled.SecondStep>
+  );
 };
 
 export default SecondStep;
