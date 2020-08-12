@@ -11,8 +11,8 @@ const DetailTitleStyled = styled.div`
   box-sizing: border-box;
 
   .title-top {
-    width: 100%;
     height: 26px;
+    box-sizing: border-box;
     padding-bottom: 8px;
     display: flex;
     flex-direction: row;
@@ -25,7 +25,6 @@ const DetailTitleStyled = styled.div`
     font-weight: bold;
   }
   .title-bottom {
-    width: 100%;
     height: 24px;
     display: flex;
     flex-direction: row;
@@ -37,6 +36,7 @@ const DetailTitleStyled = styled.div`
     justify-content: space-between;
     font-size: 12px;
     line-height: 1.33;
+    white-space: nowrap;
   }
   .icon-align > span {
     margin-left: 4px;

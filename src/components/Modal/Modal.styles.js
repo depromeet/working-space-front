@@ -24,39 +24,7 @@ export const Modal = styled.div`
     z-index: 10000;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
-    box-sizing: border-box;
-  }
-
-  .header_left {
-    display: flex;
-    width: 33.3%;
-  }
-
-  .header_center {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-  }
-
-  .header_right {
-    display: flex;
-    justify-content: flex-end;
-    width: 33.3%;
-  }
-
-  .contents {
-    background: orange;
-    flex: 1;
-    padding: 16px;
-    background: white;
-  }
-
-  .submit_button {
-    width: 100%;
-    height: 60px;
-    background: #e0e0e0;
-    font-size: 14px;
-    line-height: 1.5;
+    overflow: hidden;
   }
 `;
 

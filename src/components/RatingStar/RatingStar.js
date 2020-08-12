@@ -1,16 +1,17 @@
 import React, { useCallback, useState, memo } from "react";
 import ReactStars from "react-rating-stars-component";
 import { ReactComponent as StarIcon } from "../../images/icon-star-fill.svg";
+import { ReactComponent as HalfStarIcon } from "../../images/icon-star-half.svg";
 import RatingStarStyled from "./RatingStar.styles";
 
 const RatingStar = props => {
   /* prettier-ignore */
-  const { starSize, starActiveColor, isStarHalf, starColor, isStarEditable, starCount, attendantCount, FilledIcon, EmptyIcon, isShowAttendantCount, attendantColor, ratingTextColor, isVertical, isRatingInteger, isShowRatingTotal, ratingTextSize, rowStarGutter, ratingCurrentTextColor, ratingTotalTextColor } = props;
+  const { starSize, starActiveColor, isStarHalf, starColor, isStarEditable, starCount, attendantCount, FilledIcon, HalfIcon, EmptyIcon, isShowAttendantCount, attendantColor, ratingTextColor, isVertical, isRatingInteger, isShowRatingTotal, ratingTextSize, rowStarGutter, ratingCurrentTextColor, ratingTotalTextColor } = props;
   const [rating, setRating] = useState(isRatingInteger ? parseInt(props.rating, 10) : parseFloat(props.rating).toFixed(1));
 
   const onRatingChanged = useCallback(
     newRating => {
-      setRating(newRating);
+      setRating(Number(newRating));
       props.onRatingChanged && props.onRatingChanged(newRating);
     },
     [props.onRatingChanged],
@@ -48,6 +49,7 @@ const RatingStar = props => {
           isHalf={isStarHalf}
           onChange={onRatingChanged}
           emptyIcon={<EmptyIcon />}
+          halfIcon={<HalfIcon />}
           filledIcon={<FilledIcon />}
         />
       </div>
@@ -57,7 +59,7 @@ const RatingStar = props => {
 };
 
 RatingStar.defaultProps = {
-  rating: 4.5,
+  rating: 4,
   ratingCurrentTextColor: "#ccc",
   ratingTotalTextColor: "#222",
   ratingTextSize: 12,
@@ -75,6 +77,7 @@ RatingStar.defaultProps = {
   attendantColor: "#ccc",
   rowStarGutter: 0,
   EmptyIcon: () => <StarIcon width={24} height={24} style={{ color: "#f0f0f0" }} />,
+  HalfIcon: () => <HalfStarIcon width={24} height={24} style={{ color: "#ffbb44" }} />,
   FilledIcon: () => <StarIcon width={24} height={24} style={{ color: "#ffbb44" }} />,
 };
 

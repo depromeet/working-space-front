@@ -18,7 +18,7 @@ const Detail = props => {
         <div className="tag-title">
           <h2 className="tag-text">태그</h2>
         </div>
-        <TagList hasContraction={false} hasMainShow={hasMainShow} hasMoreTags={false} />
+        <TagList hasMainShow={hasMainShow} hasMoreTags={false} />
       </div>
       <DetailLocation />
     </DetailStyled>

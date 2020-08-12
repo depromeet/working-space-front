@@ -8,6 +8,7 @@ const activeCss = css`
 `;
 
 export const ModalContents = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,6 +23,13 @@ export const ModalContents = styled.div`
     align-items: center;
     width: 100%;
     margin-top: 32px;
+  }
+  .close_icon {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 24px;
+    height: 24px;
   }
   .main_title {
     font-size: 18px;
@@ -45,5 +53,6 @@ export const ModalContents = styled.div`
     background: #ccc;
     color: #222;
   }
+
   ${({ isActive }) => isActive && activeCss}
 `;

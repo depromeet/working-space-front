@@ -13,6 +13,9 @@ const CardViewStyled = styled.div`
     height: 100%;
     overflow: hidden;
     border-radius: 8px;
+    img {
+      width: 100%;
+    }
   }
 
   .card-image-info {
