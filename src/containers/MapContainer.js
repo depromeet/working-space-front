@@ -44,6 +44,15 @@ const MapContainer = () => {
     marker.setImage(selectedMarkerImage);
   }, []);
 
+  const deleteAllMarkers = useCallback(() => {
+    setMarkers(prevMarkers => {
+      prevMarkers.forEach(marker => {
+        marker.setMap(null);
+      });
+      return [];
+    });
+  }, []);
+
   const showAllMarkers = useCallback(() => {
     if (!mapInstance || locations.length <= 0) {
       return;
@@ -62,7 +71,7 @@ const MapContainer = () => {
       markersList.push(marker);
     });
     setMarkers(markersList);
-  }, [handleClickMarker, locations, mapInstance]);
+  }, [handleClickMarker, deleteAllMarkers, locations, mapInstance]);
 
   const moveToCurrentCoordinates = useCallback(() => {
     if (!mapInstance || !currentCoordinates) {
@@ -104,6 +113,7 @@ const MapContainer = () => {
   }, [currentCoordinates, mapInstance]);
 
   const getCurrentCoordinates = useCallback(() => {
+    setLocations([]);
     fetch();
   }, [fetch]);
 
@@ -117,8 +127,9 @@ const MapContainer = () => {
   }, [moveToCurrentCoordinates]);
 
   useEffect(() => {
+    deleteAllMarkers();
     showAllMarkers();
-  }, [showAllMarkers]);
+  }, [deleteAllMarkers, showAllMarkers]);
 
   return (
     <>
