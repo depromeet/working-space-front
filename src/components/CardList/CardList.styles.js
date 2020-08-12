@@ -6,7 +6,6 @@ const CardListStyled = styled.div`
   margin: 10px 0;
   padding: 0 16px;
   box-sizing: border-box;
-
   ::-webkit-scrollbar {
     display: none;
   }
