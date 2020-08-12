@@ -21,7 +21,7 @@ const MapContainer = () => {
   // eslint-disable-next-line no-unused-vars
   const [selectedMarker, setSelectedMarker] = useState(null);
 
-  const { currentCoordinates, fetch } = useGeoLocation();
+  const { currentCoordinates, fetch, isFetching } = useGeoLocation();
 
   const getKakaoMapObject = useCallback(() => {
     const container = mapRef.current;
@@ -123,7 +123,7 @@ const MapContainer = () => {
   return (
     <>
       <Map mapRef={mapRef} />
-      <FloatingActionButton onGetCurrentCoordinates={getCurrentCoordinates}>{currentCoordinates ? <LocationActiveIcon /> : <LocationIcon />}</FloatingActionButton>
+      <FloatingActionButton onGetCurrentCoordinates={getCurrentCoordinates}>{!currentCoordinates || isFetching ? <LocationIcon /> : <LocationActiveIcon />}</FloatingActionButton>
     </>
   );
 };

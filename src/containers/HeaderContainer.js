@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { toJS } from "mobx";
+// import { toJS } from "mobx";
 import { observer } from "mobx-react";
 import useStore from "../hooks/useStore";
 import Header from "../components/Header/Header";
@@ -10,16 +10,15 @@ const HeaderContainer = props => {
   const { hasBackgroundColor, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasLocationButton } = props;
   const history = useHistory();
   const { CardStore } = useStore();
-  const { updateGeoLocation } = useGeoLocation();
+  const { currentCoordinates, currentAddress, fetch, isFetching } = useGeoLocation();
 
   useEffect(() => {
     CardStore.fetchCard();
   }, [CardStore]);
 
   const handleLocationButtonClick = useCallback(async () => {
-    const coordinates = await updateGeoLocation();
-    console.log(coordinates);
-  }, [updateGeoLocation]);
+    fetch();
+  }, [fetch]);
 
   const handleBackButtonClick = useCallback(() => {
     history.goBack();
@@ -54,13 +53,15 @@ const HeaderContainer = props => {
         onBackButtonClick={handleBackButtonClick}
         onMapLinkButtonClick={handleMapLinkButtonClick}
         onShareButtonClick={handleShareButtonClick}
-        title={toJS(CardStore.title)}
+        title={currentAddress}
         hasBackgroundColor={hasBackgroundColor}
         hasBackButton={hasBackButton}
         hasShareButton={hasShareButton}
         hasMapButton={hasMapButton}
         hasLocalText={hasLocalText}
         hasLocationButton={hasLocationButton}
+        currentCoordinates={currentCoordinates}
+        isFetching={isFetching}
       />
     </>
   );
