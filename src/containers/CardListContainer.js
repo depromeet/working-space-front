@@ -4,6 +4,7 @@ import { toJS } from "mobx";
 import { observer } from "mobx-react";
 import useStore from "../hooks/useStore";
 import CardList from "../components/CardList/CardList";
+import LoadingBar from "../components/LoadingBar/LoadingBar";
 
 const CardListContainer = props => {
   const { hasMainShow } = props;
@@ -20,7 +21,7 @@ const CardListContainer = props => {
     setPageNumber(pageNumber + 1);
   }, [pageNumber]);
 
-  const LoadingIndicator = useCallback(() => "로딩중입니다...", []);
+  const LoadingIndicator = useCallback(() => <LoadingBar />, []);
 
   return (
     <CardList

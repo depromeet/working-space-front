@@ -21,6 +21,9 @@ const SwiperStyled = styled.div`
     justify-content: center;
     align-items: center;
   }
+  .swiper-pagination-bullet-active {
+    background-color: #fff;
+  }
 `;
 
 export default SwiperStyled;

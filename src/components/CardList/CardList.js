@@ -3,6 +3,7 @@ import CardListStyled from "./CardList.styles";
 import Card from "../Card/Card";
 import InfiniteScroller from "../InfiniteScroller/InfiniteScroller";
 import { ReactComponent as FilterIcon } from "../../images/icon-filter.svg";
+import LoadingBar from "../LoadingBar/LoadingBar";
 
 const CardList = props => {
   const { standard, cardDatas, onCardLinkClick, cardHeight, loadNextPage, LoadingIndicator, hasNextPage, isNextPageLoading, hasMainShow } = props;
@@ -51,7 +52,7 @@ CardList.defaultProps = {
   hasNextPage: true,
   isNextPageLoading: true,
   loadNextPage: () => console.log("다음 페이지를 로드합니다."),
-  LoadingIndicator: () => "로딩중입니다...",
+  LoadingIndicator: () => <LoadingBar />,
 };
 
 export default CardList;

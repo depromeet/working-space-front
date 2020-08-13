@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { FixedSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import AutoSizer from "react-virtualized-auto-sizer";
+import LoadingBar from "../LoadingBar/LoadingBar";
 
 const InfiniteScroller = props => {
   const { itemSize, datas, hasNextPage, isNextPageLoading, loadNextPage, LoadingIndicator, Item } = props;
@@ -42,7 +43,7 @@ InfiniteScroller.defaultProps = {
   hasNextPage: false,
   isNextPageLoading: false,
   loadNextPage: () => console.log("loadNextPage"),
-  LoadingIndicator: () => <div>Loading...</div>,
+  LoadingIndicator: () => <LoadingBar />,
   Item: ({ data }) => <div>{data}</div>,
 };
 
