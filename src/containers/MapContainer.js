@@ -1,9 +1,11 @@
 /* global kakao */
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import Map from "../components/Map/Map";
 import { ReactComponent as LocationIcon } from "../images/icon-locate.svg";
 import { ReactComponent as LocationActiveIcon } from "../images/icon-locate-active.svg";
 import FloatingActionButton from "../components/FloatingActionButton/FloatingActionButton";
+import Card from "../components/Card/Card";
 import useGeoLocation from "../hooks/useGeoLocation";
 import SelectedMapPickerImage from "../images/icon-mappicker-select.svg";
 import MapPickerImage from "../images/icon-mappicker.svg";
@@ -12,16 +14,16 @@ const selectedMarkerImage = new kakao.maps.MarkerImage(SelectedMapPickerImage, n
 const unselectedMarkerImage = new kakao.maps.MarkerImage(MapPickerImage, new kakao.maps.Size(24, 24), { offset: new kakao.maps.Point(12, 23) });
 
 const MapContainer = () => {
+  const history = useHistory();
   const mapRef = useRef(null);
-  const [mapInstance, setMapInstance] = useState(null);
-  const [locations, setLocations] = useState([]);
-
-  // eslint-disable-next-line no-unused-vars
-  const [markers, setMarkers] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [selectedMarker, setSelectedMarker] = useState(null);
-
   const { currentCoordinates, fetch, isFetching } = useGeoLocation();
+
+  const [mapInstance, setMapInstance] = useState(null);
+  const [cafeData, setCafeData] = useState([]);
+  const [nowSelectingCafe, setNowSelectingCafe] = useState({
+    marker: null,
+    location: null,
+  });
 
   const getKakaoMapObject = useCallback(() => {
     const container = mapRef.current;
@@ -34,44 +36,44 @@ const MapContainer = () => {
     return kakaoMap;
   }, []);
 
-  const handleClickMarker = useCallback(marker => {
-    setSelectedMarker(prevMarker => {
-      if (prevMarker) {
-        prevMarker.setImage(unselectedMarkerImage);
+  const handleClickMarker = useCallback(data => {
+    setNowSelectingCafe(prevState => {
+      if (prevState.marker) {
+        prevState.marker.setImage(unselectedMarkerImage);
       }
-      return marker;
+      return data;
     });
-    marker.setImage(selectedMarkerImage);
+
+    data.marker.setImage(selectedMarkerImage);
   }, []);
 
   const deleteAllMarkers = useCallback(() => {
-    setMarkers(prevMarkers => {
-      prevMarkers.forEach(marker => {
-        marker.setMap(null);
+    setCafeData(prevState => {
+      prevState.forEach(data => {
+        data.marker.setMap(null);
       });
       return [];
     });
   }, []);
 
   const showAllMarkers = useCallback(() => {
-    if (!mapInstance || locations.length <= 0) {
+    if (!mapInstance || cafeData.length <= 0) {
       return;
     }
 
-    const markersList = [];
-    locations.forEach(location => {
-      const marker = new kakao.maps.Marker({
-        position: location.latlng,
-        title: location.title,
-        clickable: true,
-        image: unselectedMarkerImage,
+    cafeData.forEach(data => {
+      const { marker } = data;
+      kakao.maps.event.addListener(marker, "click", () => handleClickMarker(data));
+      kakao.maps.event.addListener(mapInstance, "click", () => {
+        marker.setImage(unselectedMarkerImage);
+        setNowSelectingCafe({
+          marker: null,
+          location: null,
+        });
       });
-      kakao.maps.event.addListener(marker, "click", () => handleClickMarker(marker));
       marker.setMap(mapInstance);
-      markersList.push(marker);
     });
-    setMarkers(markersList);
-  }, [handleClickMarker, deleteAllMarkers, locations, mapInstance]);
+  }, [handleClickMarker, cafeData, mapInstance]);
 
   const moveToCurrentCoordinates = useCallback(() => {
     if (!mapInstance || !currentCoordinates) {
@@ -83,39 +85,90 @@ const MapContainer = () => {
     const nowLatLng = new kakao.maps.LatLng(lat, lng);
     mapInstance.setCenter(nowLatLng);
 
-    setLocations(prevState => {
-      const newLocations = [...prevState];
+    // 마커 클릭 테스트용
+    // 현위치를 기반으로 마커를 생성하기 위해 cafeData에 더미 데이터를 생성합니다.
+    setCafeData(prevState => {
+      const newCafeData = [...prevState];
       const currentLocationItem = {
-        title: "현위치",
-        latlng: nowLatLng,
-        selected: false,
+        location: {
+          id: 1,
+          title: "현위치",
+          location: "현위치 주소",
+          distance: "0km",
+          rating: 0,
+          tagCount: 0,
+          latlng: nowLatLng,
+          isSelected: false,
+        },
+        marker: new kakao.maps.Marker({
+          position: nowLatLng,
+          title: "현위치",
+          clickable: true,
+          image: unselectedMarkerImage,
+        }),
       };
-      newLocations.push(currentLocationItem);
+      newCafeData.push(currentLocationItem);
 
-      // for click test
       const testLatLng1 = new kakao.maps.LatLng(lat, lng - 0.0003);
       const testLatLng2 = new kakao.maps.LatLng(lat, lng + 0.0003);
       const testLocationItem1 = {
-        title: "테스트1",
-        latlng: testLatLng1,
-        selected: false,
+        location: {
+          id: 2,
+          title: "카페숲",
+          location: "서울시 용산구 청파동 312",
+          distance: "5.2km",
+          rating: 4.4,
+          tagCount: 4,
+          latlng: testLatLng1,
+          isSelected: false,
+        },
+        marker: new kakao.maps.Marker({
+          position: testLatLng1,
+          title: "카페숲",
+          clickable: true,
+          image: unselectedMarkerImage,
+        }),
       };
       const testLocationItem2 = {
-        title: "테스트2",
-        latlng: testLatLng2,
-        selected: false,
+        location: {
+          id: 3,
+          title: "이쁜카페",
+          location: "서울시 서대문구 통일로 100",
+          distance: "1.2km",
+          rating: 4.1,
+          tagCount: 7,
+          latlng: testLatLng2,
+          isSelected: false,
+        },
+        marker: new kakao.maps.Marker({
+          position: testLatLng2,
+          title: "이쁜카페",
+          clickable: true,
+          image: unselectedMarkerImage,
+        }),
       };
-      newLocations.push(testLocationItem1);
-      newLocations.push(testLocationItem2);
+      newCafeData.push(testLocationItem1);
+      newCafeData.push(testLocationItem2);
 
-      return newLocations;
+      return newCafeData;
     });
   }, [currentCoordinates, mapInstance]);
 
   const getCurrentCoordinates = useCallback(() => {
-    setLocations([]);
+    deleteAllMarkers();
+    setNowSelectingCafe({
+      marker: null,
+      location: null,
+    });
     fetch();
-  }, [fetch]);
+  }, [deleteAllMarkers, fetch]);
+
+  const handleCardLinkClick = useCallback(
+    card => {
+      history.push(`/detail/${card.id}`);
+    },
+    [history],
+  );
 
   useEffect(() => {
     const kakaoMap = getKakaoMapObject();
@@ -127,14 +180,15 @@ const MapContainer = () => {
   }, [moveToCurrentCoordinates]);
 
   useEffect(() => {
-    deleteAllMarkers();
     showAllMarkers();
-  }, [deleteAllMarkers, showAllMarkers]);
+  }, [showAllMarkers]);
 
   return (
     <>
-      <Map mapRef={mapRef} />
-      <FloatingActionButton onGetCurrentCoordinates={getCurrentCoordinates}>{!currentCoordinates || isFetching ? <LocationIcon /> : <LocationActiveIcon />}</FloatingActionButton>
+      <Map mapRef={mapRef} isSelected={!!(nowSelectingCafe.marker && nowSelectingCafe.location)}>
+        <FloatingActionButton onGetCurrentCoordinates={getCurrentCoordinates}>{!currentCoordinates || isFetching ? <LocationIcon /> : <LocationActiveIcon />}</FloatingActionButton>
+      </Map>
+      {nowSelectingCafe.marker && nowSelectingCafe.location && <Card isInMap={true} onCardLinkClick={() => handleCardLinkClick(nowSelectingCafe.location)} cardData={nowSelectingCafe.location} />}
     </>
   );
 };
