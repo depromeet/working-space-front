@@ -5,7 +5,7 @@ const HeaderStyled = styled.div`
   height: 50px;
   display: flex;
   justify-content: space-between;
-  position: sticky;
+  position: fixed;
   top: 0;
   box-sizing: border-box;
   margin: 0 auto;
