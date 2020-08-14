@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 const CardInfoStyled = styled.div`
   width: 100%;
-  height: ${props => (props.isInMap ? "auto" : "96px")};
-  margin-top: ${props => (props.isInMap ? "0px" : "13px")};
+  height: ${props => (props.showOnlyInfo ? "auto" : "96px")};
+  margin-top: ${props => (props.showOnlyInfo ? "0px" : "13px")};
 
   .info-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: ${props => (props.isInMap ? "12px" : "8px")};
+    padding-bottom: ${props => (props.showOnlyInfo ? "12px" : "8px")};
     color: #222222;
   }
   .card-title {

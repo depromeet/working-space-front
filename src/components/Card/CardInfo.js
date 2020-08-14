@@ -6,10 +6,10 @@ import { ReactComponent as SmallTagIcon } from "../../images/icon-small-tag-fill
 import TagList from "../Tag/TagList";
 
 const CardInfo = props => {
-  const { title, location, distance, rating, tagCount, hasMainShow, isInMap } = props;
+  const { title, location, distance, rating, tagCount, hasMainShow, showOnlyInfo } = props;
 
   return (
-    <CardInfoStyled isInMap={isInMap}>
+    <CardInfoStyled showOnlyInfo={showOnlyInfo}>
       <div className="card-info">
         <div className="info-top">
           <h2 className="card-title">{title}</h2>
@@ -19,7 +19,7 @@ const CardInfo = props => {
           </div>
         </div>
 
-        {isInMap && (
+        {showOnlyInfo && (
           <div className="info-middle">
             <p className="card-rating">
               <RatingIcon />
@@ -45,7 +45,7 @@ CardInfo.defaultProps = {
   distance: "2.2km",
   rating: 4.5,
   tagCount: 5,
-  isInMap: false,
+  showOnlyInfo: false,
 };
 
 export default CardInfo;

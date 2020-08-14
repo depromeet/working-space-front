@@ -188,7 +188,7 @@ const MapContainer = () => {
       <Map mapRef={mapRef} isSelected={!!(nowSelectingCafe.marker && nowSelectingCafe.location)}>
         <FloatingActionButton onGetCurrentCoordinates={getCurrentCoordinates}>{!currentCoordinates || isFetching ? <LocationIcon /> : <LocationActiveIcon />}</FloatingActionButton>
       </Map>
-      {nowSelectingCafe.marker && nowSelectingCafe.location && <Card isInMap={true} onCardLinkClick={() => handleCardLinkClick(nowSelectingCafe.location)} cardData={nowSelectingCafe.location} />}
+      {nowSelectingCafe.marker && nowSelectingCafe.location && <Card showOnlyInfo={true} onCardLinkClick={() => handleCardLinkClick(nowSelectingCafe.location)} cardData={nowSelectingCafe.location} />}
     </>
   );
 };
