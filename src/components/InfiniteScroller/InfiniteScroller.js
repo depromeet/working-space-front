@@ -11,7 +11,7 @@ const InfiniteScroller = props => {
   const isItemLoaded = useCallback(index => !hasNextPage || index < datas.length, [hasNextPage, datas]);
   const loadMoreItems = useCallback(isNextPageLoading ? () => {} : loadNextPage, [isNextPageLoading, loadNextPage]);
   const fixedSizeListRef = useRef();
-  const MemoizedItem = memo(({ index }) => <Item data={datas[index]} />);
+  const MemoizedItem = memo(({ data }) => <Item data={data} />);
 
   const handleWindowScroll = useCallback(({ scrollTop }) => {
     fixedSizeListRef.current.scrollTo(scrollTop);
@@ -28,7 +28,7 @@ const InfiniteScroller = props => {
 
     return (
       <div style={style}>
-        <MemoizedItem index={index} />
+        <MemoizedItem data={datas[index]} />
       </div>
     );
   };
