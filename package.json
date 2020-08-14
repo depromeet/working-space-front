@@ -1,65 +1,67 @@
 {
-	"name": "nomad-cafe-front",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"@testing-library/jest-dom": "^4.2.4",
-		"@testing-library/react": "^9.3.2",
-		"@testing-library/user-event": "^7.1.2",
-		"dotenv": "^8.2.0",
-		"faker": "^4.1.0",
-		"immer": "^7.0.7",
-		"mobx": "^5.15.4",
-		"mobx-react": "^6.2.2",
-		"react": "^16.13.1",
-		"react-app-rewired": "^2.1.6",
-		"react-dom": "^16.13.1",
-		"react-loading-skeleton": "^2.1.1",
-		"react-motion": "^0.5.2",
-		"react-rating-stars-component": "^2.2.0",
-		"react-router-dom": "^5.2.0",
-		"react-scripts": "3.4.1",
-		"react-virtualized-auto-sizer": "^1.0.2",
-		"react-window": "^1.8.5",
-		"react-window-infinite-loader": "^1.0.5",
-		"reset-css": "^5.0.1",
-		"styled-components": "^5.1.1",
-		"swiper": "^6.1.1"
-	},
-	"scripts": {
-		"start": "react-app-rewired start",
-		"build": "react-app-rewired build",
-		"test": "react-app-rewired test",
-		"eject": "react-app-rewired eject",
-		"deploy": "yarn build && netlify deploy --prod"
-	},
-	"eslintConfig": {
-		"extends": "react-app"
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
-	"devDependencies": {
-		"@babel/plugin-proposal-class-properties": "^7.10.4",
-		"@babel/plugin-proposal-decorators": "^7.10.5",
-		"@babel/plugin-proposal-optional-chaining": "^7.11.0",
-		"babel-eslint": "^10.1.0",
-		"customize-cra": "^1.0.0",
-		"eslint-config-airbnb-base": "^14.2.0",
-		"eslint-config-prettier": "^6.11.0",
-		"eslint-plugin-import": "^2.22.0",
-		"eslint-plugin-prettier": "^3.1.4",
-		"eslint-plugin-react": "^7.20.5",
-		"prettier": "^2.0.5",
-		"prop-types": "^15.7.2"
-	}
+  "name": "nomad-cafe-front",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "dotenv": "^8.2.0",
+    "faker": "^4.1.0",
+    "immer": "^7.0.7",
+    "mobx": "^5.15.4",
+    "mobx-react": "^6.2.2",
+    "react": "^16.13.1",
+    "react-app-rewired": "^2.1.6",
+    "react-dom": "^16.13.1",
+    "react-loading-skeleton": "^2.1.1",
+    "react-motion": "^0.5.2",
+    "react-placeholder": "^4.0.3",
+    "react-rating-stars-component": "^2.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "react-virtualized": "^9.22.2",
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.8.5",
+    "react-window-infinite-loader": "^1.0.5",
+    "reset-css": "^5.0.1",
+    "styled-components": "^5.1.1",
+    "swiper": "^6.1.1"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
+    "deploy": "yarn build && netlify deploy --prod"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-decorators": "^7.10.5",
+    "@babel/plugin-proposal-optional-chaining": "^7.11.0",
+    "babel-eslint": "^10.1.0",
+    "customize-cra": "^1.0.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.5",
+    "prettier": "^2.0.5",
+    "prop-types": "^15.7.2"
+  }
 }

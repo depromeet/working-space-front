@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
+import ReactPlaceHolder from "react-placeholder";
 import CardViewStyled from "./CardView.styles";
 import RatingStar from "../RatingStar/RatingStar";
 import { ReactComponent as StarIcon } from "../../images/icon-star-fill.svg";
@@ -9,22 +10,29 @@ const FilledStarIcon = () => <StarIcon width={16} height={16} style={{ color: "#
 
 const CardView = props => {
   const { imageUrl, imageAlt, rating, tagCount } = props;
+  const [isLoadedImage, setIsLoadedImage] = useState(false);
+
+  const handleLoadImage = useCallback(() => {
+    setIsLoadedImage(true);
+  }, []);
 
   return (
-    <CardViewStyled>
-      <div className="card-image">
-        <img src={imageUrl} alt={imageAlt} />
-      </div>
-      <div className="card-image-info">
-        <div className="image-info-box">
-          <RatingStar starCount={1} isStarEditable={false} starSize={10} rating={rating} isShowAttendantCount={false} ratingTextColor="#fff" EmptyIcon={EmptyStarIcon} FilledIcon={FilledStarIcon} />
+    <ReactPlaceHolder type="rect" ready={isLoadedImage}>
+      <CardViewStyled>
+        <div className="card-image">
+          <img src={imageUrl} alt={imageAlt} onLoad={handleLoadImage} />
         </div>
-        <div className="image-info-box">
-          <SmallTagIcon style={{ color: "#ffffff" }} />
-          태그 {tagCount}개
+        <div className="card-image-info">
+          <div className="image-info-box">
+            <RatingStar starCount={1} isStarEditable={false} starSize={10} rating={rating} isShowAttendantCount={false} ratingTextColor="#fff" EmptyIcon={EmptyStarIcon} FilledIcon={FilledStarIcon} />
+          </div>
+          <div className="image-info-box">
+            <SmallTagIcon style={{ color: "#ffffff" }} />
+            태그 {tagCount}개
+          </div>
         </div>
-      </div>
-    </CardViewStyled>
+      </CardViewStyled>
+    </ReactPlaceHolder>
   );
 };
 

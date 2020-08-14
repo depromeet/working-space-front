@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
 	}
 	::-webkit-scrollbar {
     display: none;
-}
+  }
 `;
 
 ReactDOM.render(
