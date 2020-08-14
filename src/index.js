@@ -10,20 +10,26 @@ import MapPage from "./pages/MapPage";
 import DetailPage from "./pages/DetailPage";
 
 const GlobalStyle = createGlobalStyle`
-	${resetCss};
+  ${resetCss};
+  html, body {
+    height: 100%;
+  }
   #root {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     font-family: 'Spoqa Han Sans', sans-serif;
     font-weight: normal;
+    overflow: auto;
   }
 	button {
 		border: none;
 		padding: 0;
     font-family: 'Spoqa Han Sans', sans-serif;
 	}
-	::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     display: none;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
 `;
 

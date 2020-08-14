@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, memo } from "react";
+import React, { useCallback, useRef, memo, useEffect } from "react";
 import { FixedSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -45,7 +45,7 @@ const InfiniteScroller = props => {
         itemCount={itemCount}
         itemSize={itemSize}
         onItemsRendered={onItemsRendered}
-        style={{ height: "100% !important" }}
+        style={{ height: "100% !important", overflow: "hidden" }}
         {...props}
       >
         {Row}

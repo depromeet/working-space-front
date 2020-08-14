@@ -6,6 +6,12 @@ const CardListStyled = styled.div`
   padding: 0 16px;
   box-sizing: border-box;
 
+  ::-webkit-scrollbar {
+    display: none;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
   button {
     background-color: #fff;
   }
