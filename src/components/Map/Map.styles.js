@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
+const HEADER_HEIGHT = "50px";
+const CARD_INFO_HEIGHT = "148px";
+
 const MapStyled = styled.div`
   width: 100vw;
-  height: calc(100vh - 50px);
+  height: calc(100vh - ${HEADER_HEIGHT} - ${props => (props.isSelected ? CARD_INFO_HEIGHT : "0px")});
+  position: relative;
 
   #map {
     width: 100%;
