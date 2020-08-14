@@ -45,7 +45,7 @@ const InfiniteScroller = props => {
         itemCount={itemCount}
         itemSize={itemSize}
         onItemsRendered={onItemsRendered}
-        style={{ height: "100% !important", overflow: "hidden" }}
+        style={{ height: "100% !important" }}
         {...props}
       >
         {Row}

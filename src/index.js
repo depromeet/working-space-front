@@ -19,7 +19,6 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     font-family: 'Spoqa Han Sans', sans-serif;
     font-weight: normal;
-    overflow: auto;
   }
 	button {
 		border: none;
