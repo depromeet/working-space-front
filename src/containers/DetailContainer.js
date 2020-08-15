@@ -21,6 +21,7 @@ const DetailContainer = props => {
 
     const kakaoMap = new window.kakao.maps.Map(container, options);
     kakaoMap.setDraggable(false);
+    kakaoMap.setZoomable(false);
     return kakaoMap;
   }, []);
 

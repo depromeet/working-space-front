@@ -1,5 +1,5 @@
 /* global kakao */
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React from "react";
 import DetailLocationStyled from "./DetailLocation.styles";
 
 const DetailLocation = props => {
