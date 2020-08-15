@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, memo, useEffect } from "react";
+import React, { useCallback, useRef, memo, useEffect, useMemo } from "react";
 import { FixedSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -33,32 +33,32 @@ const InfiniteScroller = props => {
     );
   };
 
-  const FixedList = memo(({ width, height, onItemsRendered, infiniteLoaderRef }) => {
-    return (
-      <FixedSizeList
-        ref={ref => {
-          infiniteLoaderRef(ref);
-          fixedSizeListRef.current = ref;
-        }}
-        width={width}
-        height={height}
-        itemCount={itemCount}
-        itemSize={itemSize}
-        onItemsRendered={onItemsRendered}
-        style={{ height: "100% !important" }}
-        {...props}
-      >
-        {Row}
-      </FixedSizeList>
-    );
-  });
-
   return (
     <>
       <WindowScroller onScroll={handleWindowScroll}>{() => <div />}</WindowScroller>
       <InfiniteLoader itemCount={itemCount} loadMoreItems={loadMoreItems} isItemLoaded={isItemLoaded}>
         {({ onItemsRendered, ref }) => {
-          return <AutoSizer>{({ width, height }) => <FixedList width={width} height={height} onItemsRendered={onItemsRendered} infiniteLoaderRef={ref} />}</AutoSizer>;
+          return (
+            <AutoSizer>
+              {({ width, height }) => (
+                <FixedSizeList
+                  ref={listRef => {
+                    ref(listRef);
+                    fixedSizeListRef.current = listRef;
+                  }}
+                  width={width}
+                  height={height}
+                  itemCount={itemCount}
+                  itemSize={itemSize}
+                  onItemsRendered={onItemsRendered}
+                  style={{ height: "100% !important" }}
+                  {...props}
+                >
+                  {Row}
+                </FixedSizeList>
+              )}
+            </AutoSizer>
+          );
         }}
       </InfiniteLoader>
     </>
