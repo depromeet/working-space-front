@@ -19,7 +19,7 @@ const Detail = props => {
         <div className="tag-title">
           <h2 className="tag-text">태그</h2>
         </div>
-        <TagList hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} />
+        <TagList hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} isShowFollow={true} />
       </div>
       <hr />
       <DetailLocation mapRef={mapRef} />

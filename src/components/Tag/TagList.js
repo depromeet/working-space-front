@@ -21,29 +21,40 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
 
   const makeTagList = useCallback(
     (tags, hasMainShow, hasDropDownButton, isSelectable, isShowFollow, isContraction, toggleTag) => {
-      if (!tags.length) return <div className="non-tag">아직 등록된 태그가 없습니다</div>;
-      if (!tags.length && hasMainShow) return <div className="main-non-tag">태그가 없습니다. 카페를 이용한 후 평가를 남겨주세요.</div>;
-      if (isContraction) tags = tags.filter((v, i) => i < 2);
-      if (hasDropDownButton && tags.length > 4 && showDrop === false) tags = tags.filter((v, i) => i < 4);
+      if (tags.length === 0) {
+        return hasMainShow ? <div className="main-non-tag">태그가 없습니다. 카페를 이용한 후 평가를 남겨주세요.</div> : <div className="non-tag">아직 등록된 태그가 없습니다</div>;
+      }
 
-      return tags?.map((tag, i) => {
-        return (
-          <div className="tag_wrapper" key={i}>
-            <Tag tag={tag} isShowFollow={isShowFollow} isSelectable={isSelectable} isSelected={tag.isSelected} onClick={isSelectable && (() => toggleTag(i))} />
-          </div>
-        );
-      });
+      let filteredTags = tags;
+
+      if (isContraction) {
+        filteredTags = tags.slice(0, 2);
+      } else if (hasDropDownButton && tags.length > 4 && !showDrop) {
+        filteredTags = tags.slice(0, 4);
+      }
+
+      const showMoreCount = tags.length > 2 && isContraction;
+
+      return (
+        <>
+          {filteredTags.map((tag, i) => {
+            return (
+              <div className="tag_wrapper" key={i}>
+                <Tag tag={tag} isShowFollow={isShowFollow} isSelectable={isSelectable} isSelected={tag.isSelected} onClick={isSelectable && (() => toggleTag(i))} />
+              </div>
+            );
+          })}
+          {showMoreCount ? <span className="more-tag-length">+{tags.length - 2}</span> : null}
+        </>
+      );
     },
     [showDrop],
   );
 
   return (
     <TagListStyled>
-      <div className="tag-list">
-        {makeTagList(tags, hasMainShow, hasDropDownButton, isSelectable, isShowFollow, isContraction, toggleTag)}
-        {tags.length > 2 && isContraction && <span className="more-tag-length">+{tags.length - 2}</span>}
-      </div>
-      {hasDropDownButton && tags.length > 4 && showDrop === false ? (
+      <div className="tag-list">{makeTagList(tags, hasMainShow, hasDropDownButton, isSelectable, isShowFollow, isContraction, toggleTag)}</div>
+      {hasDropDownButton && tags.length > 4 && !showDrop ? (
         <button className="drop-down-button" onClick={() => setShowDrop(true)}>
           <DropDownIcon />
           <span>더보기</span>
@@ -60,11 +71,11 @@ TagList.defaultProps = {
   hasMainShow: true,
   hasDropDownButton: false,
   tags: [
-    { iconName: "concent", text: "콘센트가 있는", isSelected: false },
-    { iconName: "study", text: "분위기가 조용한", isSelected: false },
-    { iconName: "wifi", text: "와이파이가 빠른", isSelected: false },
-    { iconName: "parking", text: "주차장이 있는", isSelected: false },
-    { iconName: "dessert", text: "디저트가 다양한", isSelected: false },
+    { iconName: "concent", text: "콘센트가 있는", follow: 23, isSelected: false },
+    { iconName: "study", text: "분위기가 조용한", follow: 21, isSelected: false },
+    { iconName: "wifi", text: "와이파이가 빠른", follow: 16, isSelected: false },
+    { iconName: "parking", text: "주차장이 있는", follow: 7, isSelected: false },
+    { iconName: "dessert", text: "디저트가 다양한", follow: 2, isSelected: false },
     { iconName: "mute", text: "조용한", isSelected: false },
     { iconName: "toilet", text: "화장실이 깨끗한", isSelected: false },
     { iconName: "twentyFour", text: "24시간 열린", isSelected: false },
