@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import HeaderStyled from "./Header.styles";
 import { ReactComponent as BackIcon } from "../../images/icon-back.svg";
 import { ReactComponent as MapIcon } from "../../images/icon-map.svg";
@@ -8,6 +8,7 @@ import { ReactComponent as ShareIcon } from "../../images/icon-share.svg";
 
 const Header = props => {
   const { title, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasLocationButton, currentCoordinates, isFetching } = props;
+  const headerRef = useRef();
 
   const handleLocationButtonClick = useCallback(() => {
     props.onLocationButtonClick && props.onLocationButtonClick();
@@ -25,8 +26,18 @@ const Header = props => {
     props.onShareButtonClick && props.onShareButtonClick();
   }, [props.onShareButtonClick]);
 
+  useEffect(() => {
+    const headerHeight = headerRef.current.offsetHeight;
+    const dummyHeader = document.createElement("div");
+    dummyHeader.style.height = `${headerHeight}px`;
+    headerRef.current.before(dummyHeader);
+    return () => {
+      dummyHeader.remove();
+    };
+  }, []);
+
   return (
-    <HeaderStyled>
+    <HeaderStyled ref={headerRef}>
       <div className="left-box">
         {hasBackButton && (
           <button className="back-btn" onClick={handleBackButtonClick}>

@@ -12,6 +12,7 @@ module.exports = {
     "no-unused-expressions": 0,
     "no-unused-vars": 0,
     "no-param-reassign": 0,
+    "no-shadow": 0,
     "react/prop-types": 0,
     "no-console": 0,
     "no-undef": 0,

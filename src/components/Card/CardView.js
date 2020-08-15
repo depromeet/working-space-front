@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import CardViewStyled from "./CardView.styles";
 import RatingStar from "../RatingStar/RatingStar";
+import Image from "../Image/Image";
 import { ReactComponent as StarIcon } from "../../images/icon-star-fill.svg";
 import { ReactComponent as SmallTagIcon } from "../../images/icon-small-tag-fill.svg";
 
@@ -13,7 +14,7 @@ const CardView = props => {
   return (
     <CardViewStyled>
       <div className="card-image">
-        <img src={imageUrl} alt={imageAlt} />
+        <Image src={imageUrl} alt={imageAlt} />
       </div>
       <div className="card-image-info">
         <div className="image-info-box">

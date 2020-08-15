@@ -1,7 +1,8 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef, memo, useEffect, useMemo } from "react";
 import { FixedSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import AutoSizer from "react-virtualized-auto-sizer";
+import { WindowScroller } from "react-virtualized";
 import LoadingBar from "../LoadingBar/LoadingBar";
 
 const InfiniteScroller = props => {
@@ -9,6 +10,12 @@ const InfiniteScroller = props => {
   const itemCount = hasNextPage ? datas.length + 1 : datas.length;
   const isItemLoaded = useCallback(index => !hasNextPage || index < datas.length, [hasNextPage, datas]);
   const loadMoreItems = useCallback(isNextPageLoading ? () => {} : loadNextPage, [isNextPageLoading, loadNextPage]);
+  const fixedSizeListRef = useRef();
+  const MemoizedItem = memo(({ data }) => <Item data={data} />);
+
+  const handleWindowScroll = useCallback(({ scrollTop }) => {
+    fixedSizeListRef.current.scrollTo(scrollTop);
+  }, []);
 
   const Row = ({ index, style }) => {
     if (!isItemLoaded(index)) {
@@ -19,21 +26,42 @@ const InfiniteScroller = props => {
       );
     }
 
-    return <div style={style}>{<Item data={datas[index]} />}</div>;
+    return (
+      <div style={style}>
+        <MemoizedItem data={datas[index]} />
+      </div>
+    );
   };
 
   return (
-    <InfiniteLoader itemCount={itemCount} loadMoreItems={loadMoreItems} isItemLoaded={isItemLoaded}>
-      {({ onItemsRendered, ref }) => (
-        <AutoSizer>
-          {({ width, height }) => (
-            <FixedSizeList width={width} height={height} itemCount={itemCount} itemSize={itemSize} ref={ref} onItemsRendered={onItemsRendered} {...props}>
-              {Row}
-            </FixedSizeList>
-          )}
-        </AutoSizer>
-      )}
-    </InfiniteLoader>
+    <>
+      <WindowScroller onScroll={handleWindowScroll}>{() => <div />}</WindowScroller>
+      <InfiniteLoader itemCount={itemCount} loadMoreItems={loadMoreItems} isItemLoaded={isItemLoaded}>
+        {({ onItemsRendered, ref }) => {
+          return (
+            <AutoSizer>
+              {({ width, height }) => (
+                <FixedSizeList
+                  ref={listRef => {
+                    ref(listRef);
+                    fixedSizeListRef.current = listRef;
+                  }}
+                  width={width}
+                  height={height}
+                  itemCount={itemCount}
+                  itemSize={itemSize}
+                  onItemsRendered={onItemsRendered}
+                  style={{ height: "100% !important" }}
+                  {...props}
+                >
+                  {Row}
+                </FixedSizeList>
+              )}
+            </AutoSizer>
+          );
+        }}
+      </InfiniteLoader>
+    </>
   );
 };
 
