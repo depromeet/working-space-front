@@ -41,4 +41,5 @@ export const OpenButton = styled.button`
   font-weight: bold;
   line-height: 1.43;
   color: #fff;
+  z-index: 1;
 `;
