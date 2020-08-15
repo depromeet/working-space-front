@@ -87,11 +87,18 @@ ModalEvaluation.defaultProps = {
   footerButtonText: "",
   isFooterDisabled: false,
   tags: [
-    { iconName: "concent", text: "콘센트가 있는", follow: 12, isSelected: false },
-    { iconName: "study", text: "분위기가 조용한", follow: 9, isSelected: false },
-    { iconName: "wifi", text: "와이파이가 있는", follow: 8, isSelected: false },
-    { iconName: "parking", text: "주차장이 있는", follow: 7, isSelected: false },
-    { iconName: "dessert", text: "디저트가 다양한", follow: 5, isSelected: false },
+    { iconName: "concent", text: "콘센트가 있는", isSelected: false },
+    { iconName: "study", text: "분위기가 조용한", isSelected: false },
+    { iconName: "wifi", text: "와이파이가 빠른", isSelected: false },
+    { iconName: "parking", text: "주차장이 있는", isSelected: false },
+    { iconName: "dessert", text: "디저트가 다양한", isSelected: false },
+    { iconName: "mute", text: "조용한", isSelected: false },
+    { iconName: "toilet", text: "화장실이 깨끗한", isSelected: false },
+    { iconName: "twentyFour", text: "24시간 열린", isSelected: false },
+    { iconName: "smoking", text: "흡연구역이 마련된", isSelected: false },
+    { iconName: "timer", text: "시간제한이 있는", isSelected: false },
+    { iconName: "seat", text: "빈자리가 많은", isSelected: false },
+    { iconName: "chair", text: "의자가 푹신한", isSelected: false },
   ],
 };
 
