@@ -17,7 +17,7 @@ const DetailTitle = props => {
         </div>
       </div>
       <div className="title-bottom">
-        <RatingStar starCount={5} isStarEditable={false} starSize={24} attendantCount={30} isSimpleMode={true} />
+        <RatingStar starCount={5} isStarEditable={false} starSize={24} attendantCount={30} isSimpleMode={true} ratingTextColor="#ccc" ratingCurrentTextColor="#222" />
         <div className="icon-align">
           <SmallTagIcon style={{ color: "#222222" }} />
           <span>태그 {tagCount}개</span>

@@ -52,6 +52,7 @@ export const ModalContents = styled.div`
     outline: none;
     background: #ccc;
     color: #222;
+    font-weight: bold;
   }
 
   ${({ isActive }) => isActive && activeCss}
