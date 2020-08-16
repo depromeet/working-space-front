@@ -1,6 +1,7 @@
 /* global kakao */
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useHistory } from "react-router-dom";
+import debounce from "lodash.debounce";
 import Map from "../components/Map/Map";
 import { ReactComponent as LocationIcon } from "../images/icon-locate.svg";
 import { ReactComponent as LocationActiveIcon } from "../images/icon-locate-active.svg";
@@ -70,6 +71,7 @@ const MapContainer = () => {
           marker: null,
           location: null,
         });
+        mapInstance && mapInstance.relayout();
       });
       marker.setMap(mapInstance);
     });
@@ -174,6 +176,17 @@ const MapContainer = () => {
     const kakaoMap = getKakaoMapObject();
     setMapInstance(kakaoMap);
   }, [getKakaoMapObject]);
+
+  useEffect(() => {
+    window.addEventListener(
+      "resize",
+      debounce(() => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
+        mapInstance && mapInstance.relayout();
+      }, 200),
+    );
+  }, [mapInstance]);
 
   useEffect(() => {
     moveToCurrentCoordinates();
