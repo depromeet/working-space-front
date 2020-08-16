@@ -12,7 +12,7 @@ const Card = props => {
 
   return (
     <CardStyled onClick={handleCardLinkClick} showOnlyInfo={showOnlyInfo}>
-      {!showOnlyInfo && <CardView imageUrl={cardData.imageUrl} imageAlt={cardData.imageAlt} tagCount={cardData.tagCount} />}
+      {!showOnlyInfo && <CardView imageUrl={cardData.imageUrl} imageAlt={cardData.imageAlt} rating={cardData.rating} tagCount={cardData.tagCount} />}
       <CardInfo
         title={cardData.title}
         location={cardData.location}

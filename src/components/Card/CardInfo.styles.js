@@ -4,6 +4,7 @@ const CardInfoStyled = styled.div`
   width: 100%;
   height: ${props => (props.showOnlyInfo ? "auto" : "96px")};
   margin-top: ${props => (props.showOnlyInfo ? "0px" : "13px")};
+  overflow: hidden;
 
   .info-top {
     display: flex;

@@ -14,12 +14,14 @@ const Detail = props => {
       <DetailTitle title={card.title} distance={card.distance} tagCount={tagCount} />
       <Swiper />
       <DetailInfo />
+      <hr />
       <div className="tag-list-wrapper">
         <div className="tag-title">
           <h2 className="tag-text">태그</h2>
         </div>
-        <TagList hasMainShow={hasMainShow} hasMoreTags={false} />
+        <TagList hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} isShowFollow={true} />
       </div>
+      <hr />
       <DetailLocation mapRef={mapRef} />
     </DetailStyled>
   );
