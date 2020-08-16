@@ -11,6 +11,10 @@ const CardStyled = styled.div`
   margin: ${props => (props.showOnlyInfo ? "0" : "32px 0")};
   padding: ${props => (props.showOnlyInfo ? "16px" : "0")};
   box-sizing: border-box;
+  /* position: ${props => (props.showOnlyInfo ? "absolute" : "initial")};
+  bottom: ${props => (props.showOnlyInfo ? "0" : "auto")};
+  background-color: ${props => (props.showOnlyInfo ? "#ffffff" : "none")};
+  z-index: ${props => (props.showOnlyInfo ? "99" : "0")}; */
   &:first-of-type {
     margin-top: 0;
   }
