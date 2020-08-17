@@ -11,14 +11,26 @@ const Modal = props => {
     setTopPosition(props.topPosition);
   }, [props.topPosition]);
 
+  const disableBackScroll = useCallback(() => {
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.position = "fixed";
+  }, []);
+
+  const enableBackScroll = useCallback(() => {
+    const scrollY = document.body.style.top;
+    document.body.style.position = "";
+    document.body.style.top = "";
+    window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+  }, []);
+
   const onClickOpen = useCallback(() => {
+    disableBackScroll();
     setIsOpen(true);
-    document.body.style = "position:fixed";
   }, []);
 
   const onClickClose = useCallback(() => {
+    enableBackScroll();
     setIsOpen(false);
-    document.body.style = "position:static";
   }, []);
 
   const onDimmedClick = useCallback(() => {

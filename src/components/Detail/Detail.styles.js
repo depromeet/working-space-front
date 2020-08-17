@@ -20,7 +20,7 @@ const DetailStyled = styled.div`
     flex-direction: column;
     padding: 0 16px;
     box-sizing: border-box;
-    margin-top: 20px;
+    margin: 20px auto;
   }
   .tag-title {
     display: flex;
