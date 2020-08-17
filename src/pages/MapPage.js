@@ -1,18 +1,12 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import MapContainer from "../containers/MapContainer";
 import HeaderContainer from "../containers/HeaderContainer";
 
 const MapPage = () => {
-  const wrapperRef = useRef();
-
-  useEffect(() => {
-    wrapperRef.current.style.height = `${window.innerHeight}px`;
-  }, []);
-
   return (
-    <div style={{ display: "flex", flexDirection: "column" }} ref={wrapperRef}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <HeaderContainer hasBackButton={true} hasShareButton={false} hasMapButton={false} hasLocalText={true} hasLocationButton={false} />
-      <MapContainer style={{ flex: 1 }} />
+      <MapContainer />
     </div>
   );
 };
