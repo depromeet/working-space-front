@@ -31,6 +31,13 @@ export const ModalContents = styled.div`
     width: 24px;
     height: 24px;
   }
+  .back_icon {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    width: 24px;
+    height: 24px;
+  }
   .main_title {
     font-size: 18px;
     font-weight: bold;

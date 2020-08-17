@@ -4,6 +4,7 @@ import * as styled from "./ModalEvaluation.styles";
 import FirstStep from "./FirstStep";
 import SecondStep from "./SecondStep";
 import { ReactComponent as CloseIcon } from "../../images/icon-close.svg";
+import { ReactComponent as BackIcon } from "../../images/icon-back.svg";
 
 const ModalEvaluation = props => {
   const { totalStep } = props;
@@ -23,6 +24,10 @@ const ModalEvaluation = props => {
     setIsActive(false);
     setFooterButtonText("");
   }, [step, totalStep, isFooterDisabled]);
+
+  const handleBackButtonClick = useCallback(() => {
+    setStep(prev => prev - 1);
+  }, []);
 
   const handleRatingChange = useCallback(() => {
     setIsActive(true);
@@ -65,6 +70,7 @@ const ModalEvaluation = props => {
             <h1 className="main_title">{mainTitle}</h1>
             <h2 className="sub_title">{subTitle}</h2>
           </div>
+          {step !== 1 && <BackIcon className="back_icon" onClick={handleBackButtonClick} />}
           <CloseIcon className="close_icon" onClick={onClickClose} />
           {step === 1 && <FirstStep onRatingChange={handleRatingChange} isActive={isActive} />}
           {step === 2 && <SecondStep onTagsChange={handleTagsChange} tags={tags} onSetTags={setTags} />}
@@ -88,11 +94,11 @@ ModalEvaluation.defaultProps = {
   isFooterDisabled: false,
   tags: [
     { iconName: "concent", text: "콘센트가 있는", isSelected: false },
-    { iconName: "study", text: "분위기가 조용한", isSelected: false },
+    { iconName: "mute", text: "분위기가 조용한", isSelected: false },
     { iconName: "wifi", text: "와이파이가 빠른", isSelected: false },
     { iconName: "parking", text: "주차장이 있는", isSelected: false },
     { iconName: "dessert", text: "디저트가 다양한", isSelected: false },
-    { iconName: "mute", text: "조용한", isSelected: false },
+    { iconName: "study", text: "스터디룸이 있는", isSelected: false },
     { iconName: "toilet", text: "화장실이 깨끗한", isSelected: false },
     { iconName: "twentyFour", text: "24시간 열린", isSelected: false },
     { iconName: "smoking", text: "흡연구역이 마련된", isSelected: false },
