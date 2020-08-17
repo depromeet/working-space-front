@@ -10,6 +10,7 @@ const CardInfoStyled = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: ${props => (props.showOnlyInfo ? "4px" : "0")};
     padding-bottom: ${props => (props.showOnlyInfo ? "12px" : "8px")};
     color: #222222;
   }
@@ -21,11 +22,15 @@ const CardInfoStyled = styled.div`
     white-space: nowrap;
     font-size: 18px;
     font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    /* line-height: 1.44; */
+    letter-spacing: normal;
     padding-right: 5px;
   }
   .info-middle {
     display: flex;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
   .info-middle svg {
     width: 16px;
@@ -43,7 +48,7 @@ const CardInfoStyled = styled.div`
 
     span {
       padding-left: 4px;
-      padding-right: 11px;
+      padding-right: 10px;
     }
   }
 

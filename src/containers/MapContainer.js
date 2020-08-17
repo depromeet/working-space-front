@@ -1,6 +1,7 @@
 /* global kakao */
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useHistory } from "react-router-dom";
+import debounce from "lodash.debounce";
 import Map from "../components/Map/Map";
 import { ReactComponent as LocationIcon } from "../images/icon-locate.svg";
 import { ReactComponent as LocationActiveIcon } from "../images/icon-locate-active.svg";
@@ -70,6 +71,7 @@ const MapContainer = () => {
           marker: null,
           location: null,
         });
+        mapInstance && mapInstance.relayout();
       });
       marker.setMap(mapInstance);
     });
@@ -170,10 +172,27 @@ const MapContainer = () => {
     [history],
   );
 
+  const setViewportHeight = useCallback(() => {
+    // const vh = window.innerHeight * 0.01;
+    // document.documentElement.style.setProperty("--vh", `${vh}px`);
+    document.body.style.height = `${window.innerHeight}px`;
+    mapInstance && mapInstance.relayout();
+  }, [mapInstance]);
+
   useEffect(() => {
     const kakaoMap = getKakaoMapObject();
     setMapInstance(kakaoMap);
   }, [getKakaoMapObject]);
+
+  useEffect(() => {
+    const debounced = debounce(setViewportHeight, 200);
+    window.addEventListener("resize", debounced);
+
+    return function cleanup() {
+      debounced.cancel();
+      window.removeEventListener("resize", debounced);
+    };
+  }, [mapInstance, setViewportHeight]);
 
   useEffect(() => {
     moveToCurrentCoordinates();
@@ -182,6 +201,10 @@ const MapContainer = () => {
   useEffect(() => {
     showAllMarkers();
   }, [showAllMarkers]);
+
+  useEffect(() => {
+    setViewportHeight();
+  }, [setViewportHeight]);
 
   return (
     <>

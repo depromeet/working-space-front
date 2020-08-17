@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import HeaderStyled from "./Header.styles";
 import { ReactComponent as BackIcon } from "../../images/icon-back.svg";
 import { ReactComponent as MapIcon } from "../../images/icon-map.svg";
@@ -26,45 +26,37 @@ const Header = props => {
     props.onShareButtonClick && props.onShareButtonClick();
   }, [props.onShareButtonClick]);
 
-  useEffect(() => {
-    const headerHeight = headerRef.current.offsetHeight;
-    const dummyHeader = document.createElement("div");
-    dummyHeader.style.height = `${headerHeight}px`;
-    headerRef.current.before(dummyHeader);
-    return () => {
-      dummyHeader.remove();
-    };
-  }, []);
-
   return (
     <HeaderStyled ref={headerRef}>
-      <div className="left-box">
-        {hasBackButton && (
-          <button className="back-btn" onClick={handleBackButtonClick}>
-            <BackIcon />
-          </button>
-        )}
-        {hasLocalText && <p className="navi-text">현위치: {title}</p>}
-      </div>
-      <div className="right-box">
-        {hasLocationButton && (
-          <button className="navi-btn" onClick={handleLocationButtonClick}>
-            {!currentCoordinates || isFetching ? <LocationIcon /> : <LocationActiveIcon />}
-          </button>
-        )}
-        {hasShareButton && (
-          <button className="share-btn" onClick={handleShareButtonClick}>
-            <ShareIcon />
-          </button>
-        )}
-        {hasMapButton && (
-          <div className="map-btn-box">
-            <div className="map-btn-left-line"></div>
-            <button className="map-btn" onClick={handleMapLinkButtonClick}>
-              <MapIcon />
+      <div className="fixed_area">
+        <div className="left-box">
+          {hasBackButton && (
+            <button className="back-btn" onClick={handleBackButtonClick}>
+              <BackIcon />
             </button>
-          </div>
-        )}
+          )}
+          {hasLocalText && <p className="navi-text">현위치: {title}</p>}
+        </div>
+        <div className="right-box">
+          {hasLocationButton && (
+            <button className="navi-btn" onClick={handleLocationButtonClick}>
+              {!currentCoordinates || isFetching ? <LocationIcon /> : <LocationActiveIcon />}
+            </button>
+          )}
+          {hasShareButton && (
+            <button className="share-btn" onClick={handleShareButtonClick}>
+              <ShareIcon />
+            </button>
+          )}
+          {hasMapButton && (
+            <div className="map-btn-box">
+              <div className="map-btn-left-line"></div>
+              <button className="map-btn" onClick={handleMapLinkButtonClick}>
+                <MapIcon />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </HeaderStyled>
   );

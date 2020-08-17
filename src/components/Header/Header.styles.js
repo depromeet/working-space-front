@@ -1,18 +1,26 @@
 import styled from "styled-components";
 
+const HEADER_HEIGHT = "50px";
+
 const HeaderStyled = styled.div`
   width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  position: fixed;
-  top: 0;
-  box-sizing: border-box;
-  margin: 0 auto;
-  z-index: 2;
-  background-color: #fff;
-  border-bottom: 1px solid #cccccc;
+  min-height: ${HEADER_HEIGHT};
+  max-height: ${HEADER_HEIGHT};
 
+  .fixed_area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: ${HEADER_HEIGHT};
+    border-bottom: 1px solid #cccccc;
+    background-color: #fff;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
   button {
     background-color: #fff;
   }
