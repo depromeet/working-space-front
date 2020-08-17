@@ -28,21 +28,12 @@ const useGeoLocation = () => {
         navigator.geolocation.getCurrentPosition(
           // Success
           position => {
-            // const { coords } = position;
-            const coords = {
-              latitude: 33.450701,
-              longitude: 126.570667,
-            };
+            const { coords } = position;
             resolve(coords);
           },
           // Error
           err => {
-            const coords = {
-              latitude: 33.450701,
-              longitude: 126.570667,
-            };
-            resolve(coords);
-            // reject(err);
+            reject(err);
           },
         );
       } else {
