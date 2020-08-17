@@ -1,16 +1,15 @@
 import styled from "styled-components";
 
 export const Modal = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: ${props => props.top || 0};
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.2);
-  padding-top: 70px;
-  z-index: 3;
+  .dimmed {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.2);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+  }
 
   .modal {
     display: flex;
@@ -41,4 +40,5 @@ export const OpenButton = styled.button`
   font-weight: bold;
   line-height: 1.43;
   color: #fff;
+  z-index: 1;
 `;

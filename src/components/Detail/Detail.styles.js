@@ -6,6 +6,13 @@ const DetailStyled = styled.div`
   flex-direction: column;
   padding-bottom: 60px;
 
+  hr {
+    width: calc(100vw - 32px);
+    height: 1px;
+    border: none;
+    background-color: #f5f5f5;
+    margin: 0 auto;
+  }
   .tag-list-wrapper {
     width: 100%;
     height: 100%;

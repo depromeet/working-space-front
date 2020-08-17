@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import CardViewStyled from "./CardView.styles";
 import RatingStar from "../RatingStar/RatingStar";
 import Image from "../Image/Image";
+import NoneImage from "../NoneImage/NoneImage";
 import { ReactComponent as StarIcon } from "../../images/icon-star-fill.svg";
 import { ReactComponent as SmallTagIcon } from "../../images/icon-small-tag-fill.svg";
 
@@ -13,17 +14,29 @@ const CardView = props => {
 
   return (
     <CardViewStyled>
-      <div className="card-image">
-        <Image src={imageUrl} alt={imageAlt} />
-      </div>
+      <div className="card-image">{imageUrl !== null ? <Image src={imageUrl} alt={imageAlt} /> : <NoneImage />}</div>
       <div className="card-image-info">
-        <div className="image-info-box">
-          <RatingStar starCount={1} isStarEditable={false} starSize={10} rating={rating} isShowAttendantCount={false} ratingTextColor="#fff" EmptyIcon={EmptyStarIcon} FilledIcon={FilledStarIcon} />
-        </div>
-        <div className="image-info-box">
-          <SmallTagIcon style={{ color: "#ffffff" }} />
-          태그 {tagCount}개
-        </div>
+        {rating !== null && (
+          <div className="image-info-box info-box-1">
+            <RatingStar
+              starCount={1}
+              isStarEditable={false}
+              starSize={10}
+              rating={rating}
+              isShowAttendantCount={false}
+              ratingTextColor="#fff"
+              ratingCurrentTextColor="#fff"
+              EmptyIcon={EmptyStarIcon}
+              FilledIcon={FilledStarIcon}
+            />
+          </div>
+        )}
+        {tagCount !== null && (
+          <div className="image-info-box info-box-2">
+            <SmallTagIcon style={{ color: "#ffffff" }} />
+            태그 {tagCount}개
+          </div>
+        )}
       </div>
     </CardViewStyled>
   );
@@ -32,8 +45,8 @@ const CardView = props => {
 CardView.defaultProps = {
   imageUrl: "https://placehold.it/360x160",
   imageAlt: "카드 이미지",
-  distance: 1,
   tagCount: 5,
+  rating: null,
 };
 
 export default CardView;

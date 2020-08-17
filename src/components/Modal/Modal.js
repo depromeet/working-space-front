@@ -1,10 +1,15 @@
-import React, { useCallback, useState, useMemo, useRef } from "react";
+import React, { useCallback, useState, useMemo, useRef, useEffect } from "react";
 import { spring, Motion } from "react-motion";
 import * as styled from "./Modal.styles";
 
 const Modal = props => {
-  const { OpenButton, topPosition, shouldCloseOnDimmedClick } = props;
+  const { OpenButton, shouldCloseOnDimmedClick } = props;
   const [isOpen, setIsOpen] = useState(props.isOpen);
+  const [topPosition, setTopPosition] = useState(window.innerHeight);
+
+  useEffect(() => {
+    setTopPosition(props.topPosition);
+  }, [props.topPosition]);
 
   const onClickOpen = useCallback(() => {
     setIsOpen(true);
@@ -23,18 +28,16 @@ const Modal = props => {
   return (
     <>
       <OpenButton onClick={onClickOpen} id="modal_open_button" />
-      {isOpen && (
-        <styled.Modal>
-          <Motion defaultStyle={{ top: window.innerHeight }} style={{ top: spring(topPosition, { stiffness: 330, damping: 30 }) }}>
-            {style => (
-              <div className="modal" style={{ top: style.top }}>
-                {props.children({ onClickOpen, onClickClose, isOpen, setIsOpen })}
-              </div>
-            )}
-          </Motion>
-          <div className="dimmed" onClick={onDimmedClick} />
-        </styled.Modal>
-      )}
+      <styled.Modal>
+        <Motion defaultStyle={{ top: isOpen ? window.innerHeight : topPosition }} style={{ top: spring(isOpen ? topPosition : window.innerHeight, { stiffness: 330, damping: 30 }) }}>
+          {style => (
+            <div className="modal" style={{ top: style.top }}>
+              {props.children({ onClickOpen, onClickClose, isOpen, setIsOpen })}
+            </div>
+          )}
+        </Motion>
+        {isOpen && <div className="dimmed" onClick={onDimmedClick} />}
+      </styled.Modal>
     </>
   );
 };

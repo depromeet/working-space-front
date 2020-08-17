@@ -34,7 +34,7 @@ const CardInfo = props => {
 
         <p className="location">{location}</p>
       </div>
-      <TagList hasMainShow={hasMainShow} isContraction={true} isShowFollow={false} />
+      <TagList hasMainShow={hasMainShow} hasDropDownButton={false} isContraction={true} isShowFollow={false} />
     </CardInfoStyled>
   );
 };

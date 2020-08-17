@@ -2,18 +2,22 @@ import styled from "styled-components";
 
 const TagListStyled = styled.div`
   width: 100%;
-  line-height: 1.5;
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 8px;
-  margin-bottom: 15.5px;
+  height: 100%;
+  margin-bottom: 16.5px;
 
   &:last-child {
     margin-bottom: 0;
   }
 
+  .tag-list {
+    width: 100%;
+    line-height: 1.5;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 8px;
+  }
   .main-non-tag {
     padding: 8px 12px;
     margin: 4px 0;
@@ -43,6 +47,20 @@ const TagListStyled = styled.div`
     border: 1px solid #cccccc;
     font-size: 12px;
     line-height: 16px;
+  }
+
+  .drop-down-button {
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    line-height: 1.27;
+    color: #a7a7a7;
+    background: none;
+    margin: 0 auto;
+    margin-top: 17px;
+  }
+  .drop-down-button > span {
+    margin-left: 4px;
   }
 `;
 

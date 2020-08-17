@@ -26,7 +26,6 @@ const CardViewStyled = styled.div`
     left: 8px;
   }
   .image-info-box {
-    width: 73px;
     height: 24px;
     box-sizing: border-box;
     padding: 4px;
@@ -42,6 +41,12 @@ const CardViewStyled = styled.div`
     color: #fff;
     .rating_info {
       margin-left: 4px;
+    }
+    .info-box-1 {
+      width: 60px;
+    }
+    .info-box-2 {
+      width: 73px;
     }
   }
   .image-info-box > svg {
