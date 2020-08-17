@@ -5,7 +5,6 @@ const DetailInfoStyled = styled.div`
   height: 100%;
   padding: 16px;
   box-sizing: border-box;
-  border-bottom: 1px solid #f5f5f5;
 
   .info-title {
     font-size: 14px;
