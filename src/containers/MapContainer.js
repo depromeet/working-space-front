@@ -172,21 +172,26 @@ const MapContainer = () => {
     [history],
   );
 
+  const setViewportHeight = useCallback(() => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+    mapInstance && mapInstance.relayout();
+  }, [mapInstance]);
+
   useEffect(() => {
     const kakaoMap = getKakaoMapObject();
     setMapInstance(kakaoMap);
   }, [getKakaoMapObject]);
 
   useEffect(() => {
-    window.addEventListener(
-      "resize",
-      debounce(() => {
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty("--vh", `${vh}px`);
-        mapInstance && mapInstance.relayout();
-      }, 200),
-    );
-  }, [mapInstance]);
+    const debounced = debounce(setViewportHeight, 200);
+    window.addEventListener("resize", debounced);
+
+    return function cleanup() {
+      debounced.cancel();
+      window.removeEventListener("resize", debounced);
+    };
+  }, [mapInstance, setViewportHeight]);
 
   useEffect(() => {
     moveToCurrentCoordinates();
@@ -195,6 +200,10 @@ const MapContainer = () => {
   useEffect(() => {
     showAllMarkers();
   }, [showAllMarkers]);
+
+  useEffect(() => {
+    setViewportHeight();
+  }, [setViewportHeight]);
 
   return (
     <>
