@@ -10,6 +10,10 @@ const TagListStyled = styled.div`
   margin-top: 8px;
   margin-bottom: 15.5px;
 
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   .main-non-tag {
     padding: 8px 12px;
     margin: 4px 0;
