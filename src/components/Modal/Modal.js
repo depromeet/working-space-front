@@ -25,16 +25,6 @@ const Modal = props => {
 
   const onClickOpen = useCallback(() => {
     disableBackScroll();
-    // const el = document.getElementsByClassName("react-stars")[1];
-    // el.addEventListener("click", e => {
-    //   console.log(e.target);
-    // });
-    // el.children[1].addEventListener("click", e => {
-    //   console.log("star", e.target);
-    // });
-    // el.children[1].children[0].addEventListener("click", e => {
-    //   console.log("span", e.target);
-    // });
     setIsOpen(true);
   }, []);
 
