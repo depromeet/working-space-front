@@ -11,7 +11,7 @@ const CardList = props => {
   /* prettier-ignore */
   const Item = useCallback(({ data }) => {
     return <Card cardData={data} onCardLinkClick={onCardLinkClick} hasMainShow={hasMainShow} />;
-  }, [onCardLinkClick]);
+	}, [onCardLinkClick, hasMainShow]);
 
   return (
     <CardListStyled>
