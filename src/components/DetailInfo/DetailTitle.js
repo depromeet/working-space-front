@@ -28,7 +28,7 @@ const DetailTitle = props => {
 };
 
 DetailTitle.defaultProps = {
-  tagCount: 5,
+  tagCount: 2,
   title: "Cafe1",
   distance: "2.2km",
 };
