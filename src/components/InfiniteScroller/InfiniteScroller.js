@@ -35,7 +35,7 @@ const InfiniteScroller = props => {
   };
 
   useEffect(() => {
-    setTimeout(() => setIsMount(true), 100);
+    setTimeout(() => setIsMount(true), 300);
   }, []);
 
   return (
