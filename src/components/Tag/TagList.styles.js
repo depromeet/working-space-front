@@ -4,6 +4,10 @@ const TagListStyled = styled.div`
   width: 100%;
   height: 100%;
 
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   .tag-list {
     width: 100%;
     line-height: 1.5;

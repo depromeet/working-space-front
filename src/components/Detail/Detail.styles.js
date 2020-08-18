@@ -18,9 +18,9 @@ const DetailStyled = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 0 16px;
+    padding: 20px 16px;
     box-sizing: border-box;
-    margin: 20px auto;
+    border-bottom: 1px solid #f5f5f5;
   }
   .tag-title {
     display: flex;

@@ -1,6 +1,7 @@
 /* global kakao */
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useHistory } from "react-router-dom";
+import debounce from "lodash.debounce";
 import Map from "../components/Map/Map";
 import { ReactComponent as LocationIcon } from "../images/icon-locate.svg";
 import { ReactComponent as LocationActiveIcon } from "../images/icon-locate-active.svg";
@@ -70,6 +71,7 @@ const MapContainer = () => {
           marker: null,
           location: null,
         });
+        mapInstance && mapInstance.relayout();
       });
       marker.setMap(mapInstance);
     });
@@ -96,7 +98,11 @@ const MapContainer = () => {
           location: "현위치 주소",
           distance: "0km",
           rating: 0,
-          tagCount: 0,
+          tags: [
+            { name: "study", follow: 12, isSelected: false },
+            { name: "concent", follow: 23, isSelected: false },
+            { name: "mute", follow: 21, isSelected: false },
+          ],
           latlng: nowLatLng,
           isSelected: false,
         },
@@ -118,7 +124,12 @@ const MapContainer = () => {
           location: "서울시 용산구 청파동 312",
           distance: "5.2km",
           rating: 4.4,
-          tagCount: 4,
+          tags: [
+            { name: "study", follow: 12, isSelected: false },
+            { name: "concent", follow: 23, isSelected: false },
+            { name: "mute", follow: 21, isSelected: false },
+            { name: "wifi", follow: 16, isSelected: false },
+          ],
           latlng: testLatLng1,
           isSelected: false,
         },
@@ -136,7 +147,10 @@ const MapContainer = () => {
           location: "서울시 서대문구 통일로 100",
           distance: "1.2km",
           rating: 4.1,
-          tagCount: 7,
+          tags: [
+            { name: "study", follow: 12, isSelected: false },
+            { name: "concent", follow: 23, isSelected: false },
+          ],
           latlng: testLatLng2,
           isSelected: false,
         },
@@ -170,10 +184,27 @@ const MapContainer = () => {
     [history],
   );
 
+  const setViewportHeight = useCallback(() => {
+    // const vh = window.innerHeight * 0.01;
+    // document.documentElement.style.setProperty("--vh", `${vh}px`);
+    document.body.style.height = `${window.innerHeight}px`;
+    mapInstance && mapInstance.relayout();
+  }, [mapInstance]);
+
   useEffect(() => {
     const kakaoMap = getKakaoMapObject();
     setMapInstance(kakaoMap);
   }, [getKakaoMapObject]);
+
+  useEffect(() => {
+    const debounced = debounce(setViewportHeight, 200);
+    window.addEventListener("resize", debounced);
+
+    return function cleanup() {
+      debounced.cancel();
+      window.removeEventListener("resize", debounced);
+    };
+  }, [mapInstance, setViewportHeight]);
 
   useEffect(() => {
     moveToCurrentCoordinates();
@@ -182,6 +213,10 @@ const MapContainer = () => {
   useEffect(() => {
     showAllMarkers();
   }, [showAllMarkers]);
+
+  useEffect(() => {
+    setViewportHeight();
+  }, [setViewportHeight]);
 
   return (
     <>

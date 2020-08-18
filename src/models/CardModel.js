@@ -8,6 +8,7 @@ class CardModel {
   @observable imageAlt;
   @observable distance;
   @observable rating;
+  @observable tags;
 
   constructor(data) {
     set(this, data);
