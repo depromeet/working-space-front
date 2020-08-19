@@ -10,9 +10,7 @@ const Tag = ({ tag, isSelectable, isSelected, isShowFollow, onClick }) => {
   return (
     <TagStyled isSelectable={isSelectable} isSelected={isSelected}>
       <div className="tag" onClick={handleClick}>
-        <span className="tag_icon">
-          <img src={tagImageByType[tag.name]} alt="" />
-        </span>
+        <span className="tag_icon">{tagImageByType[tag.name]}</span>
         <span className="tag_text">{tagNameByType[tag.name]}</span>
         {isShowFollow && tag.follow > 0 && <span className="tag_follow">+{tag.follow}</span>}
       </div>
