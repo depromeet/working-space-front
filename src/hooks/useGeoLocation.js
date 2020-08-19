@@ -1,5 +1,6 @@
 /* global kakao */
 import { useState, useCallback, useEffect } from "react";
+import GeoLocationUtils from "../utils/GeoLocationUtils";
 
 const useGeoLocation = () => {
   const [currentCoordinates, setCurrentCoordinates] = useState(null);
@@ -7,46 +8,11 @@ const useGeoLocation = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState(null);
 
-  const getAddressByCoordinates = useCallback(coords => {
-    return new Promise((resolve, reject) => {
-      const geocoder = new kakao.maps.services.Geocoder();
-      const { latitude, longitude } = coords;
-      geocoder.coord2Address(longitude, latitude, (result, status) => {
-        if (status === kakao.maps.services.Status.OK) {
-          const addressName = result[0].address.address_name;
-          resolve(addressName);
-        } else {
-          reject();
-        }
-      });
-    });
-  }, []);
-
-  const getGeoLocation = useCallback(() => {
-    return new Promise((resolve, reject) => {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          // Success
-          position => {
-            const { coords } = position;
-            resolve(coords);
-          },
-          // Error
-          err => {
-            reject(err);
-          },
-        );
-      } else {
-        reject(new Error("This device is not support to get GeoLocation."));
-      }
-    });
-  }, []);
-
   const fetch = useCallback(async () => {
     setIsFetching(true);
     try {
-      const coords = await getGeoLocation();
-      const addressName = await getAddressByCoordinates(coords);
+      const coords = await GeoLocationUtils.getGeoLocation();
+      const addressName = await GeoLocationUtils.getAddressByCoordinates(coords);
       setCurrentCoordinates(coords);
       setCurrentAddress(addressName);
     } catch (err) {
@@ -54,7 +20,7 @@ const useGeoLocation = () => {
       setError(err);
     }
     setIsFetching(false);
-  }, [getGeoLocation, getAddressByCoordinates]);
+  }, []);
 
   useEffect(() => {
     fetch();

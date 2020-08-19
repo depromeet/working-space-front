@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import useStore from "../hooks/useStore";
 import CardList from "../components/CardList/CardList";
 import LoadingBar from "../components/LoadingBar/LoadingBar";
+import useGeoLocation from "../hooks/useGeoLocation";
 
 const CardListContainer = props => {
   const { hasMainShow } = props;

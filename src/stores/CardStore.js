@@ -1,14 +1,18 @@
-import { observable, action } from "mobx";
+import { observable, set, flow } from "mobx";
 import CardRepository from "../repositories/CardRepository";
 import CardModel from "../models/CardModel";
 
 class CardStore {
   @observable cardDatas = [];
 
-  @action fetchCard(pageNumber) {
-    const cards = CardRepository.getCards(pageNumber);
+  constructor() {
+    this.fetchCard = flow(this.fetchCard.bind(this));
+  }
+
+  *fetchCard(pageNumber) {
+    const cards = yield CardRepository.getCards(pageNumber);
     const cardModels = cards.map(card => new CardModel(card));
-    this.cardDatas = this.cardDatas.concat(cardModels);
+    set(this, { cardDatas: this.cardDatas.concat(cardModels) });
   }
 }
 

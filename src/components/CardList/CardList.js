@@ -7,7 +7,6 @@ import LoadingBar from "../LoadingBar/LoadingBar";
 
 const CardList = props => {
   const { standard, cardDatas, onCardLinkClick, cardHeight, loadNextPage, LoadingIndicator, hasNextPage, isNextPageLoading, hasMainShow } = props;
-
   /* prettier-ignore */
   const Item = useCallback(({ data }) => {
     return <Card cardData={data} onCardLinkClick={onCardLinkClick} hasMainShow={hasMainShow} />;
