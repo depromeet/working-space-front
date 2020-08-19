@@ -15,15 +15,7 @@ const ModalEvaluation = props => {
   const [isFooterDisabled, setIsFooterDisabled] = useState(props.isFooterDisabled);
   const [footerButtonText, setFooterButtonText] = useState(props.footerButtonText);
   const [tags, setTags] = useState(props.tags);
-
-  const handleFooterButtonClick = useCallback(() => {
-    if (isFooterDisabled) return;
-    if (step === totalStep) return;
-
-    setStep(prev => prev + 1);
-    setIsActive(false);
-    setFooterButtonText("");
-  }, [step, totalStep, isFooterDisabled]);
+  const [rating, setRating] = useState(props.rating);
 
   const handleBackButtonClick = useCallback(() => {
     setStep(prev => prev - 1);
@@ -31,7 +23,8 @@ const ModalEvaluation = props => {
     setTags(props.tags);
   }, [props.tags]);
 
-  const handleRatingChange = useCallback(() => {
+  const handleRatingChange = useCallback(newRating => {
+    setRating(newRating);
     setIsActive(true);
     setIsFooterDisabled(false);
   }, []);
@@ -48,6 +41,23 @@ const ModalEvaluation = props => {
     setTags(props.tags);
     onModalClose();
   }, [props.tags]);
+
+  // prettier-ignore
+  const onSubmit = useCallback(onModalClose => {
+    const selectedTags = tags.filter(tag => tag.isSelected);
+    window.localStorage.setItem('working-space', JSON.stringify({ rating, tags: selectedTags.map(tag => tag.name)}))
+    handleClose(onModalClose);
+  }, [rating, tags]);
+
+  // prettier-ignore
+  const handleFooterButtonClick = useCallback(onModalClose => {
+    if (isFooterDisabled) return;
+    if (step === totalStep) { onSubmit(onModalClose); return; }
+
+    setStep(prev => prev + 1);
+    setIsActive(false);
+    setFooterButtonText("");
+  }, [step, totalStep, isFooterDisabled]);
 
   useEffect(() => {
     if (step === 1 && !isActive) {
@@ -85,7 +95,7 @@ const ModalEvaluation = props => {
           {step === 1 && <FirstStep onRatingChange={handleRatingChange} isActive={isActive} />}
           {step === 2 && <SecondStep onTagsChange={handleTagsChange} tags={tags} onSetTags={setTags} />}
           <div className="footer">
-            <button type="button" className="footer_button" onClick={handleFooterButtonClick}>
+            <button type="button" className="footer_button" onClick={() => handleFooterButtonClick(onClickClose)}>
               {footerButtonText}
             </button>
           </div>
@@ -102,6 +112,7 @@ ModalEvaluation.defaultProps = {
   isActive: false,
   footerButtonText: "",
   isFooterDisabled: false,
+  rating: 0,
   tags: [
     { name: "study", isSelected: false },
     { name: "concent", isSelected: false },
