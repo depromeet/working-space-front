@@ -6,7 +6,7 @@ import { ReactComponent as SmallTagIcon } from "../../images/icon-small-tag-fill
 import TagList from "../Tag/TagList";
 
 const CardInfo = props => {
-  const { title, location, distance, rating, tagCount, hasMainShow, showOnlyInfo } = props;
+  const { title, location, distance, rating, tags, tagCount, hasMainShow, showOnlyInfo } = props;
 
   return (
     <CardInfoStyled showOnlyInfo={showOnlyInfo}>
@@ -34,7 +34,7 @@ const CardInfo = props => {
 
         <p className="location">{location}</p>
       </div>
-      <TagList hasMainShow={hasMainShow} hasDropDownButton={false} isContraction={true} isShowFollow={false} />
+      <TagList tags={tags} hasMainShow={hasMainShow} hasDropDownButton={false} isContraction={true} isShowFollow={false} />
     </CardInfoStyled>
   );
 };
@@ -44,7 +44,11 @@ CardInfo.defaultProps = {
   location: "Location",
   distance: "2.2km",
   rating: 4.5,
-  tagCount: 5,
+  tags: [
+    { name: "study", follow: 12, isSelected: false },
+    { name: "concent", follow: 23, isSelected: false },
+  ],
+  tagCount: 2,
   showOnlyInfo: false,
 };
 

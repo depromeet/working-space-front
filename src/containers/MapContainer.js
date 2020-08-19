@@ -11,8 +11,8 @@ import useGeoLocation from "../hooks/useGeoLocation";
 import SelectedMapPickerImage from "../images/icon-mappicker-select.svg";
 import MapPickerImage from "../images/icon-mappicker.svg";
 
-const selectedMarkerImage = new kakao.maps.MarkerImage(SelectedMapPickerImage, new kakao.maps.Size(48, 48), { offset: new kakao.maps.Point(24, 47) });
-const unselectedMarkerImage = new kakao.maps.MarkerImage(MapPickerImage, new kakao.maps.Size(24, 24), { offset: new kakao.maps.Point(12, 23) });
+const selectedMarkerImage = new kakao.maps.MarkerImage(SelectedMapPickerImage, new kakao.maps.Size(48, 48), { offset: new kakao.maps.Point(23, 46) });
+const unselectedMarkerImage = new kakao.maps.MarkerImage(MapPickerImage, new kakao.maps.Size(24, 24));
 
 const MapContainer = () => {
   const history = useHistory();
@@ -25,6 +25,7 @@ const MapContainer = () => {
     marker: null,
     location: null,
   });
+  const [isOutOfCenter, setIsOutOfCenter] = useState(true);
 
   const getKakaoMapObject = useCallback(() => {
     const container = mapRef.current;
@@ -98,7 +99,11 @@ const MapContainer = () => {
           location: "현위치 주소",
           distance: "0km",
           rating: 0,
-          tagCount: 0,
+          tags: [
+            { name: "study", follow: 12, isSelected: false },
+            { name: "concent", follow: 23, isSelected: false },
+            { name: "mute", follow: 21, isSelected: false },
+          ],
           latlng: nowLatLng,
           isSelected: false,
         },
@@ -120,7 +125,12 @@ const MapContainer = () => {
           location: "서울시 용산구 청파동 312",
           distance: "5.2km",
           rating: 4.4,
-          tagCount: 4,
+          tags: [
+            { name: "study", follow: 12, isSelected: false },
+            { name: "concent", follow: 23, isSelected: false },
+            { name: "mute", follow: 21, isSelected: false },
+            { name: "wifi", follow: 16, isSelected: false },
+          ],
           latlng: testLatLng1,
           isSelected: false,
         },
@@ -138,7 +148,10 @@ const MapContainer = () => {
           location: "서울시 서대문구 통일로 100",
           distance: "1.2km",
           rating: 4.1,
-          tagCount: 7,
+          tags: [
+            { name: "study", follow: 12, isSelected: false },
+            { name: "concent", follow: 23, isSelected: false },
+          ],
           latlng: testLatLng2,
           isSelected: false,
         },
@@ -165,6 +178,30 @@ const MapContainer = () => {
     fetch();
   }, [deleteAllMarkers, fetch]);
 
+  const checkKakaoMapDragEnd = useCallback(() => {
+    if (mapInstance && currentCoordinates) {
+      kakao.maps.event.addListener(mapInstance, "dragend", () => {
+        const latlng = mapInstance.getCenter();
+        const centerLatitude = latlng.getLat();
+        const centerLongitude = latlng.getLng();
+
+        const currentLatitude = currentCoordinates.latitude;
+        const currentLongitude = currentCoordinates.longitude;
+
+        const latitudeDifference = Math.abs(currentLatitude - centerLatitude);
+        const longitudeDifference = Math.abs(currentLongitude - centerLongitude);
+
+        // 현위치와 지도의 중심이 0.0025만큼 차이가 있을 때
+        // 현위치에서 지도의 중심이 멀어져서 현위치가 아니라고 한다.
+        if (latitudeDifference > 0.0025 || longitudeDifference > 0.0025) {
+          setIsOutOfCenter(false);
+        } else {
+          setIsOutOfCenter(true);
+        }
+      });
+    }
+  }, [mapInstance, currentCoordinates]);
+
   const handleCardLinkClick = useCallback(
     card => {
       history.push(`/detail/${card.id}`);
@@ -185,6 +222,10 @@ const MapContainer = () => {
   }, [getKakaoMapObject]);
 
   useEffect(() => {
+    checkKakaoMapDragEnd();
+  }, [checkKakaoMapDragEnd]);
+
+  useEffect(() => {
     const debounced = debounce(setViewportHeight, 200);
     window.addEventListener("resize", debounced);
 
@@ -196,7 +237,8 @@ const MapContainer = () => {
 
   useEffect(() => {
     moveToCurrentCoordinates();
-  }, [moveToCurrentCoordinates]);
+    setIsOutOfCenter(true);
+  }, [moveToCurrentCoordinates, setIsOutOfCenter]);
 
   useEffect(() => {
     showAllMarkers();
@@ -209,7 +251,7 @@ const MapContainer = () => {
   return (
     <>
       <Map mapRef={mapRef} isSelected={!!(nowSelectingCafe.marker && nowSelectingCafe.location)}>
-        <FloatingActionButton onGetCurrentCoordinates={getCurrentCoordinates}>{!currentCoordinates || isFetching ? <LocationIcon /> : <LocationActiveIcon />}</FloatingActionButton>
+        <FloatingActionButton onGetCurrentCoordinates={getCurrentCoordinates}>{!currentCoordinates || isFetching || !isOutOfCenter ? <LocationIcon /> : <LocationActiveIcon />}</FloatingActionButton>
       </Map>
       {nowSelectingCafe.marker && nowSelectingCafe.location && <Card showOnlyInfo={true} onCardLinkClick={() => handleCardLinkClick(nowSelectingCafe.location)} cardData={nowSelectingCafe.location} />}
     </>

@@ -27,6 +27,7 @@ const ModalEvaluation = props => {
 
   const handleBackButtonClick = useCallback(() => {
     setStep(prev => prev - 1);
+    setIsActive(false);
   }, []);
 
   const handleRatingChange = useCallback(() => {

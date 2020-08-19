@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CARD_HEIGHT = "256px";
+const CARD_HEIGHT = "100%";
 const CARD_IN_MAP_HEIGHT = "148px";
 
 const CardStyled = styled.div`

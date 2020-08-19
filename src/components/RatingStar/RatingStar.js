@@ -1,11 +1,11 @@
-import React, { useCallback, useState, memo } from "react";
+import React, { useCallback, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { ReactComponent as StarIcon } from "../../images/icon-star-fill.svg";
 import { ReactComponent as HalfStarIcon } from "../../images/icon-star-half.svg";
 import RatingStarStyled from "./RatingStar.styles";
 
 const RatingStar = props => {
-  /* prettier-ignore */
+  // prettier-ignore
   const { starSize, starActiveColor, isStarHalf, starColor, isStarEditable, starCount, attendantCount, FilledIcon, HalfIcon, EmptyIcon, isShowAttendantCount, attendantColor, ratingTextColor, isVertical, isRatingInteger, isShowRatingTotal, ratingTextSize, rowStarGutter, ratingCurrentTextColor, ratingTotalTextColor } = props;
   const [rating, setRating] = useState(isRatingInteger ? parseInt(props.rating, 10) : parseFloat(props.rating).toFixed(1));
 
@@ -81,4 +81,4 @@ RatingStar.defaultProps = {
   FilledIcon: () => <StarIcon width={24} height={24} style={{ color: "#ffbb44" }} />,
 };
 
-export default memo(RatingStar);
+export default RatingStar;
