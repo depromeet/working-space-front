@@ -3,7 +3,6 @@ import styled from "styled-components";
 const TagListStyled = styled.div`
   width: 100%;
   height: 100%;
-  margin-bottom: 16.5px;
 
   &:last-child {
     margin-bottom: 0;
@@ -57,7 +56,8 @@ const TagListStyled = styled.div`
     color: #a7a7a7;
     background: none;
     margin: 0 auto;
-    margin-top: 17px;
+    padding: 16px;
+    margin-bottom: -16px;
   }
   .drop-down-button > span {
     margin-left: 4px;

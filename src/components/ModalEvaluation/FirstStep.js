@@ -15,20 +15,21 @@ const FirstStep = props => {
       <div className="rating">
         <RatingStar
           isVertical={true}
+          isStarHalf={true}
+          isStarEditable={true}
           isRatingInteger={true}
+          isShowAttendantCount={false}
+          isShowRatingTotal={true}
+          isActive={isActive}
           rating={0}
           ratingTextSize={18}
           ratingCurrentTextColor={isActive ? "#ffbb44" : "#ccc"}
-          isShowRatingTotal={true}
           starCount={5}
           rowStarGutter={8}
-          isStarEditable={true}
-          isShowAttendantCount={false}
           EmptyIcon={EmptyIcon}
           HalfIcon={HalfIcon}
           FilledIcon={FilledIcon}
           onRatingChanged={onRatingChange}
-          isActive={isActive}
         />
       </div>
     </>

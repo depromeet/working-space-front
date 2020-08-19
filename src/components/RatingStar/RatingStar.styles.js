@@ -21,6 +21,9 @@ const RatingStarStyled = styled.div`
   width: 100%;
   align-items: center;
   outline: none;
+  svg {
+    pointer-events: none;
+  }
   .rating_area {
     line-height: 1;
     display: flex;
