@@ -5,7 +5,7 @@ import * as styled from "./Modal.styles";
 const Modal = props => {
   const { OpenButton, shouldCloseOnDimmedClick } = props;
   const [isOpen, setIsOpen] = useState(props.isOpen);
-  const [topPosition, setTopPosition] = useState(window.innerHeight);
+  const [topPosition, setTopPosition] = useState(window.outerHeight);
 
   useEffect(() => {
     setTopPosition(props.topPosition);
@@ -40,8 +40,12 @@ const Modal = props => {
   return (
     <>
       <OpenButton onClick={onClickOpen} id="modal_open_button" />
-      <styled.Modal>
-        <Motion defaultStyle={{ top: isOpen ? window.innerHeight : topPosition }} style={{ top: spring(isOpen ? topPosition : window.innerHeight, { stiffness: 330, damping: 30 }) }}>
+      <styled.Modal isOpen={isOpen}>
+        <Motion
+          onAnimationEnd={() => console.log(123)}
+          defaultStyle={{ top: isOpen ? window.outerHeight : topPosition }}
+          style={{ top: spring(isOpen ? topPosition : window.outerHeight, { stiffness: 330, damping: 30 }) }}
+        >
           {style => (
             <div className="modal" style={{ top: style.top }}>
               {props.children({ onClickOpen, onClickClose, isOpen, setIsOpen })}

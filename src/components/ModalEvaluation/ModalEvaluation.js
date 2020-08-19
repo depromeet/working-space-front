@@ -28,7 +28,8 @@ const ModalEvaluation = props => {
   const handleBackButtonClick = useCallback(() => {
     setStep(prev => prev - 1);
     setIsActive(false);
-  }, []);
+    setTags(props.tags);
+  }, [props.tags]);
 
   const handleRatingChange = useCallback(() => {
     setIsActive(true);
@@ -39,6 +40,14 @@ const ModalEvaluation = props => {
     const selectedTags = tags.filter(tag => tag.isSelected);
     setIsActive(selectedTags.length >= 3);
   }, [tags]);
+
+  // prettier-ignore
+  const handleClose = useCallback(onModalClose => {
+    setStep(1);
+    setIsActive(false);
+    setTags(props.tags);
+    onModalClose();
+  }, [props.tags]);
 
   useEffect(() => {
     if (step === 1 && !isActive) {
@@ -72,7 +81,7 @@ const ModalEvaluation = props => {
             <h2 className="sub_title">{subTitle}</h2>
           </div>
           {step !== 1 && <BackIcon className="back_icon" onClick={handleBackButtonClick} />}
-          <CloseIcon className="close_icon" onClick={onClickClose} />
+          <CloseIcon className="close_icon" onClick={() => handleClose(onClickClose)} />
           {step === 1 && <FirstStep onRatingChange={handleRatingChange} isActive={isActive} />}
           {step === 2 && <SecondStep onTagsChange={handleTagsChange} tags={tags} onSetTags={setTags} />}
           <div className="footer">
