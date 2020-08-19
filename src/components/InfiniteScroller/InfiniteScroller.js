@@ -7,12 +7,14 @@ import LoadingBar from "../LoadingBar/LoadingBar";
 
 const InfiniteScroller = props => {
   const { itemSize, datas, hasNextPage, isNextPageLoading, loadNextPage, LoadingIndicator, Item } = props;
-  const itemCount = hasNextPage ? datas.length + 1 : datas.length;
   const isItemLoaded = useCallback(index => !hasNextPage || index < datas.length, [hasNextPage, datas]);
   const loadMoreItems = useCallback(isNextPageLoading ? () => {} : loadNextPage, [isNextPageLoading, loadNextPage]);
   const fixedSizeListRef = useRef();
   const MemoizedItem = memo(({ data }) => <Item data={data} />);
   const [isMount, setIsMount] = useState(false);
+  let itemCount;
+  if (!datas.length) itemCount = 5;
+  if (datas.length) itemCount = hasNextPage ? datas.length + 1 : datas.length;
 
   const handleWindowScroll = useCallback(({ scrollTop }) => {
     fixedSizeListRef.current.scrollTo(scrollTop);
