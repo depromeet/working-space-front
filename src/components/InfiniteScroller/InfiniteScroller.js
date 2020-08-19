@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, memo, useEffect, useMemo } from "react";
+import React, { useCallback, useRef, memo, useState, useEffect } from "react";
 import { FixedSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -12,13 +12,14 @@ const InfiniteScroller = props => {
   const loadMoreItems = useCallback(isNextPageLoading ? () => {} : loadNextPage, [isNextPageLoading, loadNextPage]);
   const fixedSizeListRef = useRef();
   const MemoizedItem = memo(({ data }) => <Item data={data} />);
+  const [isMount, setIsMount] = useState(false);
 
   const handleWindowScroll = useCallback(({ scrollTop }) => {
     fixedSizeListRef.current.scrollTo(scrollTop);
   }, []);
 
   const Row = ({ index, style }) => {
-    if (!isItemLoaded(index)) {
+    if (!isMount || !isItemLoaded(index)) {
       return (
         <div style={style}>
           <LoadingIndicator />
@@ -33,21 +34,25 @@ const InfiniteScroller = props => {
     );
   };
 
+  useEffect(() => {
+    setTimeout(() => setIsMount(true), 300);
+  }, []);
+
   return (
     <>
       <WindowScroller onScroll={handleWindowScroll}>{() => <div />}</WindowScroller>
       <InfiniteLoader itemCount={itemCount} loadMoreItems={loadMoreItems} isItemLoaded={isItemLoaded}>
         {({ onItemsRendered, ref }) => {
           return (
-            <AutoSizer>
-              {({ width, height }) => (
+            <AutoSizer disableHeight>
+              {({ width }) => (
                 <FixedSizeList
                   ref={listRef => {
                     ref(listRef);
                     fixedSizeListRef.current = listRef;
                   }}
                   width={width}
-                  height={height}
+                  height={window.innerHeight}
                   itemCount={itemCount}
                   itemSize={itemSize}
                   onItemsRendered={onItemsRendered}
