@@ -14,7 +14,7 @@ const CardView = props => {
 
   return (
     <CardViewStyled>
-      <div className="card-image">{imageUrl !== null ? <Image src={imageUrl} alt={imageAlt} /> : <NoneImage />}</div>
+      <div className="card-image">{imageUrl ? <Image src={imageUrl} alt={imageAlt} /> : <NoneImage />}</div>
       <div className="card-image-info">
         {rating !== null && (
           <div className="image-info-box info-box-1">

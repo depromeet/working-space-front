@@ -17,6 +17,8 @@ module.exports = {
     "no-console": 0,
     "no-undef": 0,
     "no-debugger": 0,
+    "no-plusplus": 0,
+    "consistent-return": 0,
     "lines-between-class-members": 0,
     "react/display-name": 0,
     "import/prefer-default-export": 0,

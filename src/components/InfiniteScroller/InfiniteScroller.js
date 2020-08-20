@@ -6,13 +6,13 @@ import { WindowScroller } from "react-virtualized";
 import LoadingBar from "../LoadingBar/LoadingBar";
 
 const InfiniteScroller = props => {
-  const { itemSize, datas, hasNextPage, isNextPageLoading, loadNextPage, LoadingIndicator, Item } = props;
-  const itemCount = hasNextPage ? datas.length + 1 : datas.length;
+  const { itemSize, datas, hasNextPage, isNextPageLoading, loadNextPage, LoadingIndicator, Item, threshold, overscanCount } = props;
   const isItemLoaded = useCallback(index => !hasNextPage || index < datas.length, [hasNextPage, datas]);
   const loadMoreItems = useCallback(isNextPageLoading ? () => {} : loadNextPage, [isNextPageLoading, loadNextPage]);
   const fixedSizeListRef = useRef();
   const MemoizedItem = memo(({ data }) => <Item data={data} />);
   const [isMount, setIsMount] = useState(false);
+  const itemCount = hasNextPage ? datas.length + threshold : datas.length;
 
   const handleWindowScroll = useCallback(({ scrollTop }) => {
     fixedSizeListRef.current.scrollTo(scrollTop);
@@ -56,6 +56,7 @@ const InfiniteScroller = props => {
                   itemCount={itemCount}
                   itemSize={itemSize}
                   onItemsRendered={onItemsRendered}
+                  overscanCount={overscanCount}
                   style={{ height: "100% !important" }}
                   {...props}
                 >
@@ -75,6 +76,8 @@ InfiniteScroller.defaultProps = {
   datas: Array.from(Array(100), (v, i) => `row${i}`),
   hasNextPage: false,
   isNextPageLoading: false,
+  threshold: 10, // 아래 몇개의 Row가 남았을때 fetch 할건지
+  overscanCount: 10, // 아래 몇개의 Row가 미리 렌더링 될지
   loadNextPage: () => console.log("loadNextPage"),
   LoadingIndicator: () => <LoadingBar />,
   Item: ({ data }) => <div>{data}</div>,

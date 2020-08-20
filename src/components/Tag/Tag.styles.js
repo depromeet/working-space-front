@@ -29,8 +29,14 @@ const TagStyled = styled.div`
   }
   .tag_icon {
     line-height: 1;
-
+    position: relative;
+    width: 24px;
+    height: 24px;
     svg {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
       fill: ${({ isSelected }) => isSelected && "#fff"};
     }
   }

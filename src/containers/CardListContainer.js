@@ -1,26 +1,25 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { toJS } from "mobx";
 import { observer } from "mobx-react";
 import useStore from "../hooks/useStore";
 import CardList from "../components/CardList/CardList";
 import LoadingBar from "../components/LoadingBar/LoadingBar";
-import useGeoLocation from "../hooks/useGeoLocation";
 
 const CardListContainer = props => {
   const { hasMainShow } = props;
   const history = useHistory();
   const { CardStore } = useStore();
-  const [pageNumber, setPageNumber] = useState(1);
+  const pageNumber = useRef(1);
 
   const handleCardLinkClick = useCallback(card => {
     history.push(`/detail/${card.id}`);
   }, []);
 
   const loadNextPage = useCallback(async () => {
-    await CardStore.fetchCard(pageNumber);
-    setPageNumber(pageNumber + 1);
-  }, [pageNumber]);
+    pageNumber.current++;
+    await CardStore.fetchCard(pageNumber.current);
+  }, []);
 
   const LoadingIndicator = useCallback(() => <LoadingBar />, []);
 
