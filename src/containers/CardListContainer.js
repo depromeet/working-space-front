@@ -4,6 +4,7 @@ import { toJS } from "mobx";
 import { observer } from "mobx-react";
 import useStore from "../hooks/useStore";
 import CardList from "../components/CardList/CardList";
+import NoneCardList from "../components/CardList/NoneCardList";
 import LoadingBar from "../components/LoadingBar/LoadingBar";
 
 const CardListContainer = props => {
@@ -23,7 +24,7 @@ const CardListContainer = props => {
 
   const LoadingIndicator = useCallback(() => <LoadingBar />, []);
 
-  return (
+  return CardStore.cardDatas !== null ? (
     <CardList
       cardDatas={toJS(CardStore.cardDatas)}
       onCardLinkClick={handleCardLinkClick}
@@ -34,6 +35,8 @@ const CardListContainer = props => {
       LoadingIndicator={LoadingIndicator}
       hasMainShow={hasMainShow}
     />
+  ) : (
+    <NoneCardList />
   );
 };
 
