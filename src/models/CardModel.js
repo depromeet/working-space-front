@@ -1,5 +1,6 @@
 import { observable, set } from "mobx";
 
+const imageIndex = 0;
 class CardModel {
   @observable id = "Cafe";
   @observable name = "커피베이 가락점";
@@ -37,7 +38,7 @@ class CardModel {
       endHours: data.end_hours,
       location: JSON.parse(data.location),
       homepage: data.homepage,
-      imageUrl: data.img,
+      imageUrl: `/images/${parseInt(Math.random() * 10, 10) + 1}.jpg`,
       imageAlt: `${data.name}이미지`,
     });
   }
