@@ -1,18 +1,24 @@
 /* global kakao */
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
+import { toJS } from "mobx";
 import useStore from "../hooks/useStore";
 import Detail from "../components/Detail/Detail";
 import ModalEvaluation from "../components/ModalEvaluation/ModalEvaluation";
+import LoadingBar from "../components/LoadingBar/LoadingBar";
 
 const DetailContainer = props => {
   const { hasMainShow } = props;
-  const { CardStore } = useStore();
+  const { CardDetailStore } = useStore();
+
+  const currentParams = useParams();
+  const currentId = currentParams.id;
 
   const [mapInstance, setMapInstance] = useState(null);
   const mapRef = useRef(null);
 
-  const getKakaoMapObject = useCallback(async () => {
+  const getKakaoMapObject = useCallback(() => {
     const container = mapRef.current;
     const options = {
       center: new kakao.maps.LatLng(37.498095, 127.02761),
@@ -26,17 +32,21 @@ const DetailContainer = props => {
   }, []);
 
   useEffect(() => {
-    const kakaoMap = getKakaoMapObject();
-    setMapInstance(kakaoMap);
-  }, [getKakaoMapObject]);
+    CardDetailStore.fetchCardDetail(currentId);
 
-  useEffect(() => {
-    CardStore.fetchCard();
-  }, [CardStore]);
+    /*
+      const kakaoMap = getKakaoMapObject();
+      setMapInstance(kakaoMap);
+    */
+  }, [currentId, CardDetailStore]);
 
-  return (
+  return CardDetailStore.cardDetailData === null ? (
+    <div>
+      <LoadingBar hasMainLoading={false} />
+    </div>
+  ) : (
     <>
-      <Detail hasMainShow={hasMainShow} mapRef={mapRef} />
+      <Detail card={toJS(CardDetailStore.cardDetailData)} hasMainShow={hasMainShow} mapRef={mapRef} />
       <ModalEvaluation />
     </>
   );

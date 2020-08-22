@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const AxiosUtils = axios.create({
+export const AxiosUtils = axios.create({
   baseURL: "https://nomad-cafe.yonghochoi.com/api/v1",
 });
 
-export default AxiosUtils;
+export function createCancelSource() {
+  return axios.CancelToken.source();
+}

@@ -5,12 +5,12 @@ import { ReactComponent as SmallMarkIcon } from "../../images/icon-small-locatio
 import { ReactComponent as SmallTagIcon } from "../../images/icon-small-tag-fill.svg";
 
 const DetailTitle = props => {
-  const { title, distance, tagCount } = props;
+  const { name, distance, tagCount } = props;
 
   return (
     <DetailTitleStyled>
       <div className="title-top">
-        <h2 className="info-title">{title}</h2>
+        <h2 className="info-title">{name}</h2>
         <div className="icon-align">
           <SmallMarkIcon />
           <span>{distance}</span>
@@ -28,9 +28,9 @@ const DetailTitle = props => {
 };
 
 DetailTitle.defaultProps = {
-  tagCount: 2,
-  title: "Cafe1",
-  distance: "2.2km",
+  name: "Cafe",
+  distance: "0km",
+  tagCount: 10,
 };
 
 export default DetailTitle;
