@@ -1,28 +1,31 @@
-import React, { Suspense } from "react";
+import React, { Suspense, memo } from "react";
 import LazyLoad from "react-lazyload";
 import { useImage } from "react-image";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import * as styled from "./Image.styles";
 import NoneImage from "../NoneImage/NoneImage";
 
-const LazyLoadImage = ({ backgroundColor, offset, alt, ...props }) => {
+const ReactImage = memo(({ alt, ...props }) => {
   const { src, error } = useImage({
     srcList: props.src,
   });
 
-  return (
-    <styled.Image>
-      <LazyLoad offset={offset} once style={{ height: "100%" }}>
-        {<img src={src} alt={alt} style={{ backgroundColor, width: "100%", height: "100%" }} />}
-      </LazyLoad>
-    </styled.Image>
-  );
-};
+  return <styled.Image>{error ? <NoneImage /> : <img src={src} alt={alt} style={{ width: "100%", height: "100%" }} />}</styled.Image>;
+});
 
-const Image = ({ backgroundColor, offset, alt, ...props }) => {
+const Image = ({ offset, src, alt }) => {
   return (
-    <Suspense fallback={<NoneImage />}>
-      <LazyLoadImage backgroundColor={backgroundColor} offset={offset} alt={alt} {...props} />
-    </Suspense>
+    <LazyLoad offset={offset} once style={{ height: "100%" }}>
+      <Suspense
+        fallback={
+          <SkeletonTheme>
+            <Skeleton width="100%" height="100%" />
+          </SkeletonTheme>
+        }
+      >
+        <ReactImage src={src} alt={alt} />
+      </Suspense>
+    </LazyLoad>
   );
 };
 
@@ -30,7 +33,6 @@ Image.defaultProps = {
   src: "https://placehold.it/300x150",
   alt: "이미지",
   offset: 1000,
-  backgroundColor: "#ccc",
 };
 
-export default Image;
+export default memo(Image);
