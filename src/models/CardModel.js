@@ -39,7 +39,7 @@ class CardModel {
       endHours: data.end_hours,
       homepage: data.homepage,
       location: data.location.coordinates,
-      imageUrl: `/images/${parseInt(Math.random() * 10, 10) + 1}.jpg`,
+      imageUrl: `/images/${parseInt(Math.random() * 18, 10) + 1}.jpg`,
       imageAlt: `${data.name}이미지`,
     });
   }
