@@ -56,7 +56,7 @@ class CardModel {
       longitude: data.location.coordinates[0],
       marker,
       distance: data.dist,
-      imageUrl: `/images/${parseInt(Math.random() * 10, 10) + 1}.jpg`,
+      imageUrl: `/images/${parseInt(Math.random() * 18, 10) + 1}.jpg`,
       imageAlt: `${data.name}이미지`,
     });
   }

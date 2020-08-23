@@ -104,29 +104,6 @@ const MapContainer = () => {
     const lng = currentCoordinates.longitude;
     const nowLatLng = new kakao.maps.LatLng(lat, lng);
     mapInstance.setCenter(nowLatLng);
-
-    // 마커 클릭 테스트용
-    // 현위치를 기반으로 마커를 생성하기 위해 cafeData에 더미 데이터를 생성합니다.
-    // setCafeData(prevState => {
-    //   const newCafeData = [...prevState];
-    //   const currentLocationItem = {
-    //     id: 1,
-    //     title: "현위치",
-    //     location: "현위치 주소",
-    //     distance: "0km",
-    //     rating: 0,
-    //     tags: [
-    //       { name: "study", follow: 12, isSelected: false },
-    //       { name: "concent", follow: 23, isSelected: false },
-    //       { name: "mute", follow: 21, isSelected: false },
-    //     ],
-    //     latlng: nowLatLng,
-    //     marker: createMarker("현위치", nowLatLng, unselectedMarkerImage),
-    //   };
-    //   newCafeData.push(currentLocationItem);
-
-    //   return newCafeData;
-    // });
   }, [currentCoordinates, mapInstance]);
 
   const getCurrentCoordinates = useCallback(() => {
