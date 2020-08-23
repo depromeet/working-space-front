@@ -1,4 +1,5 @@
 import React from "react";
+import { isEmpty } from "lodash";
 import DetailInfoStyled from "./DetailInfo.styles";
 
 const DetailInfo = props => {
@@ -11,19 +12,19 @@ const DetailInfo = props => {
       <div className="info-text">
         <p>
           <span>주소</span>
-          {typeof address === "undefined" || address === null || address === "" ? noneText : address}
+          {isEmpty(address) ? noneText : address}
         </p>
         <div className="info-hours">
           <span>영업시간</span>
-          <div className="info-hours-box">{typeof hours === "undefined" || hours === null || hours === "" ? noneText : hours?.map((h, i) => <p key={i}>{h}</p>)}</div>
+          <div className="info-hours-box">{isEmpty(hours) ? noneText : hours?.map((h, i) => <p key={i}>{h}</p>)}</div>
         </div>
         <p>
           <span>휴무일</span>
-          {typeof closed === "undefined" || closed === null || closed === "" ? noneText : closed}
+          {isEmpty(closed) ? noneText : closed}
         </p>
         <p>
           <span>전화번호</span>
-          {typeof phone === "undefined" || phone === null || phone === "" ? noneText : phone}
+          {isEmpty(phone) ? noneText : phone}
         </p>
       </div>
     </DetailInfoStyled>

@@ -10,7 +10,7 @@ import LoadingBar from "../components/LoadingBar/LoadingBar";
 
 const DetailContainer = props => {
   const { hasMainShow } = props;
-  const { CardDetailStore } = useStore();
+  const { CardStore } = useStore();
 
   const currentParams = useParams();
   const currentId = currentParams.id;
@@ -32,21 +32,21 @@ const DetailContainer = props => {
   }, []);
 
   useEffect(() => {
-    CardDetailStore.fetchCardDetail(currentId);
+    CardStore.fetchCardDetail(currentId);
 
     /*
       const kakaoMap = getKakaoMapObject();
       setMapInstance(kakaoMap);
     */
-  }, [currentId, CardDetailStore]);
+  }, [currentId, CardStore]);
 
-  return CardDetailStore.cardDetailData === null ? (
+  return CardStore.cardDetailData === null ? (
     <div>
       <LoadingBar hasMainLoading={false} />
     </div>
   ) : (
     <>
-      <Detail card={toJS(CardDetailStore.cardDetailData)} hasMainShow={hasMainShow} mapRef={mapRef} />
+      <Detail card={toJS(CardStore.cardDetailData)} hasMainShow={hasMainShow} mapRef={mapRef} />
       <ModalEvaluation />
     </>
   );

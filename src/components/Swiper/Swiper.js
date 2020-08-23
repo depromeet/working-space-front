@@ -9,13 +9,19 @@ SwiperCore.use([Navigation, Pagination]);
 const Swiper = props => {
   const { imageUrl, imageAlt } = props;
 
-  if (imageUrl === null) {
+  if (imageUrl === null || imageUrl.length === 0) {
     return <NoneImage />;
   }
 
   return (
     <SwiperStyled>
-      {imageUrl.length !== 1 ? (
+      {imageUrl.length === 1 ? (
+        <div className="swiper-container">
+          <div className="swiper-slide">
+            <img src={imageUrl} alt={imageAlt} />
+          </div>
+        </div>
+      ) : (
         <SwiperReact.Swiper slidesPerView={1} pagination={{ clickable: true }}>
           {imageUrl.map((slide, index) => (
             <SwiperReact.SwiperSlide key={index}>
@@ -23,12 +29,6 @@ const Swiper = props => {
             </SwiperReact.SwiperSlide>
           ))}
         </SwiperReact.Swiper>
-      ) : (
-        <div className="swiper-container">
-          <div className="swiper-slide">
-            <img src={imageUrl} alt={imageAlt} />
-          </div>
-        </div>
       )}
     </SwiperStyled>
   );

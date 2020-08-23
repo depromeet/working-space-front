@@ -22,8 +22,8 @@ class CardRepository {
     this.cancelGetCardDetail();
     this.getCardDetailCancelSource = createCancelSource();
 
-    const result = await AxiosUtils.get(`/cafes/?id=${cardId}`, { cancelToken: this.getCardDetailCancelSource.token });
-    return result.data.results[0];
+    const result = await AxiosUtils.get(`/cafes/${cardId}/`, { cancelToken: this.getCardDetailCancelSource.token });
+    return result.data;
   };
 }
 
