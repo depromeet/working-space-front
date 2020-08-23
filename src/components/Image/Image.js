@@ -1,28 +1,25 @@
 import React, { Suspense } from "react";
 import LazyLoad from "react-lazyload";
-import { useImage } from "react-image";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { Img } from "react-image";
 import * as styled from "./Image.styles";
 import NoneImage from "../NoneImage/NoneImage";
 
-const LazyLoadImage = ({ backgroundColor, offset, alt, ...props }) => {
-  const { src, error } = useImage({
-    srcList: props.src,
-  });
-
+const ImagePlaceHolder = () => {
   return (
-    <styled.Image>
-      <LazyLoad offset={offset} once style={{ height: "100%" }}>
-        {<img src={src} alt={alt} style={{ backgroundColor, width: "100%", height: "100%" }} />}
-      </LazyLoad>
-    </styled.Image>
+    <SkeletonTheme>
+      <Skeleton className="image_skeleton" />
+    </SkeletonTheme>
   );
 };
 
-const Image = ({ backgroundColor, offset, alt, ...props }) => {
+const Image = ({ backgroundColor, offset, src, alt, ...props }) => {
   return (
-    <Suspense fallback={<NoneImage />}>
-      <LazyLoadImage backgroundColor={backgroundColor} offset={offset} alt={alt} {...props} />
-    </Suspense>
+    <styled.Image backgroundColor={backgroundColor}>
+      <LazyLoad offset={offset} once>
+        <Img src={src} alt={alt} loader={<ImagePlaceHolder />} unloader={<NoneImage />} />
+      </LazyLoad>
+    </styled.Image>
   );
 };
 
