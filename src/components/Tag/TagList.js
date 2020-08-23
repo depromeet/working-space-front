@@ -4,7 +4,7 @@ import TagListStyled from "./TagList.styles";
 import Tag from "./Tag";
 import { ReactComponent as DropDownIcon } from "../../images/icon-dropdown.svg";
 
-const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContraction, isShowFollow, isSelectable, onTagsChanged }) => {
+const TagList = ({ tags, tagCount, onSetTags, hasMainShow, hasDropDownButton, isContraction, isShowFollow, isSelectable, onTagsChanged }) => {
   /* prettier-ignore */
   const toggleTag = useCallback(index => {
     if(!onSetTags) return;
@@ -20,8 +20,8 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
   const [showDrop, setShowDrop] = useState(false);
 
   const makeTagList = useCallback(
-    (tags, hasMainShow, hasDropDownButton, isSelectable, isShowFollow, isContraction, toggleTag) => {
-      if (tags.length === 0) {
+    (tags, tagCount, hasMainShow, hasDropDownButton, isSelectable, isShowFollow, isContraction, toggleTag) => {
+      if (tagCount <= 0 || tags === null) {
         return hasMainShow ? <div className="main-non-tag">태그가 없습니다. 카페를 이용한 후 평가를 남겨주세요.</div> : <div className="non-tag">아직 등록된 태그가 없습니다</div>;
       }
 
@@ -29,11 +29,11 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
 
       if (isContraction) {
         filteredTags = tags.slice(0, 2);
-      } else if (hasDropDownButton && tags.length > 4 && !showDrop) {
+      } else if (hasDropDownButton && tagCount > 4 && !showDrop) {
         filteredTags = tags.slice(0, 4);
       }
 
-      const showMoreCount = tags.length > 2 && isContraction;
+      const showMoreCount = tagCount > 2 && isContraction;
 
       return (
         <>
@@ -44,7 +44,7 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
               </div>
             );
           })}
-          {showMoreCount ? <span className="more-tag-length">+{tags.length - 2}</span> : null}
+          {showMoreCount ? <span className="more-tag-length">+{tagCount - 2}</span> : null}
         </>
       );
     },
@@ -53,8 +53,8 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
 
   return (
     <TagListStyled>
-      <div className="tag-list">{makeTagList(tags, hasMainShow, hasDropDownButton, isSelectable, isShowFollow, isContraction, toggleTag)}</div>
-      {hasDropDownButton && tags.length > 4 && !showDrop ? (
+      <div className="tag-list">{makeTagList(tags, tagCount, hasMainShow, hasDropDownButton, isSelectable, isShowFollow, isContraction, toggleTag)}</div>
+      {hasDropDownButton && tagCount > 4 && !showDrop ? (
         <button className="drop-down-button" onClick={() => setShowDrop(true)}>
           <DropDownIcon />
           <span>더보기</span>
@@ -70,6 +70,7 @@ TagList.defaultProps = {
   isShowFollow: true,
   hasMainShow: true,
   hasDropDownButton: false,
+  tagCount: 10,
   tags: [
     { name: "study", follow: 12, isSelected: false },
     { name: "concent", follow: 23, isSelected: false },

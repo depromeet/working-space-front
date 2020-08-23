@@ -7,26 +7,36 @@ import NoneImage from "../NoneImage/NoneImage";
 SwiperCore.use([Navigation, Pagination]);
 
 const Swiper = props => {
-  const { slides } = props;
+  const { imageUrl, imageAlt } = props;
+
+  if (imageUrl === null || imageUrl.length === 0) {
+    return <NoneImage />;
+  }
 
   return (
     <SwiperStyled>
-      {slides !== null ? (
+      {imageUrl.length === 1 ? (
+        <div className="swiper-container">
+          <div className="swiper-slide">
+            <img src={imageUrl} alt={imageAlt} />
+          </div>
+        </div>
+      ) : (
         <SwiperReact.Swiper slidesPerView={1} pagination={{ clickable: true }}>
-          {slides.map((slide, index) => (
-            <SwiperReact.SwiperSlide key={index}>{slide}</SwiperReact.SwiperSlide>
+          {imageUrl.map((slide, index) => (
+            <SwiperReact.SwiperSlide key={index}>
+              <img src={slide} alt={imageAlt} />
+            </SwiperReact.SwiperSlide>
           ))}
         </SwiperReact.Swiper>
-      ) : (
-        <NoneImage />
       )}
     </SwiperStyled>
   );
 };
 
 Swiper.defaultProps = {
-  // slides: ["slide1", "slide2", "slide3", "slide4", "slide5"],
-  slides: null,
+  imageUrl: null,
+  imageAlt: null,
 };
 
 export default Swiper;

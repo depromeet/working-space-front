@@ -61,7 +61,7 @@ const Modal = props => {
 Modal.defaultProps = {
   OpenButton: props => (
     <styled.OpenButton type="button" {...props}>
-      작업 공간으로 적절했나요?
+      작업공간으로 적절했나요?
     </styled.OpenButton>
   ),
   topPosition: 160,

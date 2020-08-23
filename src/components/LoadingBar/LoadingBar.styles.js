@@ -10,6 +10,13 @@ const LoadingBarStyled = styled.div`
   .card-tag {
     margin-top: 8px;
   }
+
+  .detail-loading {
+    margin: 16px;
+  }
+  .card-box {
+    margin-bottom: 16px;
+  }
 `;
 
 export default LoadingBarStyled;

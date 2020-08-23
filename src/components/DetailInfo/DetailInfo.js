@@ -1,8 +1,10 @@
 import React from "react";
+import { isEmpty } from "lodash";
 import DetailInfoStyled from "./DetailInfo.styles";
 
 const DetailInfo = props => {
-  const { location, hours, closed, number } = props;
+  const { address, hours, closed, phone } = props;
+  const noneText = "정보없음";
 
   return (
     <DetailInfoStyled>
@@ -10,23 +12,19 @@ const DetailInfo = props => {
       <div className="info-text">
         <p>
           <span>주소</span>
-          {location}
+          {isEmpty(address) ? noneText : address}
         </p>
         <div className="info-hours">
           <span>영업시간</span>
-          <div className="info-hours-box">
-            {hours?.map((h, i) => (
-              <p key={i}>{h}</p>
-            ))}
-          </div>
+          <div className="info-hours-box">{isEmpty(hours) ? noneText : hours?.map((h, i) => <p key={i}>{h}</p>)}</div>
         </div>
         <p>
           <span>휴무일</span>
-          {closed}
+          {isEmpty(closed) ? noneText : closed}
         </p>
         <p>
           <span>전화번호</span>
-          {number}
+          {isEmpty(phone) ? noneText : phone}
         </p>
       </div>
     </DetailInfoStyled>
@@ -34,11 +32,11 @@ const DetailInfo = props => {
 };
 
 DetailInfo.defaultProps = {
-  location: "서울 서초구 양재천로 131 4층",
-  // hours: ["매일 09:00 - 23:00"],
-  hours: ["평일 09:00 - 23:00", "주말 10:00 - 23:00"],
-  closed: "매월 둘째주 일요일",
-  number: "02-578-2737",
+  address: null,
+  phone: null,
+  // hours: ["평일 09:00 - 23:00", "주말 10:00 - 23:00"],
+  hours: null,
+  closed: null,
 };
 
 export default DetailInfo;

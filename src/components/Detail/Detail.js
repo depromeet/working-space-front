@@ -11,15 +11,15 @@ const Detail = props => {
 
   return (
     <DetailStyled>
-      <DetailTitle title={card.title} distance={card.distance} tagCount={card.tags.length} />
-      <Swiper />
-      <DetailInfo />
+      <DetailTitle name={card.name} distance={card.distance} tagCount={card.tagCount} />
+      <Swiper imageUrl={card.imageUrl} imageAlt={card.imageAlt} />
+      <DetailInfo address={card.address} phone={card.phone} />
       <hr />
       <div className="tag-list-wrapper">
         <div className="tag-title">
           <h2 className="tag-text">태그</h2>
         </div>
-        <TagList tags={card.tags} hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} isShowFollow={true} />
+        <TagList tags={card.tags} tagCount={card.tagCount} hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} isShowFollow={true} />
       </div>
       <hr />
       <DetailLocation mapRef={mapRef} />
@@ -28,10 +28,10 @@ const Detail = props => {
 };
 
 Detail.defaultProps = {
-  tagCount: 5,
   card: {
-    title: "Cafe1",
-    distance: "2.2km",
+    name: "Cafe",
+    distance: "0km",
+    tagCount: 10,
     tags: [
       { name: "study", follow: 12, isSelected: false },
       { name: "concent", follow: 23, isSelected: false },
@@ -46,6 +46,9 @@ Detail.defaultProps = {
       { name: "seat", follow: 7, isSelected: false },
       { name: "chair", follow: 1, isSelected: false },
     ],
+    address: null,
+    phone: null,
+    imageUrl: null,
   },
   mapRef: null,
 };

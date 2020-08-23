@@ -1,10 +1,12 @@
 import { observable, set, flow } from "mobx";
+import axios from "axios";
 import CardRepository from "../repositories/CardRepository";
 import CardModel from "../models/CardModel";
 import GeoLocationUtils from "../utils/GeoLocationUtils";
 
 class CardStore {
   @observable cardDatas = [];
+  @observable cardDetailData = null;
   @observable pageNumber = 1;
   @observable latitude = null;
   @observable longitude = null;
@@ -14,6 +16,7 @@ class CardStore {
 
   constructor() {
     this.fetchCard = flow(this.fetchCard.bind(this));
+    this.fetchCardDetail = flow(this.fetchCardDetail.bind(this));
   }
 
   *fetchCard() {
@@ -26,6 +29,22 @@ class CardStore {
     set(this, { cardDatas: this.cardDatas.concat(cardModels) });
     this.pageNumber++;
     this.isLoading.fetchCard = false;
+  }
+
+  *fetchCardDetail(cardId) {
+    set(this, { cardDetailData: null });
+
+    try {
+      const cardDetail = yield CardRepository.getCardDetail(cardId);
+      const cardDetailModels = new CardModel(cardDetail);
+      set(this, { cardDetailData: cardDetailModels });
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        set(this, { cardDetailData: null });
+      } else {
+        console.log(error);
+      }
+    }
   }
 }
 

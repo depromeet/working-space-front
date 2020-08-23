@@ -14,6 +14,8 @@ const CardStyled = styled.div`
   &:first-of-type {
     margin-top: 0;
   }
+  box-shadow: ${props => (props.showOnlyInfo ? "0 -1px 3px 0 rgba(0, 0, 0, 0.3)" : "0")};
+  z-index: 1;
 `;
 
 export default CardStyled;

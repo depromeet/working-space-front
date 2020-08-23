@@ -20,7 +20,7 @@ const CardListContainer = props => {
     await CardStore.fetchCard();
   }, [CardStore]);
 
-  const LoadingIndicator = useCallback(() => <LoadingBar />, []);
+  const LoadingIndicator = useCallback(() => <LoadingBar hasMainLoading={true} />, []);
 
   return CardStore.cardDatas !== null ? (
     <CardList
