@@ -23,12 +23,10 @@ class GeoLocationUtils {
     return new Promise((resolve, reject) => {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
-          // Success
           position => {
             const { coords } = position;
             resolve(coords);
           },
-          // Error
           err => {
             reject(err);
           },

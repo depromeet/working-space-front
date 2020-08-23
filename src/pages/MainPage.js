@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HeaderContainer from "../containers/HeaderContainer";
 import CardListContainer from "../containers/CardListContainer";
 

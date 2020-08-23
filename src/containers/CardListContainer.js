@@ -11,16 +11,14 @@ const CardListContainer = props => {
   const { hasMainShow } = props;
   const history = useHistory();
   const { CardStore } = useStore();
-  const pageNumber = useRef(1);
 
   const handleCardLinkClick = useCallback(card => {
     history.push(`/detail/${card.id}`);
   }, []);
 
   const loadNextPage = useCallback(async () => {
-    pageNumber.current++;
-    await CardStore.fetchCard(pageNumber.current);
-  }, []);
+    await CardStore.fetchCard();
+  }, [CardStore]);
 
   const LoadingIndicator = useCallback(() => <LoadingBar />, []);
 
