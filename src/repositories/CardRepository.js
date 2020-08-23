@@ -6,7 +6,7 @@ class CardRepository {
   getCardDetailCancelSource = null;
 
   async getCards(pageNumber = 1, latitude, longitude) {
-    const result = await AxiosUtils.get(this.URL_GET_CARDS ? this.URL_GET_CARDS : `/cafes/?page=${pageNumber}&?lat=${latitude}&lon=${longitude}`);
+    const result = await AxiosUtils.get(this.URL_GET_CARDS ? this.URL_GET_CARDS : `/cafes/?lat=${latitude}&lon=${longitude}&page=${pageNumber}`);
     return result.data.results;
   }
 
