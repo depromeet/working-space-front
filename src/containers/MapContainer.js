@@ -136,7 +136,7 @@ const MapContainer = () => {
   }, [deleteAllMarkers, fetch]);
 
   const loadCafeData = useCallback(async () => {
-    await CardStore.fetchCardOnce();
+    await CardStore.fetchCard(1);
   }, [CardStore]);
 
   const checkKakaoMapDragEnd = useCallback(() => {
