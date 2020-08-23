@@ -12,10 +12,12 @@ class CardStore {
   @observable longitude = null;
   @observable isLoading = {
     fetchCard: false,
+    fetchCardOnce: false,
   };
 
   constructor() {
     this.fetchCard = flow(this.fetchCard.bind(this));
+    this.fetchCardOnce = flow(this.fetchCardOnce.bind(this));
     this.fetchCardDetail = flow(this.fetchCardDetail.bind(this));
   }
 
@@ -29,6 +31,16 @@ class CardStore {
     set(this, { cardDatas: this.cardDatas.concat(cardModels) });
     this.pageNumber++;
     this.isLoading.fetchCard = false;
+  }
+
+  *fetchCardOnce() {
+    if (this.isLoading.fetchCardOnce) return;
+
+    this.isLoading.fetchCardOnce = true;
+    const coordinates = yield GeoLocationUtils.getGeoLocation();
+    const cards = yield CardRepository.getCards(1, coordinates.latitude, coordinates.longitude);
+    const cardModels = cards.map(card => new CardModel(card));
+    set(this, { cardDatas: cardModels });
   }
 
   *fetchCardDetail(cardId) {

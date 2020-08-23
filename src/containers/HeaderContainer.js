@@ -12,9 +12,9 @@ const HeaderContainer = props => {
   const { CardStore } = useStore();
   const { currentCoordinates, currentAddress, fetch, isFetching } = useGeoLocation();
 
-  useEffect(() => {
-    CardStore.fetchCard();
-  }, [CardStore]);
+  // useEffect(() => {
+  //   CardStore.fetchCard();
+  // }, [CardStore]);
 
   const handleLocationButtonClick = useCallback(async () => {
     fetch();
