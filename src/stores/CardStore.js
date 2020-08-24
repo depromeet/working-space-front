@@ -20,16 +20,18 @@ class CardStore {
     this.fetchCardDetail = flow(this.fetchCardDetail.bind(this));
   }
 
-  *fetchCard(pageNumber = 1) {
+  *fetchCard(page) {
     if (this.isLoading.fetchCard) return;
 
     this.isLoading.fetchCard = true;
     const coordinates = yield GeoLocationUtils.getGeoLocation();
-    const cards = yield CardRepository.getCards(pageNumber || this.pageNumber, coordinates.latitude, coordinates.longitude);
-    const cardModels = cards.map(card => new CardModel(card));
-    if (pageNumber === 1) {
+    if (page === 1) {
+      const cards = yield CardRepository.getCards(page, coordinates.latitude, coordinates.longitude);
+      const cardModels = cards.map(card => new CardModel(card));
       set(this, { cardDatas: cardModels });
     } else {
+      const cards = yield CardRepository.getCards(this.pageNumber, coordinates.latitude, coordinates.longitude);
+      const cardModels = cards.map(card => new CardModel(card));
       set(this, { cardDatas: this.cardDatas.concat(cardModels) });
     }
     this.pageNumber++;
