@@ -23,6 +23,7 @@ class CardModel {
   @observable imageAlt = "카페 이미지";
   @observable rating = 4.5;
   @observable distance = null;
+
   @observable tags = [
     { name: "study", follow: 12, isSelected: false },
     { name: "concent", follow: 23, isSelected: false },
@@ -53,12 +54,13 @@ class CardModel {
       endHours: data.end_hours,
       homepage: data.homepage,
       location: data.location.coordinates,
+      distance: `${(parseInt(data.dist.calculated, 10) / 100).toFixed(1)}km`,
+      imageUrl: [`/images/${parseInt(Math.random() * 18, 10) + 1}.jpg`, `/images/1.jpg`, `/images/2.jpg`],
       latitude: data.location.coordinates[1],
       longitude: data.location.coordinates[0],
       marker,
-      distance: data.dist && `${data.dist.calculated.toFixed()}m`,
-      imageUrl: [`/images/${parseInt(Math.random() * 18, 10) + 1}.jpg`],
       imageAlt: `${data.name}이미지`,
+      tags: data.tags,
     });
   }
 }

@@ -7,6 +7,7 @@ class CardRepository {
 
   async getCards(pageNumber = 1, latitude, longitude) {
     const result = await AxiosUtils.get(this.URL_GET_CARDS ? this.URL_GET_CARDS : `/cafes/?lat=${latitude}&lon=${longitude}&page=${pageNumber}`);
+    this.URL_GET_CARDS = result.next;
     return result.data.results;
   }
 
