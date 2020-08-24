@@ -54,7 +54,7 @@ class CardModel {
       endHours: data.end_hours,
       homepage: data.homepage,
       location: data.location.coordinates,
-      distance: `${(parseInt(data.dist.calculated, 10) / 100).toFixed(1)}km`,
+      distance: data.dist ? `${(parseInt(data.dist.calculated, 10) / 100).toFixed(1)}km` : null,
       imageUrl: [`/images/${parseInt(Math.random() * 18, 10) + 1}.jpg`, `/images/1.jpg`, `/images/2.jpg`],
       latitude: data.location.coordinates[1],
       longitude: data.location.coordinates[0],
