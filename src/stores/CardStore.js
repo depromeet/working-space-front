@@ -1,4 +1,4 @@
-import { observable, set, flow } from "mobx";
+import { observable, set, flow, action } from "mobx";
 import axios from "axios";
 import CardRepository from "../repositories/CardRepository";
 import CardModel from "../models/CardModel";
@@ -20,20 +20,26 @@ class CardStore {
     this.fetchCardDetail = flow(this.fetchCardDetail.bind(this));
   }
 
+  @action.bound init() {
+    this.cardDatas = [];
+    this.cardDataCount = 1;
+    this.cardDetailData = null;
+    this.pageNumber = 1;
+    this.latitude = null;
+    this.longitude = null;
+    this.isLoading = {
+      fetchCard: false,
+    };
+  }
+
   *fetchCard(page) {
     if (this.isLoading.fetchCard) return;
 
     this.isLoading.fetchCard = true;
     const coordinates = yield GeoLocationUtils.getGeoLocation();
-    if (page === 1) {
-      const cards = yield CardRepository.getCards(page, coordinates.latitude, coordinates.longitude);
-      const cardModels = cards.map(card => new CardModel(card));
-      set(this, { cardDatas: cardModels });
-    } else {
-      const cards = yield CardRepository.getCards(this.pageNumber, coordinates.latitude, coordinates.longitude);
-      const cardModels = cards.map(card => new CardModel(card));
-      set(this, { cardDatas: this.cardDatas.concat(cardModels) });
-    }
+    const cards = yield CardRepository.getCards(this.pageNumber, coordinates.latitude, coordinates.longitude);
+    const cardModels = cards.map(card => new CardModel(card));
+    set(this, { cardDatas: this.cardDatas.concat(cardModels) });
     this.pageNumber++;
     this.cardDataCount = this.cardDatas.length;
     this.isLoading.fetchCard = false;

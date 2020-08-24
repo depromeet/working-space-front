@@ -113,8 +113,8 @@ const MapContainer = () => {
   }, [deleteAllMarkers, fetch]);
 
   const loadCafeData = useCallback(async () => {
-    await CardStore.fetchCard(1);
-  }, [CardStore]);
+    await CardStore.fetchCard();
+  }, [CardStore.fetchCard]);
 
   const checkKakaoMapDragEnd = useCallback(() => {
     if (mapInstance && currentCoordinates) {
@@ -148,9 +148,10 @@ const MapContainer = () => {
   );
 
   const handleLocationButtonClick = useCallback(() => {
+    CardStore.init();
     getCurrentCoordinates();
     loadCafeData();
-  }, [getCurrentCoordinates, loadCafeData]);
+  }, [CardStore.init, getCurrentCoordinates, loadCafeData]);
 
   const setViewportHeight = useCallback(() => {
     document.body.style.height = `${window.innerHeight}px`;
@@ -182,8 +183,9 @@ const MapContainer = () => {
   }, [moveToCurrentCoordinates, setIsOutOfCenter]);
 
   useEffect(() => {
-    if (CardStore.cardDatas && CardStore.cardDatas.length <= 0) {
+    if (!CardStore.cardDatas || !CardStore.cardDatas.length) {
       loadCafeData();
+      return;
     }
     setCafeData(toJS(CardStore.cardDatas));
   }, [CardStore.cardDatas, loadCafeData]);
