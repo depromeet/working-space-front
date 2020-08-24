@@ -196,10 +196,6 @@ const MapContainer = () => {
     setViewportHeight();
   }, [setViewportHeight]);
 
-  useEffect(() => {
-    console.log(cafeData);
-  }, [cafeData]);
-
   return (
     <>
       <Map mapRef={mapRef} isSelected={!!nowSelectingCafe}>
