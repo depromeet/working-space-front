@@ -4,8 +4,7 @@ export default function isMobile() {
   if (navigator.platform) {
     if (pcDevice.indexOf(navigator.platform.toLowerCase()) < 0) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 }
