@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import debounce from "lodash.debounce";
 import { toJS } from "mobx";
 import { observer } from "mobx-react";
+import _ from "lodash";
 import useStore from "../hooks/useStore";
 import Map from "../components/Map/Map";
 import { ReactComponent as LocationIcon } from "../images/icon-locate.svg";
@@ -183,7 +184,7 @@ const MapContainer = () => {
   }, [moveToCurrentCoordinates, setIsOutOfCenter]);
 
   useEffect(() => {
-    if (!CardStore.cardDatas || !CardStore.cardDatas.length) {
+    if (_.isEmpty(CardStore.cardDatas)) {
       loadCafeData();
       return;
     }
