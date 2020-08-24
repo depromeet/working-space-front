@@ -11,7 +11,7 @@ const Detail = props => {
 
   return (
     <DetailStyled>
-      <DetailTitle name={card.name} distance={card.distance} tagCount={card.tagCount} />
+      <DetailTitle name={card.name} distance={card.distance} tagCount={card.tags.length} />
       <Swiper imageUrl={card.imageUrl} imageAlt={card.imageAlt} />
       <DetailInfo address={card.address} phone={card.phone} />
       <hr />
@@ -19,7 +19,7 @@ const Detail = props => {
         <div className="tag-title">
           <h2 className="tag-text">태그</h2>
         </div>
-        <TagList tags={card.tags} tagCount={card.tagCount} hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} isShowFollow={true} />
+        <TagList tags={card.tags} hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} isShowFollow={true} />
       </div>
       <hr />
       <DetailLocation mapRef={mapRef} latitude={card.latitude} longitude={card.longitude} dataId={card.dataId} />
@@ -31,7 +31,6 @@ Detail.defaultProps = {
   card: {
     name: "Cafe",
     distance: "0km",
-    tagCount: 10,
     tags: [
       { name: "study", follow: 12, isSelected: false },
       { name: "concent", follow: 23, isSelected: false },

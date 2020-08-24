@@ -12,17 +12,8 @@ const Card = props => {
 
   return (
     <CardStyled onClick={handleCardLinkClick} showOnlyInfo={showOnlyInfo}>
-      {!showOnlyInfo && <CardView imageUrl={cardData.imageUrl} imageAlt={cardData.imageAlt} rating={cardData.rating} tagCount={cardData.tagCount} />}
-      <CardInfo
-        title={cardData.name}
-        location={cardData.address}
-        distance={cardData.distance}
-        rating={cardData.rating}
-        tags={cardData.tags}
-        tagCount={cardData.tagCount}
-        hasMainShow={hasMainShow}
-        showOnlyInfo={showOnlyInfo}
-      />
+      {!showOnlyInfo && <CardView imageUrl={cardData.imageUrl} imageAlt={cardData.imageAlt} rating={cardData.rating} tagCount={cardData.tags.length} />}
+      <CardInfo title={cardData.name} location={cardData.address} distance={cardData.distance} rating={cardData.rating} tags={cardData.tags} hasMainShow={hasMainShow} showOnlyInfo={showOnlyInfo} />
     </CardStyled>
   );
 };
