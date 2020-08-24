@@ -12,7 +12,7 @@ const Detail = props => {
   return (
     <DetailStyled>
       <DetailTitle name={card.name} distance={card.distance} tagCount={card.tagCount} />
-      {/* <Swiper imageUrl={card.imageUrl} imageAlt={card.imageAlt} /> */}
+      <Swiper imageUrl={card.imageUrl} imageAlt={card.imageAlt} />
       <DetailInfo address={card.address} phone={card.phone} />
       <hr />
       <div className="tag-list-wrapper">
@@ -22,7 +22,7 @@ const Detail = props => {
         <TagList tags={card.tags} tagCount={card.tagCount} hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} isShowFollow={true} />
       </div>
       <hr />
-      <DetailLocation mapRef={mapRef} />
+      <DetailLocation mapRef={mapRef} latitude={card.latitude} longitude={card.longitude} />
     </DetailStyled>
   );
 };

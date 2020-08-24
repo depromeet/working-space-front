@@ -43,6 +43,7 @@ class CardModel {
     const marker = new kakao.maps.Marker({ title: data.name, position: latlng, image: unselectedMarkerImage, clickable: true });
     set(this, {
       id: data.id,
+      dataId: data.data_id,
       name: data.name,
       brandName: data.brand_name,
       address: data.road_addr,
@@ -56,7 +57,7 @@ class CardModel {
       longitude: data.location.coordinates[0],
       marker,
       distance: data.dist && `${data.dist.calculated.toFixed()}m`,
-      imageUrl: `/images/${parseInt(Math.random() * 18, 10) + 1}.jpg`,
+      imageUrl: [`/images/${parseInt(Math.random() * 18, 10) + 1}.jpg`],
       imageAlt: `${data.name}이미지`,
     });
   }

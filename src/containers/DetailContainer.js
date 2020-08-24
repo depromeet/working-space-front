@@ -47,11 +47,11 @@ const DetailContainer = props => {
     kakaoMap.setDraggable(false);
     kakaoMap.setZoomable(false);
     return kakaoMap;
-  }, []);
+  }, [CardStore.cardDetailData]);
 
   useEffect(() => {
     CardStore.fetchCardDetail(currentId);
-  }, []);
+  }, [CardStore, currentId]);
 
   useEffect(() => {
     if (CardStore.cardDetailData) {
