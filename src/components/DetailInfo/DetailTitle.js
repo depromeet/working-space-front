@@ -1,4 +1,5 @@
 import React from "react";
+import { isEmpty } from "lodash";
 import DetailTitleStyled from "./DetailTitle.styles";
 import RatingStar from "../RatingStar/RatingStar";
 import { ReactComponent as SmallMarkIcon } from "../../images/icon-small-location-fill.svg";
@@ -6,14 +7,15 @@ import { ReactComponent as SmallTagIcon } from "../../images/icon-small-tag-fill
 
 const DetailTitle = props => {
   const { name, distance, tagCount } = props;
+  const noneText = "-";
 
   return (
     <DetailTitleStyled>
       <div className="title-top">
-        <h2 className="info-title">{name}</h2>
+        <h2 className="info-title">{isEmpty(name) ? noneText : name}</h2>
         <div className="icon-align">
           <SmallMarkIcon />
-          <span>{distance}</span>
+          <span>{isEmpty(distance) ? noneText : distance}</span>
         </div>
       </div>
       <div className="title-bottom">

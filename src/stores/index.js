@@ -6,6 +6,6 @@ class RootStore {
     this.CardStore = new CardStore();
   }
 }
-const rootStoreContext = createContext(new RootStore());
+const RootStoreContext = createContext(new RootStore());
 
-export default rootStoreContext;
+export default RootStoreContext;
