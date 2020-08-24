@@ -6,6 +6,7 @@ import GeoLocationUtils from "../utils/GeoLocationUtils";
 
 class CardStore {
   @observable cardDatas = [];
+  @observable cardDataCount = 1;
   @observable cardDetailData = null;
   @observable pageNumber = 1;
   @observable latitude = null;
@@ -28,6 +29,7 @@ class CardStore {
     const cardModels = cards.map(card => new CardModel(card));
     set(this, { cardDatas: this.cardDatas.concat(cardModels) });
     this.pageNumber++;
+    this.cardDataCount = this.cardDatas.length;
     this.isLoading.fetchCard = false;
   }
 
