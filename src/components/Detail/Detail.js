@@ -22,7 +22,7 @@ const Detail = props => {
         <TagList tags={card.tags} tagCount={card.tagCount} hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} isShowFollow={true} />
       </div>
       <hr />
-      <DetailLocation mapRef={mapRef} />
+      <DetailLocation mapRef={mapRef} latitude={card.latitude} longitude={card.longitude} dataId={card.dataId} />
     </DetailStyled>
   );
 };
