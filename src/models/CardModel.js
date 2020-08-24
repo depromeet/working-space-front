@@ -55,7 +55,7 @@ class CardModel {
       latitude: data.location.coordinates[1],
       longitude: data.location.coordinates[0],
       marker,
-      distance: `${data.dist.calculated.toFixed()}m`,
+      distance: data.dist && `${data.dist.calculated.toFixed()}m`,
       imageUrl: `/images/${parseInt(Math.random() * 18, 10) + 1}.jpg`,
       imageAlt: `${data.name}이미지`,
     });

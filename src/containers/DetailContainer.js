@@ -7,6 +7,13 @@ import useStore from "../hooks/useStore";
 import Detail from "../components/Detail/Detail";
 import ModalEvaluation from "../components/ModalEvaluation/ModalEvaluation";
 import LoadingBar from "../components/LoadingBar/LoadingBar";
+import MapPickerSprite from "../images/icon-mappicker-sprite.png";
+
+const selectedMarkerImage = new kakao.maps.MarkerImage(MapPickerSprite, new kakao.maps.Size(48, 48), {
+  spriteOrigin: new kakao.maps.Point(24, 0),
+  spriteSize: new kakao.maps.Size(72, 48),
+  offset: new kakao.maps.Point(23, 46),
+});
 
 const DetailContainer = props => {
   const { hasMainShow } = props;
@@ -19,13 +26,24 @@ const DetailContainer = props => {
   const mapRef = useRef(null);
 
   const getKakaoMapObject = useCallback(() => {
+    const { latitude, longitude } = toJS(CardStore.cardDetailData);
     const container = mapRef.current;
+    const nowLatLng = new kakao.maps.LatLng(latitude, longitude);
+
     const options = {
-      center: new kakao.maps.LatLng(37.498095, 127.02761),
+      center: nowLatLng,
       level: 3,
     };
 
     const kakaoMap = new window.kakao.maps.Map(container, options);
+
+    const marker = new window.kakao.maps.Marker({
+      position: nowLatLng,
+      image: selectedMarkerImage,
+      clickable: false,
+    });
+
+    marker.setMap(kakaoMap);
     kakaoMap.setDraggable(false);
     kakaoMap.setZoomable(false);
     return kakaoMap;
@@ -33,12 +51,14 @@ const DetailContainer = props => {
 
   useEffect(() => {
     CardStore.fetchCardDetail(currentId);
+  }, []);
 
-    /*
+  useEffect(() => {
+    if (CardStore.cardDetailData) {
       const kakaoMap = getKakaoMapObject();
       setMapInstance(kakaoMap);
-    */
-  }, [currentId, CardStore]);
+    }
+  }, [CardStore.cardDetailData, getKakaoMapObject]);
 
   return CardStore.cardDetailData === null ? (
     <div>
