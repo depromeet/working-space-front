@@ -27,7 +27,11 @@ class CardStore {
     const coordinates = yield GeoLocationUtils.getGeoLocation();
     const cards = yield CardRepository.getCards(pageNumber || this.pageNumber, coordinates.latitude, coordinates.longitude);
     const cardModels = cards.map(card => new CardModel(card));
-    set(this, { cardDatas: this.cardDatas.concat(cardModels) });
+    if (pageNumber === 1) {
+      set(this, { cardDatas: cardModels });
+    } else {
+      set(this, { cardDatas: this.cardDatas.concat(cardModels) });
+    }
     this.pageNumber++;
     this.cardDataCount = this.cardDatas.length;
     this.isLoading.fetchCard = false;
