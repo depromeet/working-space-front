@@ -6,7 +6,7 @@ import { ReactComponent as SmallTagIcon } from "../../images/icon-small-tag-fill
 import TagList from "../Tag/TagList";
 
 const CardInfo = props => {
-  const { title, location, distance, rating, tags, tagCount, hasMainShow, showOnlyInfo } = props;
+  const { title, location, distance, rating, tags, hasMainShow, showOnlyInfo } = props;
 
   return (
     <CardInfoStyled showOnlyInfo={showOnlyInfo}>
@@ -27,7 +27,7 @@ const CardInfo = props => {
             </p>
             <p className="card-tag-count">
               <SmallTagIcon />
-              <span>태그 {tagCount}개</span>
+              <span>태그 {tags.length}개</span>
             </p>
           </div>
         )}
@@ -48,7 +48,6 @@ CardInfo.defaultProps = {
     { name: "study", follow: 12, isSelected: false },
     { name: "concent", follow: 23, isSelected: false },
   ],
-  tagCount: 2,
   showOnlyInfo: false,
 };
 

@@ -25,6 +25,7 @@ class CardStore {
     this.isLoading.fetchCard = true;
     const coordinates = yield GeoLocationUtils.getGeoLocation();
     const cards = yield CardRepository.getCards(this.pageNumber, coordinates.latitude, coordinates.longitude);
+    console.log(cards[0]);
     const cardModels = cards.map(card => new CardModel(card));
     set(this, { cardDatas: this.cardDatas.concat(cardModels) });
     this.pageNumber++;
