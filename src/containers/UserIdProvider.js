@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, createContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const UserIdContext = createContext();
+export const UserIdContext = createContext();
 
 function UserIdProvider({ children }) {
   const userIdRef = useRef(localStorage.getItem("userId") ?? uuidv4());
