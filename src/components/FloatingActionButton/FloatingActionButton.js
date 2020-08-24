@@ -5,7 +5,7 @@ export default function FloatingActionButton(props) {
   const { children } = props;
 
   const handleGetCurrentCoordinates = useCallback(() => {
-    props.onGetCurrentCoordinates && props.onGetCurrentCoordinates();
+    props.onClick && props.onClick();
   }, []);
 
   return <FloatingActionButtonStyled onClick={handleGetCurrentCoordinates}>{children}</FloatingActionButtonStyled>;
@@ -13,5 +13,5 @@ export default function FloatingActionButton(props) {
 
 FloatingActionButton.defaultProps = {
   children: null,
-  onGetCurrentCoordinates: null,
+  onClick: null,
 };
