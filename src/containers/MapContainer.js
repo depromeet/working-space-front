@@ -1,10 +1,9 @@
 /* global kakao */
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useHistory } from "react-router-dom";
-import debounce from "lodash.debounce";
 import { toJS } from "mobx";
 import { observer } from "mobx-react";
-import _ from "lodash";
+import { isEmpty, debounce } from "lodash";
 import useStore from "../hooks/useStore";
 import Map from "../components/Map/Map";
 import { ReactComponent as LocationIcon } from "../images/icon-locate.svg";
@@ -184,7 +183,7 @@ const MapContainer = () => {
   }, [moveToCurrentCoordinates, setIsOutOfCenter]);
 
   useEffect(() => {
-    if (_.isEmpty(CardStore.cardDatas)) {
+    if (isEmpty(CardStore.cardDatas)) {
       loadCafeData();
       return;
     }
