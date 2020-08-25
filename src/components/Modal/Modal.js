@@ -37,20 +37,27 @@ const Modal = props => {
     shouldCloseOnDimmedClick && onClickClose();
   }, [shouldCloseOnDimmedClick, onClickClose]);
 
+  const defaultStyle = {
+    top: isOpen ? window.outerHeight : topPosition,
+  };
+
+  const style = {
+    top: spring(isOpen ? topPosition : window.outerHeight, { stiffness: 330, damping: 30 }),
+  };
+
   return (
     <>
       <OpenButton onClick={onClickOpen} id="modal_open_button" />
       <styled.Modal isOpen={isOpen}>
-        <Motion
-          onAnimationEnd={() => console.log(123)}
-          defaultStyle={{ top: isOpen ? window.outerHeight : topPosition }}
-          style={{ top: spring(isOpen ? topPosition : window.outerHeight, { stiffness: 330, damping: 30 }) }}
-        >
-          {style => (
-            <div className="modal" style={{ top: style.top }}>
-              {props.children({ onClickOpen, onClickClose, isOpen, setIsOpen })}
-            </div>
-          )}
+        <Motion defaultStyle={defaultStyle} style={style}>
+          {style => {
+            const isClosed = style.top === window.outerHeight;
+            return (
+              <div className="modal" style={{ ...style, visibility: isClosed ? "hidden" : "visible" }}>
+                {props.children({ onClickOpen, onClickClose, isOpen, setIsOpen })}
+              </div>
+            );
+          }}
         </Motion>
         {isOpen && <div className="dimmed" onClick={onDimmedClick} />}
       </styled.Modal>
