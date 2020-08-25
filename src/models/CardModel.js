@@ -42,6 +42,9 @@ class CardModel {
   constructor(data) {
     const latlng = new kakao.maps.LatLng(data.location.coordinates[1], data.location.coordinates[0]);
     const marker = new kakao.maps.Marker({ title: data.name, position: latlng, image: unselectedMarkerImage, clickable: true });
+    let distance;
+    if (data.dist) distance = data.dist.calculated < 1000 ? `${parseInt(data.dist.calculated, 10)}m` : `${(parseInt(data.dist.calculated, 10) / 1000).toFixed(1)}km`;
+
     set(this, {
       id: data.id,
       dataId: data.data_id,
@@ -54,7 +57,7 @@ class CardModel {
       endHours: data.end_hours,
       homepage: data.homepage,
       location: data.location.coordinates,
-      distance: data.dist ? `${(parseInt(data.dist.calculated, 10) / 100).toFixed(1)}km` : null,
+      distance,
       imageUrl: [`/images/${parseInt(Math.random() * 18, 10) + 1}.jpg`, `/images/1.jpg`, `/images/2.jpg`],
       latitude: data.location.coordinates[1],
       longitude: data.location.coordinates[0],
