@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import { toJS } from "mobx";
 import { observer } from "mobx-react";
 import useStore from "../hooks/useStore";
 import Header from "../components/Header/Header";
@@ -16,15 +15,15 @@ const HeaderContainer = props => {
     await fetch();
     CardStore.init();
     await CardStore.fetchCard();
-  }, [fetch]);
+  }, [fetch, CardStore]);
 
   const handleBackButtonClick = useCallback(() => {
     history.goBack();
-  }, []);
+  }, [history]);
 
   const handleMapLinkButtonClick = useCallback(() => {
     history.push("/map");
-  }, []);
+  }, [history]);
 
   const handleShareButtonClick = useCallback(() => {
     const currentUrl = window.location.href;
