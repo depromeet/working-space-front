@@ -1,17 +1,21 @@
 import React, { useCallback, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-// import { toJS } from "mobx";
+import { toJS } from "mobx";
 import { observer } from "mobx-react";
+import useStore from "../hooks/useStore";
 import Header from "../components/Header/Header";
 import useGeoLocation from "../hooks/useGeoLocation";
 
 const HeaderContainer = props => {
   const { hasBackgroundColor, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasLocationButton } = props;
   const history = useHistory();
+  const { CardStore } = useStore();
   const { currentCoordinates, currentAddress, fetch, isFetching } = useGeoLocation();
 
   const handleLocationButtonClick = useCallback(async () => {
-    fetch();
+    await fetch();
+    CardStore.init();
+    await CardStore.fetchCard();
   }, [fetch]);
 
   const handleBackButtonClick = useCallback(() => {
