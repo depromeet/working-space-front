@@ -1,9 +1,10 @@
 /* global kakao */
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import { toJS } from "mobx";
 import useStore from "../hooks/useStore";
+import { UserIdContext } from "./UserIdProvider";
 import Detail from "../components/Detail/Detail";
 import ModalEvaluation from "../components/ModalEvaluation/ModalEvaluation";
 import LoadingBar from "../components/LoadingBar/LoadingBar";
@@ -21,6 +22,7 @@ const DetailContainer = props => {
 
   const currentParams = useParams();
   const currentId = currentParams.id;
+  const userId = useContext(UserIdContext);
 
   const [mapInstance, setMapInstance] = useState(null);
   const mapRef = useRef(null);
@@ -49,8 +51,14 @@ const DetailContainer = props => {
     return kakaoMap;
   }, [CardStore.cardDetailData]);
 
+  const handleSubmitButtonClick = useCallback(() => {
+    // id, name "" 이거 안들어가서 발생하는 문제 해결 필요
+    CardStore.fetchCardRating(userId, JSON.parse(window.localStorage.cardRatings));
+  }, [CardStore]);
+
   useEffect(() => {
     CardStore.fetchCardDetail(currentId);
+    CardStore.fetchCardTags();
   }, [CardStore, currentId]);
 
   useEffect(() => {
@@ -67,7 +75,7 @@ const DetailContainer = props => {
   ) : (
     <>
       <Detail card={toJS(CardStore.cardDetailData)} hasMainShow={hasMainShow} mapRef={mapRef} />
-      <ModalEvaluation />
+      <ModalEvaluation currentId={currentId} onSubmitButtonClick={handleSubmitButtonClick} />
     </>
   );
 };

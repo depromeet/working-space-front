@@ -25,6 +25,27 @@ class CardRepository {
     const result = await AxiosUtils.get(`/cafes/${cardId}/`, { cancelToken: this.getCardDetailCancelSource.token });
     return result.data;
   };
+
+  getCardTags = async () => {
+    const result = await AxiosUtils.get(`/tags/`);
+    console.log(result);
+    return result.data;
+  };
+
+  postCardRating = async (userId, cafeId, tag, rating) => {
+    console.log(userId, cafeId, tag, rating);
+    /*
+    const result = await AxiosUtils.post(`/ratings/`, {
+      id: userId,
+      cafe_id: cafeId,
+      user_id: userId,
+      tags: tag,
+      points: rating,
+    });
+    console.log(result);
+    return result.data;
+  */
+  };
 }
 
 export default new CardRepository();

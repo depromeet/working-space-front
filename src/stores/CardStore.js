@@ -8,6 +8,8 @@ class CardStore {
   @observable cardDatas = [];
   @observable cardDataCount = 1;
   @observable cardDetailData = null;
+  @observable cardTagDatas = null;
+  @observable cardRatingData = null;
   @observable pageNumber = 1;
   @observable latitude = null;
   @observable longitude = null;
@@ -18,6 +20,8 @@ class CardStore {
   constructor() {
     this.fetchCard = flow(this.fetchCard.bind(this));
     this.fetchCardDetail = flow(this.fetchCardDetail.bind(this));
+    this.fetchCardTags = flow(this.fetchCardTags.bind(this));
+    this.fetchCardRating = flow(this.fetchCardRating.bind(this));
   }
 
   @action.bound init() {
@@ -59,6 +63,16 @@ class CardStore {
         console.log(error);
       }
     }
+  }
+
+  *fetchCardTags() {
+    const cardTags = yield CardRepository.getCardTags();
+    set(this, { cardTagDatas: cardTags });
+  }
+
+  *fetchCardRating(user, cardRating) {
+    const cardRatings = yield CardRepository.postCardRating(user, cardRating.cafeId, cardRating.tags, cardRating.rating);
+    set(this, { cardRatingData: cardRatings });
   }
 }
 
