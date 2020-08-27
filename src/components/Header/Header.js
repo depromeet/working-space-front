@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useCallback, useRef } from "react";
 import HeaderStyled from "./Header.styles";
 import { ReactComponent as BackIcon } from "../../images/icon-back.svg";
@@ -5,9 +6,10 @@ import { ReactComponent as MapIcon } from "../../images/icon-map.svg";
 import { ReactComponent as LocationIcon } from "../../images/icon-locate.svg";
 import { ReactComponent as LocationActiveIcon } from "../../images/icon-locate-active.svg";
 import { ReactComponent as ShareIcon } from "../../images/icon-share.svg";
+import BlinkingLocationIcon from "../BlinkingLocationIcon/BlinkingLocationIcon";
 
 const Header = props => {
-  const { title, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasLocationButton, currentCoordinates, isFetching } = props;
+  const { title, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasLocationButton, currentCoordinates, isFetching, isLoadingFetchCard, isCardDatasEmpty } = props;
   const headerRef = useRef();
 
   const handleLocationButtonClick = useCallback(() => {
@@ -40,7 +42,7 @@ const Header = props => {
         <div className="right-box">
           {hasLocationButton && (
             <button className="navi-btn" onClick={handleLocationButtonClick}>
-              {!currentCoordinates || isFetching ? <LocationIcon /> : <LocationActiveIcon />}
+              {!currentCoordinates || isFetching ? <LocationIcon /> : isCardDatasEmpty && isLoadingFetchCard ? <BlinkingLocationIcon /> : <LocationActiveIcon />}
             </button>
           )}
           {hasShareButton && (
@@ -71,6 +73,8 @@ Header.defaultProps = {
   hasLocationButton: true,
   hasLocationActiveButton: false,
   isFetching: false,
+  isLoadingFetchCard: false,
+  isCardDatasEmpty: false,
 };
 
 export default Header;
