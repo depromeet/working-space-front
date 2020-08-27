@@ -12,14 +12,14 @@ const Tag = ({ tag, isSelectable, isSelected, isShowFollow, onClick }) => {
       <div className="tag" onClick={handleClick}>
         <span className="tag_icon">{tagImageByType[tag.id]}</span>
         <span className="tag_text">{tagNameByType[tag.id]}</span>
-        {isShowFollow && tag.follow > 0 && <span className="tag_follow">+{tag.follow}</span>}
+        {isShowFollow && tag.count > 0 && <span className="tag_follow">+{tag.count}</span>}
       </div>
     </TagStyled>
   );
 };
 
 Tag.defaultProps = {
-  tag: { name: "concent", follow: 11 },
+  tag: { name: "concent", count: 11 },
   isShowFollow: true,
   isSelectable: false,
   isSelected: false,

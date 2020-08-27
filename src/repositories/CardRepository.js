@@ -26,25 +26,20 @@ class CardRepository {
     return result.data;
   };
 
-  getCardTags = async () => {
-    const result = await AxiosUtils.get(`/tags/`);
-    console.log(result);
+  getUserRating = async (userId, cardId) => {
+    const result = await AxiosUtils.get(`/ratings/${userId}_${cardId}/`);
     return result.data;
   };
 
-  postCardRating = async (userId, cafeId, tag, rating) => {
-    console.log(userId, cafeId, tag, rating);
-    /*
+  postCardRating = async (userId, cardId, tag, rating) => {
     const result = await AxiosUtils.post(`/ratings/`, {
-      id: userId,
-      cafe_id: cafeId,
+      id: `${userId}_${cardId}`,
+      cafe_id: cardId,
       user_id: userId,
       tags: tag,
       points: rating,
     });
-    console.log(result);
     return result.data;
-  */
   };
 }
 

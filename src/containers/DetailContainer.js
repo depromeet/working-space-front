@@ -52,30 +52,29 @@ const DetailContainer = props => {
   }, [CardStore.cardDetailData]);
 
   const handleSubmitButtonClick = useCallback(() => {
-    // id, name "" 이거 안들어가서 발생하는 문제 해결 필요
     CardStore.fetchCardRating(userId, JSON.parse(window.localStorage.cardRatings));
   }, [CardStore]);
 
   useEffect(() => {
     CardStore.fetchCardDetail(currentId);
-    CardStore.fetchCardTags();
-  }, [CardStore, currentId]);
+    CardStore.fetchUserRating(userId, currentId);
+  }, [CardStore, currentId, userId]);
 
   useEffect(() => {
-    if (CardStore.cardDetailData) {
+    if (CardStore.cardDetailData && !CardStore.isUserRatingLoading) {
       const kakaoMap = getKakaoMapObject();
       setMapInstance(kakaoMap);
     }
-  }, [CardStore.cardDetailData, getKakaoMapObject]);
+  }, [CardStore.cardDetailData, CardStore.isUserRatingLoading, getKakaoMapObject]);
 
-  return CardStore.cardDetailData === null ? (
+  return CardStore.cardDetailData === null || CardStore.isUserRatingLoading ? (
     <div>
       <LoadingBar hasMainLoading={false} />
     </div>
   ) : (
     <>
       <Detail card={toJS(CardStore.cardDetailData)} hasMainShow={hasMainShow} mapRef={mapRef} />
-      <ModalEvaluation currentId={currentId} onSubmitButtonClick={handleSubmitButtonClick} />
+      <ModalEvaluation userRating={toJS(CardStore.userRatingData)} currentId={currentId} onSubmitButtonClick={handleSubmitButtonClick} />
     </>
   );
 };

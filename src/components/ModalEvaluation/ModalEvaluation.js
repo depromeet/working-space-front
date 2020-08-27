@@ -8,7 +8,7 @@ import { ReactComponent as CloseIcon } from "../../images/icon-close.svg";
 import { ReactComponent as BackIcon } from "../../images/icon-back.svg";
 
 const ModalEvaluation = props => {
-  const { EndButton, totalStep, currentId } = props;
+  const { userRating, EndButton, totalStep, currentId } = props;
   const [step, setStep] = useState(1);
   const [isActive, setIsActive] = useState(props.isActive);
   const [isShow, setIsShow] = useState(props.isShow);
@@ -47,14 +47,7 @@ const ModalEvaluation = props => {
   // prettier-ignore
   const onSubmit = useCallback(onModalClose => {
     const selectedTags = tags.filter(tag => tag.isSelected);
-    const selectedTagsData = selectedTags.map(tag => {
-      const data = {
-        id: tag.id,
-        name: tagNameByType[tag.id],
-      };
-      return data;
-    });
-    window.localStorage.setItem("cardRatings", JSON.stringify({ cafeId: currentId, rating, tags: selectedTagsData}));
+    window.localStorage.setItem("cardRatings", JSON.stringify({ cafeId: currentId, rating, tags: selectedTags.map(tag => tag.id)}));
     props.onSubmitButtonClick && props.onSubmitButtonClick();
 
     setIsShow(false);
@@ -94,6 +87,10 @@ const ModalEvaluation = props => {
     }
   }, [step, isActive, isFooterDisabled]);
 
+  if (userRating !== null) {
+    return <EndButton />;
+  }
+
   return (
     <>
       {isShow ? (
@@ -126,7 +123,7 @@ const ModalEvaluation = props => {
 ModalEvaluation.defaultProps = {
   EndButton: props => (
     <styled.EndButton type="button" {...props}>
-      평가해주셔서 감사합니다.
+      평가가 완료되었습니다.
     </styled.EndButton>
   ),
   mainTitle: "캐틀앤비",

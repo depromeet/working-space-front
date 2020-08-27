@@ -8,7 +8,8 @@ class CardStore {
   @observable cardDatas = [];
   @observable cardDataCount = 1;
   @observable cardDetailData = null;
-  @observable cardTagDatas = null;
+  @observable userRatingData = null;
+  @observable isUserRatingLoading = false;
   @observable cardRatingData = null;
   @observable pageNumber = 1;
   @observable latitude = null;
@@ -20,7 +21,7 @@ class CardStore {
   constructor() {
     this.fetchCard = flow(this.fetchCard.bind(this));
     this.fetchCardDetail = flow(this.fetchCardDetail.bind(this));
-    this.fetchCardTags = flow(this.fetchCardTags.bind(this));
+    this.fetchUserRating = flow(this.fetchUserRating.bind(this));
     this.fetchCardRating = flow(this.fetchCardRating.bind(this));
   }
 
@@ -28,6 +29,8 @@ class CardStore {
     this.cardDatas = [];
     this.cardDataCount = 1;
     this.cardDetailData = null;
+    this.userRatingData = null;
+    this.isUserRatingLoading = false;
     this.pageNumber = 1;
     this.latitude = null;
     this.longitude = null;
@@ -65,9 +68,19 @@ class CardStore {
     }
   }
 
-  *fetchCardTags() {
-    const cardTags = yield CardRepository.getCardTags();
-    set(this, { cardTagDatas: cardTags });
+  *fetchUserRating(userId, cardId) {
+    set(this, { userRatingData: null, isUserRatingLoading: true });
+
+    try {
+      const userRating = yield CardRepository.getUserRating(userId, cardId);
+      set(this, { userRatingData: userRating, isUserRatingLoading: false });
+    } catch (error) {
+      if (error.response.status === 404) {
+        set(this, { userRatingData: null, isUserRatingLoading: false });
+      } else {
+        console.log(error);
+      }
+    }
   }
 
   *fetchCardRating(user, cardRating) {
