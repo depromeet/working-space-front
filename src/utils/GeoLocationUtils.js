@@ -24,7 +24,11 @@ class GeoLocationUtils {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
           position => {
-            const { coords } = position;
+            // const { coords } = position;
+            const coords = {
+              latitude: 37.490095,
+              longitude: 127.02761,
+            };
             resolve(coords);
           },
           err => {
