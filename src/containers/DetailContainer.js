@@ -67,10 +67,6 @@ const DetailContainer = props => {
     }
   }, [CardStore.cardDetailData, CardStore.isUserRatingLoading, getKakaoMapObject]);
 
-  useEffect(() => {
-    console.log(toJS(CardStore.cardDetailData));
-  }, [CardStore.cardDetailData]);
-
   return CardStore.cardDetailData === null || CardStore.isUserRatingLoading ? (
     <div>
       <LoadingBar hasMainLoading={false} />
