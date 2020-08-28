@@ -12,6 +12,18 @@ const HeaderContainer = props => {
   const { CardStore } = useStore();
   const { currentCoordinates, currentAddress, fetch, isFetching } = useGeoLocation();
 
+  const urlClipCopy = useCallback(() => {
+    const currentUrl = window.location.href;
+    const tempTextArea = document.createElement("textarea");
+    document.body.appendChild(tempTextArea);
+    tempTextArea.value = currentUrl;
+    tempTextArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempTextArea);
+    // eslint-disable-next-line no-alert
+    alert("URL이 복사되었습니다.");
+  }, []);
+
   const handleLocationButtonClick = useCallback(async () => {
     await fetch();
     CardStore.init();
@@ -29,20 +41,19 @@ const HeaderContainer = props => {
   const handleShareButtonClick = useCallback(() => {
     const currentUrl = window.location.href;
 
-    if (navigator.share === undefined) {
-      console.log("지원하지 않는 브라우저입니다.");
-    } else {
+    if ("share" in navigator) {
       navigator
         .share({
-          title: "WebShare API",
+          title: `<${CardStore.cardDetailData && CardStore.cardDetailData.name}>\r\n작업공간으로 이 카페를 추천합니다!\r\n`,
           url: currentUrl,
         })
-        .then(() => {
-          console.log("Thanks for sharing!");
-        })
-        .catch(console.error);
+        .catch(err => {
+          console.error(err);
+        });
+    } else {
+      urlClipCopy();
     }
-  }, []);
+  }, [CardStore.cardDetailData, urlClipCopy]);
 
   return (
     <>
