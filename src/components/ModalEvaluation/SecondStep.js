@@ -6,7 +6,7 @@ const SecondStep = props => {
   const { onTagsChange, tags, onSetTags } = props;
   return (
     <styled.SecondStep>
-      <TagList isSelectable={true} isShowFollow={false} isContraction={false} contraction={false} tags={tags} onSetTags={onSetTags} onTagsChanged={onTagsChange}></TagList>
+      <TagList isSelectable={true} isShowcount={false} isContraction={false} contraction={false} tags={tags} onSetTags={onSetTags} onTagsChanged={onTagsChange}></TagList>
     </styled.SecondStep>
   );
 };

@@ -4,7 +4,7 @@ import TagListStyled from "./TagList.styles";
 import Tag from "./Tag";
 import { ReactComponent as DropDownIcon } from "../../images/icon-dropdown.svg";
 
-const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContraction, isShowFollow, isSelectable, onTagsChanged }) => {
+const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContraction, isShowcount, isSelectable, onTagsChanged }) => {
   /* prettier-ignore */
   const toggleTag = useCallback(index => {
     if(!onSetTags) return;
@@ -20,7 +20,7 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
   const [showDrop, setShowDrop] = useState(false);
 
   const makeTagList = useCallback(
-    (tags, hasMainShow, hasDropDownButton, isSelectable, isShowFollow, isContraction, toggleTag) => {
+    (tags, hasMainShow, hasDropDownButton, isSelectable, isShowcount, isContraction, toggleTag) => {
       if (tags.length <= 0 || tags === null) {
         return hasMainShow ? <div className="main-non-tag">태그가 없습니다. 카페를 이용한 후 평가를 남겨주세요.</div> : <div className="non-tag">아직 등록된 태그가 없습니다</div>;
       }
@@ -40,7 +40,7 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
           {filteredTags.map((tag, i) => {
             return (
               <div className="tag_wrapper" key={i}>
-                <Tag tag={tag} isShowFollow={isShowFollow} isSelectable={isSelectable} isSelected={tag.isSelected} onClick={isSelectable && (() => toggleTag(i))} />
+                <Tag tag={tag} isShowcount={isShowcount} isSelectable={isSelectable} isSelected={tag.isSelected} onClick={isSelectable && (() => toggleTag(i))} />
               </div>
             );
           })}
@@ -53,7 +53,7 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
 
   return (
     <TagListStyled>
-      <div className="tag-list">{makeTagList(tags, hasMainShow, hasDropDownButton, isSelectable, isShowFollow, isContraction, toggleTag)}</div>
+      <div className="tag-list">{makeTagList(tags, hasMainShow, hasDropDownButton, isSelectable, isShowcount, isContraction, toggleTag)}</div>
       {hasDropDownButton && tags.length > 4 && !showDrop ? (
         <button className="drop-down-button" onClick={() => setShowDrop(true)}>
           <DropDownIcon />
@@ -67,22 +67,22 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
 TagList.defaultProps = {
   isContraction: false,
   isSelectable: false,
-  isShowFollow: true,
+  isShowcount: true,
   hasMainShow: true,
   hasDropDownButton: false,
   tags: [
-    { name: "study", follow: 12, isSelected: false },
-    { name: "concent", follow: 23, isSelected: false },
-    { name: "mute", follow: 21, isSelected: false },
-    { name: "wifi", follow: 16, isSelected: false },
-    { name: "parking", follow: 7, isSelected: false },
-    { name: "dessert", follow: 2, isSelected: false },
-    { name: "toilet", follow: 3, isSelected: false },
-    { name: "twentyFour", follow: 4, isSelected: false },
-    { name: "smoking", follow: 5, isSelected: false },
-    { name: "timer", follow: 6, isSelected: false },
-    { name: "seat", follow: 7, isSelected: false },
-    { name: "chair", follow: 1, isSelected: false },
+    { id: "study", count: 12, isSelected: false },
+    { id: "concent", count: 23, isSelected: false },
+    { id: "mute", count: 21, isSelected: false },
+    { id: "wifi", count: 16, isSelected: false },
+    { id: "parking", count: 7, isSelected: false },
+    { id: "dessert", count: 2, isSelected: false },
+    { id: "toilet", count: 3, isSelected: false },
+    { id: "twentyFour", count: 4, isSelected: false },
+    { id: "smoking", count: 5, isSelected: false },
+    { id: "timer", count: 6, isSelected: false },
+    { id: "seat", count: 7, isSelected: false },
+    { id: "chair", count: 1, isSelected: false },
   ],
   onSetTags: null,
   onTagsChanged: null,

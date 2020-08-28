@@ -34,7 +34,7 @@ const CardInfo = props => {
 
         <p className="location">{location}</p>
       </div>
-      <TagList tags={tags} hasMainShow={hasMainShow} hasDropDownButton={false} isContraction={true} isShowFollow={false} />
+      <TagList tags={tags} hasMainShow={hasMainShow} hasDropDownButton={false} isContraction={true} isShowcount={false} />
     </CardInfoStyled>
   );
 };
@@ -45,8 +45,8 @@ CardInfo.defaultProps = {
   distance: "2.2km",
   rating: 4.5,
   tags: [
-    { name: "study", follow: 12, isSelected: false },
-    { name: "concent", follow: 23, isSelected: false },
+    { id: "study", count: 12, isSelected: false },
+    { id: "concent", count: 23, isSelected: false },
   ],
   showOnlyInfo: false,
 };

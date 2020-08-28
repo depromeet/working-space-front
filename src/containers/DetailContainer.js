@@ -52,7 +52,7 @@ const DetailContainer = props => {
   }, [CardStore.cardDetailData]);
 
   const handleSubmitButtonClick = useCallback(() => {
-    CardStore.fetchCardRating(userId, JSON.parse(window.localStorage.cardRatings));
+    CardStore.postCardRating(userId, JSON.parse(window.localStorage.cardRatings));
   }, [CardStore]);
 
   useEffect(() => {
