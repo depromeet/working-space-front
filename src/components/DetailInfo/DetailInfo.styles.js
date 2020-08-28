@@ -18,16 +18,17 @@ const DetailInfoStyled = styled.div`
     flex-direction: column;
     margin-top: 8px;
   }
-  .info-text > p {
+  .info-item {
     font-size: 12px;
     line-height: 16px;
     padding: 6px 0;
   }
-  .info-text > p > span {
+  .info-item-title {
     width: 77px;
     height: 100%;
     display: inline-flex;
     color: #a7a7a7;
+    font-size: inherit;
   }
   .info-hours {
     display: flex;
@@ -36,14 +37,9 @@ const DetailInfoStyled = styled.div`
     line-height: 16px;
     padding: 6px 0;
   }
-  .info-hours > span {
-    width: 77px;
-    height: 100%;
-    display: inline-flex;
-    color: #a7a7a7;
-  }
-  .info-hours-box > p {
+  .info-hours-paragraph {
     margin-top: 8px;
+    font-size: inherit;
     &:first-child {
       margin: 0;
     }
