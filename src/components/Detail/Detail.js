@@ -11,7 +11,7 @@ const Detail = props => {
 
   return (
     <DetailStyled>
-      <DetailTitle name={card.name} distance={card.distance} tagCount={card.tags.length} />
+      <DetailTitle name={card.name} distance={card.distance} rating={card.rating} tagCount={card.tags.length} />
       <Swiper imageUrl={card.imageUrl} imageAlt={card.imageAlt} />
       <DetailInfo address={card.address} phone={card.phone} />
       <hr />
@@ -19,7 +19,7 @@ const Detail = props => {
         <div className="tag-title">
           <h2 className="tag-text">태그</h2>
         </div>
-        <TagList tags={card.tags} hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} isShowFollow={true} />
+        <TagList tags={card.tags} hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} isShowCount={true} />
       </div>
       <hr />
       <DetailLocation mapRef={mapRef} latitude={card.latitude} longitude={card.longitude} dataId={card.dataId} />
@@ -29,21 +29,21 @@ const Detail = props => {
 
 Detail.defaultProps = {
   card: {
-    name: "Cafe",
-    distance: "0km",
+    id: "Cafe",
+    distance: "-",
     tags: [
-      { name: "study", follow: 12, isSelected: false },
-      { name: "concent", follow: 23, isSelected: false },
-      { name: "mute", follow: 21, isSelected: false },
-      { name: "wifi", follow: 16, isSelected: false },
-      { name: "parking", follow: 7, isSelected: false },
-      { name: "dessert", follow: 2, isSelected: false },
-      { name: "toilet", follow: 3, isSelected: false },
-      { name: "twentyFour", follow: 4, isSelected: false },
-      { name: "smoking", follow: 5, isSelected: false },
-      { name: "timer", follow: 6, isSelected: false },
-      { name: "seat", follow: 7, isSelected: false },
-      { name: "chair", follow: 1, isSelected: false },
+      { id: "study", count: 12, isSelected: false },
+      { id: "concent", count: 23, isSelected: false },
+      { id: "mute", count: 21, isSelected: false },
+      { id: "wifi", count: 16, isSelected: false },
+      { id: "parking", count: 7, isSelected: false },
+      { id: "dessert", count: 2, isSelected: false },
+      { id: "toilet", count: 3, isSelected: false },
+      { id: "twentyFour", count: 4, isSelected: false },
+      { id: "smoking", count: 5, isSelected: false },
+      { id: "timer", count: 6, isSelected: false },
+      { id: "seat", count: 7, isSelected: false },
+      { id: "chair", count: 1, isSelected: false },
     ],
     address: null,
     phone: null,

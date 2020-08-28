@@ -22,7 +22,7 @@ const CardListContainer = props => {
 
   const LoadingIndicator = useCallback(() => <LoadingBar hasMainLoading={true} />, []);
 
-  return CardStore.cardDataCount !== 0 ? (
+  return CardStore.isExistNearCafe ? (
     <CardList
       cardDatas={toJS(CardStore.cardDatas)}
       onCardLinkClick={handleCardLinkClick}

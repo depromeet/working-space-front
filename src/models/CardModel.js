@@ -1,5 +1,5 @@
 /* global kakao */
-import { observable, set } from "mobx";
+import { observable, set, action } from "mobx";
 import MapPickerSprite from "../images/icon-mappicker-sprite.png";
 
 const unselectedMarkerImage = new kakao.maps.MarkerImage(MapPickerSprite, new kakao.maps.Size(24, 24), {
@@ -21,22 +21,22 @@ class CardModel {
   @observable homepage = null;
   @observable imageUrl = "https://placehold.it/300x150";
   @observable imageAlt = "카페 이미지";
-  @observable rating = 4.5;
+  @observable rating = 0.0;
   @observable distance = null;
 
   @observable tags = [
-    { name: "study", follow: 12, isSelected: false },
-    { name: "concent", follow: 23, isSelected: false },
-    { name: "mute", follow: 21, isSelected: false },
-    { name: "wifi", follow: 16, isSelected: false },
-    { name: "parking", follow: 7, isSelected: false },
-    { name: "dessert", follow: 2, isSelected: false },
-    { name: "toilet", follow: 3, isSelected: false },
-    { name: "twentyFour", follow: 4, isSelected: false },
-    { name: "smoking", follow: 5, isSelected: false },
-    { name: "timer", follow: 6, isSelected: false },
-    { name: "seat", follow: 7, isSelected: false },
-    { name: "chair", follow: 1, isSelected: false },
+    { id: "study", count: 12, isSelected: false },
+    { id: "concent", count: 23, isSelected: false },
+    { id: "mute", count: 21, isSelected: false },
+    { id: "wifi", count: 16, isSelected: false },
+    { id: "parking", count: 7, isSelected: false },
+    { id: "dessert", count: 2, isSelected: false },
+    { id: "toilet", count: 3, isSelected: false },
+    { id: "twentyFour", count: 4, isSelected: false },
+    { id: "smoking", count: 5, isSelected: false },
+    { id: "timer", count: 6, isSelected: false },
+    { id: "seat", count: 7, isSelected: false },
+    { id: "chair", count: 1, isSelected: false },
   ];
 
   constructor(data) {
@@ -64,6 +64,19 @@ class CardModel {
       marker,
       imageAlt: `${data.name}이미지`,
       tags: data.tags,
+      rating: data.points,
+    });
+  }
+
+  @action setRating(rating) {
+    this.rating = Number(rating).toFixed(1);
+  }
+
+  @action updateTags(tags) {
+    tags.map(tag => {
+      const savedTag = this.tags[tag];
+      if (savedTag) this.tags[tag].count++;
+      else this.tags.push({ id: tag, count: 1, isSelected: false });
     });
   }
 }

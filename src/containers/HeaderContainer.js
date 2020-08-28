@@ -19,8 +19,7 @@ const HeaderContainer = props => {
   }, [fetch, CardStore]);
 
   const handleBackButtonClick = useCallback(() => {
-    history.push("/");
-    history.go(0);
+    history.goBack();
   }, [history]);
 
   const handleMapLinkButtonClick = useCallback(() => {

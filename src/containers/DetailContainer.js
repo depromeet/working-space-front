@@ -52,7 +52,7 @@ const DetailContainer = props => {
   }, [CardStore.cardDetailData]);
 
   const handleSubmitButtonClick = useCallback(() => {
-    CardStore.fetchCardRating(userId, JSON.parse(window.localStorage.cardRatings));
+    CardStore.postCardRating(userId, JSON.parse(window.localStorage.cardRatings));
   }, [CardStore]);
 
   useEffect(() => {
@@ -67,6 +67,10 @@ const DetailContainer = props => {
     }
   }, [CardStore.cardDetailData, CardStore.isUserRatingLoading, getKakaoMapObject]);
 
+  useEffect(() => {
+    console.log(toJS(CardStore.cardDetailData));
+  }, [CardStore.cardDetailData]);
+
   return CardStore.cardDetailData === null || CardStore.isUserRatingLoading ? (
     <div>
       <LoadingBar hasMainLoading={false} />
@@ -74,7 +78,7 @@ const DetailContainer = props => {
   ) : (
     <>
       <Detail card={toJS(CardStore.cardDetailData)} hasMainShow={hasMainShow} mapRef={mapRef} />
-      <ModalEvaluation userRating={toJS(CardStore.userRatingData)} currentId={currentId} onSubmitButtonClick={handleSubmitButtonClick} />
+      <ModalEvaluation userRating={toJS(CardStore.userRatingData)} mainTitle={toJS(CardStore.cardDetailData).name} currentId={currentId} onSubmitButtonClick={handleSubmitButtonClick} />
     </>
   );
 };
