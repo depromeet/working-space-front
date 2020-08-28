@@ -64,3 +64,18 @@ export const ModalContents = styled.div`
 
   ${({ isActive }) => isActive && activeCss}
 `;
+
+export const EndButton = styled.button`
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.43;
+  color: #222;
+  z-index: 1;
+`;

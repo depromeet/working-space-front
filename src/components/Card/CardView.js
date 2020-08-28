@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import CardViewStyled from "./CardView.styles";
 import RatingStar from "../RatingStar/RatingStar";
 import Image from "../Image/Image";

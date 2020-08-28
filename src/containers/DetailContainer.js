@@ -1,9 +1,10 @@
 /* global kakao */
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import { toJS } from "mobx";
 import useStore from "../hooks/useStore";
+import { UserIdContext } from "./UserIdProvider";
 import Detail from "../components/Detail/Detail";
 import ModalEvaluation from "../components/ModalEvaluation/ModalEvaluation";
 import LoadingBar from "../components/LoadingBar/LoadingBar";
@@ -21,6 +22,7 @@ const DetailContainer = props => {
 
   const currentParams = useParams();
   const currentId = currentParams.id;
+  const userId = useContext(UserIdContext);
 
   const [mapInstance, setMapInstance] = useState(null);
   const mapRef = useRef(null);
@@ -49,25 +51,34 @@ const DetailContainer = props => {
     return kakaoMap;
   }, [CardStore.cardDetailData]);
 
-  useEffect(() => {
-    CardStore.fetchCardDetail(currentId);
-  }, [CardStore, currentId]);
+  const handleSubmitButtonClick = useCallback(() => {
+    CardStore.postCardRating(userId, JSON.parse(window.localStorage.cardRatings));
+  }, [CardStore, userId]);
 
   useEffect(() => {
-    if (CardStore.cardDetailData) {
+    CardStore.fetchCardDetail(currentId);
+    CardStore.fetchUserRating(userId, currentId);
+  }, [CardStore, currentId, userId]);
+
+  useEffect(() => {
+    if (CardStore.cardDetailData && !CardStore.isUserRatingLoading) {
       const kakaoMap = getKakaoMapObject();
       setMapInstance(kakaoMap);
     }
-  }, [CardStore.cardDetailData, getKakaoMapObject]);
+  }, [CardStore.cardDetailData, CardStore.isUserRatingLoading, getKakaoMapObject]);
 
-  return CardStore.cardDetailData === null ? (
+  useEffect(() => {
+    console.log(toJS(CardStore.cardDetailData));
+  }, [CardStore.cardDetailData]);
+
+  return CardStore.cardDetailData === null || CardStore.isUserRatingLoading ? (
     <div>
       <LoadingBar hasMainLoading={false} />
     </div>
   ) : (
     <>
       <Detail card={toJS(CardStore.cardDetailData)} hasMainShow={hasMainShow} mapRef={mapRef} />
-      <ModalEvaluation />
+      <ModalEvaluation userRating={toJS(CardStore.userRatingData)} mainTitle={toJS(CardStore.cardDetailData).name} currentId={currentId} onSubmitButtonClick={handleSubmitButtonClick} />
     </>
   );
 };

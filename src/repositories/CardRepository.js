@@ -1,4 +1,3 @@
-import axios from "axios";
 import { AxiosUtils, createCancelSource } from "../utils/AxiosUtils";
 
 class CardRepository {
@@ -23,6 +22,22 @@ class CardRepository {
     this.getCardDetailCancelSource = createCancelSource();
 
     const result = await AxiosUtils.get(`/cafes/${cardId}/`, { cancelToken: this.getCardDetailCancelSource.token });
+    return result.data;
+  };
+
+  getUserRating = async (userId, cardId) => {
+    const result = await AxiosUtils.get(`/ratings/${userId}_${cardId}/`);
+    return result.data;
+  };
+
+  postCardRating = async (userId, cardId, tag, rating) => {
+    const result = await AxiosUtils.post(`/ratings/`, {
+      id: `${userId}_${cardId}`,
+      cafe_id: cardId,
+      user_id: userId,
+      tags: tag,
+      points: rating,
+    });
     return result.data;
   };
 }

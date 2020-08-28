@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo, useRef, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { spring, Motion } from "react-motion";
 import * as styled from "./Modal.styles";
 
@@ -26,12 +26,12 @@ const Modal = props => {
   const onClickOpen = useCallback(() => {
     disableBackScroll();
     setIsOpen(true);
-  }, []);
+  }, [disableBackScroll]);
 
   const onClickClose = useCallback(() => {
     enableBackScroll();
     setIsOpen(false);
-  }, []);
+  }, [enableBackScroll]);
 
   const onDimmedClick = useCallback(() => {
     shouldCloseOnDimmedClick && onClickClose();

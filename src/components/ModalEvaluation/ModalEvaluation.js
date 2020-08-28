@@ -7,7 +7,7 @@ import { ReactComponent as CloseIcon } from "../../images/icon-close.svg";
 import { ReactComponent as BackIcon } from "../../images/icon-back.svg";
 
 const ModalEvaluation = props => {
-  const { totalStep } = props;
+  const { userRating, EndButton, totalStep, currentId, onSubmitButtonClick } = props;
   const [step, setStep] = useState(1);
   const [isActive, setIsActive] = useState(props.isActive);
   const [isShow, setIsShow] = useState(props.isShow);
@@ -46,10 +46,12 @@ const ModalEvaluation = props => {
   // prettier-ignore
   const onSubmit = useCallback(onModalClose => {
     const selectedTags = tags.filter(tag => tag.isSelected);
-    window.localStorage.setItem('working-space', JSON.stringify({ rating, tags: selectedTags.map(tag => tag.name)}))
+    window.localStorage.setItem("cardRatings", JSON.stringify({ cafeId: currentId, rating, tags: selectedTags.map(tag => tag.id)}));
+    onSubmitButtonClick && onSubmitButtonClick();
+
     setIsShow(false);
     handleClose(onModalClose);
-  }, [rating, tags]);
+  }, [rating, tags, currentId, handleClose, onSubmitButtonClick]);
 
   // prettier-ignore
   const handleFooterButtonClick = useCallback(onModalClose => {
@@ -59,7 +61,7 @@ const ModalEvaluation = props => {
     setStep(prev => prev + 1);
     setIsActive(false);
     setFooterButtonText("");
-  }, [step, totalStep, isFooterDisabled]);
+  }, [step, totalStep, isFooterDisabled, onSubmit]);
 
   useEffect(() => {
     if (step === 1 && !isActive) {
@@ -84,9 +86,13 @@ const ModalEvaluation = props => {
     }
   }, [step, isActive, isFooterDisabled]);
 
+  if (userRating !== null) {
+    return <EndButton />;
+  }
+
   return (
     <>
-      {isShow && (
+      {isShow ? (
         <Modal shouldCloseOnDimmedClick={false}>
           {({ onClickOpen, onClickClose, isOpen, setIsOpen }) => (
             <styled.ModalContents isActive={isActive}>
@@ -106,12 +112,19 @@ const ModalEvaluation = props => {
             </styled.ModalContents>
           )}
         </Modal>
+      ) : (
+        <EndButton />
       )}
     </>
   );
 };
 
 ModalEvaluation.defaultProps = {
+  EndButton: props => (
+    <styled.EndButton type="button" {...props}>
+      평가가 완료되었습니다.
+    </styled.EndButton>
+  ),
   mainTitle: "캐틀앤비",
   subTitle: "이 카페의 평점은 몇점인가요?",
   totalStep: 2,
@@ -121,18 +134,18 @@ ModalEvaluation.defaultProps = {
   isFooterDisabled: false,
   rating: 0,
   tags: [
-    { name: "study", isSelected: false },
-    { name: "concent", isSelected: false },
-    { name: "mute", isSelected: false },
-    { name: "wifi", isSelected: false },
-    { name: "parking", isSelected: false },
-    { name: "dessert", isSelected: false },
-    { name: "toilet", isSelected: false },
-    { name: "twentyFour", isSelected: false },
-    { name: "smoking", isSelected: false },
-    { name: "timer", isSelected: false },
-    { name: "seat", isSelected: false },
-    { name: "chair", isSelected: false },
+    { id: "study", isSelected: false },
+    { id: "concent", isSelected: false },
+    { id: "mute", isSelected: false },
+    { id: "wifi", isSelected: false },
+    { id: "parking", isSelected: false },
+    { id: "dessert", isSelected: false },
+    { id: "toilet", isSelected: false },
+    { id: "twentyFour", isSelected: false },
+    { id: "smoking", isSelected: false },
+    { id: "timer", isSelected: false },
+    { id: "seat", isSelected: false },
+    { id: "chair", isSelected: false },
   ],
 };
 

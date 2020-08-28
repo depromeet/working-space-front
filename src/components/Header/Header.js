@@ -9,24 +9,39 @@ import { ReactComponent as ShareIcon } from "../../images/icon-share.svg";
 import BlinkingLocationIcon from "../BlinkingLocationIcon/BlinkingLocationIcon";
 
 const Header = props => {
-  const { title, hasBackButton, hasShareButton, hasMapButton, hasLocalText, hasLocationButton, currentCoordinates, isFetching, isLoadingFetchCard, isCardDatasEmpty } = props;
+  const {
+    title,
+    hasBackButton,
+    hasShareButton,
+    hasMapButton,
+    hasLocalText,
+    hasLocationButton,
+    currentCoordinates,
+    isFetching,
+    isLoadingFetchCard,
+    isCardDatasEmpty,
+    onLocationButtonClick,
+    onBackButtonClick,
+    onMapLinkButtonClick,
+    onShareButtonClick,
+  } = props;
   const headerRef = useRef();
 
   const handleLocationButtonClick = useCallback(() => {
-    props.onLocationButtonClick && props.onLocationButtonClick();
-  }, [props.onLocationButtonClick]);
+    onLocationButtonClick && onLocationButtonClick();
+  }, [onLocationButtonClick]);
 
   const handleBackButtonClick = useCallback(() => {
-    props.onBackButtonClick && props.onBackButtonClick();
-  }, [props.onBackButtonClick]);
+    onBackButtonClick && onBackButtonClick();
+  }, [onBackButtonClick]);
 
   const handleMapLinkButtonClick = useCallback(() => {
-    props.onMapLinkButtonClick && props.onMapLinkButtonClick();
-  }, [props.onMapLinkButtonClick]);
+    onMapLinkButtonClick && onMapLinkButtonClick();
+  }, [onMapLinkButtonClick]);
 
   const handleShareButtonClick = useCallback(() => {
-    props.onShareButtonClick && props.onShareButtonClick();
-  }, [props.onShareButtonClick]);
+    onShareButtonClick && onShareButtonClick();
+  }, [onShareButtonClick]);
 
   return (
     <HeaderStyled ref={headerRef}>

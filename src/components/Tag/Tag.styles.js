@@ -44,7 +44,7 @@ const TagStyled = styled.div`
     margin-left: 2px;
     margin-top: -1px;
   }
-  .tag_follow {
+  .tag_count {
     margin-left: 4px;
   }
 `;
