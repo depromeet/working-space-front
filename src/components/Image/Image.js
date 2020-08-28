@@ -27,7 +27,7 @@ Image.defaultProps = {
   src: "https://placehold.it/300x150",
   alt: "이미지",
   offset: 1000,
-  backgroundColor: "#ccc",
+  backgroundColor: "#eee",
 };
 
 export default Image;

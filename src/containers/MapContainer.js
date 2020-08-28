@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* global kakao */
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useHistory } from "react-router-dom";
@@ -9,6 +10,7 @@ import Map from "../components/Map/Map";
 import { ReactComponent as LocationIcon } from "../images/icon-locate.svg";
 import { ReactComponent as LocationActiveIcon } from "../images/icon-locate-active.svg";
 import FloatingActionButton from "../components/FloatingActionButton/FloatingActionButton";
+import BlinkingLocationIcon from "../components/BlinkingLocationIcon/BlinkingLocationIcon";
 import Card from "../components/Card/Card";
 import useGeoLocation from "../hooks/useGeoLocation";
 import MapPickerSprite from "../images/icon-mappicker-sprite.png";
@@ -201,7 +203,9 @@ const MapContainer = () => {
   return (
     <>
       <Map mapRef={mapRef} isSelected={!!nowSelectingCafe}>
-        <FloatingActionButton onClick={handleLocationButtonClick}>{!currentCoordinates || isFetching || !isOutOfCenter ? <LocationIcon /> : <LocationActiveIcon />}</FloatingActionButton>
+        <FloatingActionButton onClick={handleLocationButtonClick}>
+          {!currentCoordinates || isFetching || !isOutOfCenter ? <LocationIcon /> : CardStore.isLoading.fetchCard ? <BlinkingLocationIcon /> : <LocationActiveIcon />}
+        </FloatingActionButton>
       </Map>
       {nowSelectingCafe && <Card showOnlyInfo={true} onCardLinkClick={() => handleCardLinkClick(nowSelectingCafe)} cardData={nowSelectingCafe} />}
     </>

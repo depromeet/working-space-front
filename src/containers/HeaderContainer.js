@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { observer } from "mobx-react";
+import { isEmpty } from "lodash";
 import useStore from "../hooks/useStore";
 import Header from "../components/Header/Header";
 import useGeoLocation from "../hooks/useGeoLocation";
@@ -59,6 +60,8 @@ const HeaderContainer = props => {
         hasLocationButton={hasLocationButton}
         currentCoordinates={currentCoordinates}
         isFetching={isFetching}
+        isLoadingFetchCard={CardStore.isLoading.fetchCard}
+        isCardDatasEmpty={isEmpty(CardStore.cardDatas)}
       />
     </>
   );
