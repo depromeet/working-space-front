@@ -21,7 +21,7 @@ class CardModel {
   @observable homepage = null;
   @observable imageUrl = "https://placehold.it/300x150";
   @observable imageAlt = "카페 이미지";
-  @observable rating = 4.5;
+  @observable rating = 0.0;
   @observable distance = null;
 
   @observable tags = [
@@ -64,6 +64,7 @@ class CardModel {
       marker,
       imageAlt: `${data.name}이미지`,
       tags: data.tags,
+      rating: data.points,
     });
   }
 

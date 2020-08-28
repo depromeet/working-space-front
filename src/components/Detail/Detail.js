@@ -11,7 +11,7 @@ const Detail = props => {
 
   return (
     <DetailStyled>
-      <DetailTitle name={card.name} distance={card.distance} tagCount={card.tags.length} />
+      <DetailTitle name={card.name} distance={card.distance} rating={card.rating} tagCount={card.tags.length} />
       <Swiper imageUrl={card.imageUrl} imageAlt={card.imageAlt} />
       <DetailInfo address={card.address} phone={card.phone} />
       <hr />
@@ -30,7 +30,7 @@ const Detail = props => {
 Detail.defaultProps = {
   card: {
     id: "Cafe",
-    distance: "0km",
+    distance: "-",
     tags: [
       { id: "study", count: 12, isSelected: false },
       { id: "concent", count: 23, isSelected: false },

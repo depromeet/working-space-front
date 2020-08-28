@@ -6,7 +6,7 @@ import { ReactComponent as SmallMarkIcon } from "../../images/icon-small-locatio
 import { ReactComponent as SmallTagIcon } from "../../images/icon-small-tag-fill.svg";
 
 const DetailTitle = props => {
-  const { name, distance, tagCount } = props;
+  const { name, distance, rating, tagCount } = props;
   const noneText = "-";
 
   return (
@@ -19,7 +19,7 @@ const DetailTitle = props => {
         </div>
       </div>
       <div className="title-bottom">
-        <RatingStar starCount={5} isStarEditable={false} starSize={24} attendantCount={30} isSimpleMode={true} ratingTextColor="#ccc" ratingCurrentTextColor="#222" />
+        <RatingStar rating={rating} starCount={5} isStarEditable={false} starSize={24} attendantCount={0} isSimpleMode={true} ratingTextColor="#ccc" ratingCurrentTextColor="#222" />
         <div className="icon-align">
           <SmallTagIcon style={{ color: "#222222" }} />
           <span>태그 {tagCount}개</span>
@@ -32,6 +32,7 @@ const DetailTitle = props => {
 DetailTitle.defaultProps = {
   id: "Cafe",
   distance: "0km",
+  rating: 0.0,
   tagCount: 10,
 };
 
