@@ -31,7 +31,7 @@ const DetailTitle = props => {
 
 DetailTitle.defaultProps = {
   id: "Cafe",
-  distance: "0km",
+  distance: "-",
   rating: 0.0,
   tagCount: 10,
 };
