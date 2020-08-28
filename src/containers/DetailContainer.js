@@ -24,6 +24,7 @@ const DetailContainer = props => {
   const currentId = currentParams.id;
   const userId = useContext(UserIdContext);
 
+  // eslint-disable-next-line no-unused-vars
   const [mapInstance, setMapInstance] = useState(null);
   const mapRef = useRef(null);
 

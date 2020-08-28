@@ -48,17 +48,6 @@ const MapContainer = () => {
     return kakaoMap;
   }, []);
 
-  const createMarker = useCallback((title, position, image) => {
-    const marker = new kakao.maps.Marker({
-      title,
-      position,
-      image,
-      clickable: true,
-    });
-
-    return marker;
-  }, []);
-
   const handleClickMarker = useCallback(data => {
     setNowSelectingCafe(prevState => {
       if (prevState && prevState.marker) {
