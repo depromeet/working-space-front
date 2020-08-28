@@ -11,7 +11,6 @@ const InfiniteScroller = props => {
   const loadMoreItems = useCallback(isNextPageLoading ? () => {} : loadNextPage, [isNextPageLoading, loadNextPage]);
   const fixedSizeListRef = useRef();
   const MemoizedItem = memo(({ data }) => <Item data={data} />);
-  const [isMount, setIsMount] = useState(false);
   const itemCount = hasNextPage ? datas.length + threshold : datas.length;
 
   const handleWindowScroll = useCallback(({ scrollTop }) => {
@@ -19,7 +18,7 @@ const InfiniteScroller = props => {
   }, []);
 
   const Row = ({ index, style }) => {
-    if (!isMount || !isItemLoaded(index)) {
+    if (!isItemLoaded(index)) {
       return (
         <div style={style}>
           <LoadingIndicator />
@@ -33,10 +32,6 @@ const InfiniteScroller = props => {
       </div>
     );
   };
-
-  useEffect(() => {
-    setTimeout(() => setIsMount(true), 300);
-  }, []);
 
   return (
     <>
