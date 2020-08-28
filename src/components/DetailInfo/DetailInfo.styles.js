@@ -30,6 +30,9 @@ const DetailInfoStyled = styled.div`
     color: #a7a7a7;
     font-size: inherit;
   }
+  .info-item-text {
+    font-size: 12px;
+  }
   .info-hours {
     display: flex;
     justify-content: flex-start;

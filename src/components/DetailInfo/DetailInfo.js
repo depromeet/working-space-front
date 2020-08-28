@@ -4,7 +4,7 @@ import DetailInfoStyled from "./DetailInfo.styles";
 
 const DetailInfo = props => {
   const { address, hours, closed, phone } = props;
-  const noneText = <span className="info-none-text">정보없음</span>;
+  const noneText = "정보없음";
 
   return (
     <DetailInfoStyled>
@@ -12,7 +12,7 @@ const DetailInfo = props => {
       <div className="info-text">
         <p className="info-item">
           <span className="info-item-title">주소</span>
-          {isEmpty(address) ? noneText : address}
+          <span className="info-item-text">{isEmpty(address) ? noneText : address}</span>
         </p>
         <div className="info-hours">
           <span className="info-item-title">영업시간</span>
@@ -28,11 +28,11 @@ const DetailInfo = props => {
         </div>
         <p className="info-item">
           <span className="info-item-title">휴무일</span>
-          {isEmpty(closed) ? noneText : closed}
+          <span className="info-item-text">{isEmpty(closed) ? noneText : closed}</span>
         </p>
         <p className="info-item">
           <span className="info-item-title">전화번호</span>
-          {isEmpty(phone) ? noneText : phone}
+          <span className="info-item-text">{isEmpty(phone) ? noneText : phone}</span>
         </p>
       </div>
     </DetailInfoStyled>
