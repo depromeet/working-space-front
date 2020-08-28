@@ -75,8 +75,10 @@ class CardModel {
   @action updateTags(tags) {
     tags.map(tag => {
       const savedTag = this.tags[tag];
-      if (savedTag) this.tags[tag].count++;
-      else this.tags.push({ id: tag, count: 1, isSelected: false });
+      if (savedTag) {
+        return this.tags[tag].count++;
+      }
+      return this.tags.push({ id: tag, count: 1, isSelected: false });
     });
   }
 }

@@ -4,11 +4,11 @@ import CardView from "./CardView";
 import CardInfo from "./CardInfo";
 
 const Card = props => {
-  const { cardData, hasMainShow, showOnlyInfo } = props;
+  const { cardData, hasMainShow, showOnlyInfo, onCardLinkClick } = props;
 
   const handleCardLinkClick = useCallback(() => {
-    props.onCardLinkClick && props.onCardLinkClick(cardData);
-  }, [props.onCardLinkClick]);
+    onCardLinkClick && onCardLinkClick(cardData);
+  }, [onCardLinkClick, cardData]);
 
   return (
     <CardStyled onClick={handleCardLinkClick} showOnlyInfo={showOnlyInfo}>

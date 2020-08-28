@@ -116,7 +116,7 @@ const MapContainer = () => {
 
   const loadCafeData = useCallback(async () => {
     await CardStore.fetchCard();
-  }, [CardStore.fetchCard]);
+  }, [CardStore]);
 
   const checkKakaoMapDragEnd = useCallback(() => {
     if (mapInstance && currentCoordinates) {
@@ -153,7 +153,7 @@ const MapContainer = () => {
     CardStore.init();
     getCurrentCoordinates();
     loadCafeData();
-  }, [CardStore.init, getCurrentCoordinates, loadCafeData]);
+  }, [CardStore, getCurrentCoordinates, loadCafeData]);
 
   const setViewportHeight = useCallback(() => {
     document.body.style.height = `${window.innerHeight}px`;

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { toJS } from "mobx";
 import { observer } from "mobx-react";
@@ -12,9 +12,12 @@ const CardListContainer = props => {
   const history = useHistory();
   const { CardStore } = useStore();
 
-  const handleCardLinkClick = useCallback(card => {
-    history.push(`/detail/${card.id}`);
-  }, []);
+  const handleCardLinkClick = useCallback(
+    card => {
+      history.push(`/detail/${card.id}`);
+    },
+    [history],
+  );
 
   const loadNextPage = useCallback(async () => {
     await CardStore.fetchCard();

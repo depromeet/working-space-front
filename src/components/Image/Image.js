@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import LazyLoad from "react-lazyload";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { Img } from "react-image";

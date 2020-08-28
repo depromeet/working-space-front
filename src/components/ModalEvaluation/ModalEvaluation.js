@@ -3,12 +3,11 @@ import Modal from "../Modal/Modal";
 import * as styled from "./ModalEvaluation.styles";
 import FirstStep from "./FirstStep";
 import SecondStep from "./SecondStep";
-import { tagNameByType } from "../../constants/tagType";
 import { ReactComponent as CloseIcon } from "../../images/icon-close.svg";
 import { ReactComponent as BackIcon } from "../../images/icon-back.svg";
 
 const ModalEvaluation = props => {
-  const { userRating, EndButton, totalStep, currentId } = props;
+  const { userRating, EndButton, totalStep, currentId, onSubmitButtonClick } = props;
   const [step, setStep] = useState(1);
   const [isActive, setIsActive] = useState(props.isActive);
   const [isShow, setIsShow] = useState(props.isShow);
@@ -48,11 +47,11 @@ const ModalEvaluation = props => {
   const onSubmit = useCallback(onModalClose => {
     const selectedTags = tags.filter(tag => tag.isSelected);
     window.localStorage.setItem("cardRatings", JSON.stringify({ cafeId: currentId, rating, tags: selectedTags.map(tag => tag.id)}));
-    props.onSubmitButtonClick && props.onSubmitButtonClick();
+    onSubmitButtonClick && onSubmitButtonClick();
 
     setIsShow(false);
     handleClose(onModalClose);
-  }, [rating, tags, props.onSubmitButtonClick]);
+  }, [rating, tags, currentId, handleClose, onSubmitButtonClick]);
 
   // prettier-ignore
   const handleFooterButtonClick = useCallback(onModalClose => {
@@ -62,7 +61,7 @@ const ModalEvaluation = props => {
     setStep(prev => prev + 1);
     setIsActive(false);
     setFooterButtonText("");
-  }, [step, totalStep, isFooterDisabled]);
+  }, [step, totalStep, isFooterDisabled, onSubmit]);
 
   useEffect(() => {
     if (step === 1 && !isActive) {

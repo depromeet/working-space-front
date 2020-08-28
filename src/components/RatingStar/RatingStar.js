@@ -6,15 +6,15 @@ import RatingStarStyled from "./RatingStar.styles";
 
 const RatingStar = props => {
   // prettier-ignore
-  const { starSize, starActiveColor, isStarHalf, starColor, isStarEditable, starCount, attendantCount, FilledIcon, HalfIcon, EmptyIcon, isShowAttendantCount, attendantColor, ratingTextColor, isVertical, isRatingInteger, isShowRatingTotal, ratingTextSize, rowStarGutter, ratingCurrentTextColor, ratingTotalTextColor } = props;
+  const { starSize, starActiveColor, isStarHalf, starColor, isStarEditable, starCount, attendantCount, FilledIcon, HalfIcon, EmptyIcon, isShowAttendantCount, attendantColor, isVertical, isRatingInteger, isShowRatingTotal, ratingTextSize, rowStarGutter, ratingCurrentTextColor, ratingTotalTextColor, onRatingChanged } = props;
   const [rating, setRating] = useState(isRatingInteger ? parseInt(props.rating, 10) : parseFloat(props.rating).toFixed(1));
 
-  const onRatingChanged = useCallback(
+  const handleRatingChanged = useCallback(
     newRating => {
       setRating(Number(newRating));
-      props.onRatingChanged && props.onRatingChanged(newRating);
+      onRatingChanged && onRatingChanged(newRating);
     },
-    [props.onRatingChanged],
+    [onRatingChanged],
   );
 
   const RatingInfo = useCallback(() => {
@@ -47,7 +47,7 @@ const RatingStar = props => {
           color={starColor}
           activeColor={starActiveColor}
           isHalf={isStarHalf}
-          onChange={onRatingChanged}
+          onChange={handleRatingChanged}
           emptyIcon={<EmptyIcon />}
           halfIcon={<HalfIcon />}
           filledIcon={<FilledIcon />}

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, memo, useState, useEffect } from "react";
+import React, { useCallback, useRef, memo } from "react";
 import { FixedSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import AutoSizer from "react-virtualized-auto-sizer";
