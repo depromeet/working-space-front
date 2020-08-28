@@ -1,0 +1,12 @@
+[build.environment]
+	CI = false
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# [context.development.environment]
+# REACT_APP_STAGE =“개발”
+# [context.production.environment]
+# REACT_APP_STAGE = "생산"
