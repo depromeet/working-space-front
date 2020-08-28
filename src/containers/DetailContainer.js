@@ -74,7 +74,7 @@ const DetailContainer = props => {
   ) : (
     <>
       <Detail card={toJS(CardStore.cardDetailData)} hasMainShow={hasMainShow} mapRef={mapRef} />
-      <ModalEvaluation userRating={toJS(CardStore.userRatingData)} currentId={currentId} onSubmitButtonClick={handleSubmitButtonClick} />
+      <ModalEvaluation userRating={toJS(CardStore.userRatingData)} mainTitle={toJS(CardStore.cardDetailData).name} currentId={currentId} onSubmitButtonClick={handleSubmitButtonClick} />
     </>
   );
 };
