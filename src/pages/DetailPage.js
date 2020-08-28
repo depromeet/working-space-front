@@ -9,7 +9,7 @@ const DetailPage = () => {
 
   return (
     <>
-      <HeaderContainer hasBackButton={true} hasShareButton={true} hasMapButton={false} hasLocalText={false} hasLocationButton={false} />
+      <HeaderContainer hasBackButton={true} hasShareButton={"share" in navigator} hasMapButton={false} hasLocalText={false} hasLocationButton={false} />
       <DetailContainer hasMainShow={false} />
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { observer } from "mobx-react";
 import { isEmpty } from "lodash";
@@ -29,12 +29,12 @@ const HeaderContainer = props => {
   const handleShareButtonClick = useCallback(() => {
     const currentUrl = window.location.href;
 
-    if (navigator.share === undefined) {
+    if ("share" in navigator) {
       console.log("지원하지 않는 브라우저입니다.");
     } else {
       navigator
         .share({
-          title: "WebShare API",
+          title: `<${CardStore.cardDetailData && CardStore.cardDetailData.name}>\r\n작업공간으로 이 카페를 추천합니다!\r\n`,
           url: currentUrl,
         })
         .then(() => {
@@ -42,7 +42,7 @@ const HeaderContainer = props => {
         })
         .catch(console.error);
     }
-  }, []);
+  }, [CardStore.cardDetailData]);
 
   return (
     <>
