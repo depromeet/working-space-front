@@ -48,10 +48,10 @@ class CardStore {
     this.isLoading.fetchCard = true;
     const coordinates = yield GeoLocationUtils.getGeoLocation();
     const getCards = yield CardRepository.getCards(this.pageNumber, coordinates.latitude, coordinates.longitude);
-    set(this, { cards: getCards });
+    this.cards = getCards;
     if (isEmpty(this.cards)) {
-      const getNoneCards = yield CardRepository.getCards(this.pageNumber, 37.498095, 127.02761);
-      set(this, { cards: getNoneCards });
+      const noneCards = yield CardRepository.getCards(this.pageNumber, 37.498095, 127.02761);
+      this.cards = noneCards;
     }
     const cardModels = this.cards.map(card => new CardModel(card));
     if (isEmpty(cardModels)) this.isExistNearCafe = false;
