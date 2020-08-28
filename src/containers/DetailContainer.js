@@ -1,5 +1,6 @@
 /* global kakao */
 import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
+import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import { toJS } from "mobx";
@@ -74,6 +75,12 @@ const DetailContainer = props => {
     </div>
   ) : (
     <>
+      <Helmet>
+        <title>{`${toJS(CardStore.cardDetailData).name} - 작업공간`}</title>
+        <link rel="canonical" href={window.location.href} />
+        <meta property="og:title" content={`${toJS(CardStore.cardDetailData).name} - 작업공간`} />
+        <meta name="twitter:title" content={`${toJS(CardStore.cardDetailData).name} - 작업공간`} />
+      </Helmet>
       <Detail card={toJS(CardStore.cardDetailData)} hasMainShow={hasMainShow} mapRef={mapRef} />
       <ModalEvaluation userRating={toJS(CardStore.userRatingData)} mainTitle={toJS(CardStore.cardDetailData).name} currentId={currentId} onSubmitButtonClick={handleSubmitButtonClick} />
     </>
