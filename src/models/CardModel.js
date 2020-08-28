@@ -72,13 +72,13 @@ class CardModel {
     this.rating = Number(rating).toFixed(1);
   }
 
-  @action updateTags(tags) {
-    tags.map(tag => {
-      const savedTag = this.tags[tag];
+  @action updateTags(tagIds) {
+    tagIds.map(tagId => {
+      const savedTag = this.tags.find(tag => tag.id === tagId);
       if (savedTag) {
-        return this.tags[tag].count++;
+        return savedTag.count++;
       }
-      return this.tags.push({ id: tag, count: 1, isSelected: false });
+      return this.tags.push({ id: tagId, count: 1, isSelected: false });
     });
   }
 }
