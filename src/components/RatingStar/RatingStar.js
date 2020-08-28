@@ -24,7 +24,7 @@ const RatingStar = props => {
           <span className="rating_count_current">{rating}점</span>
           <span className="rating_count_total">{isShowRatingTotal && ` / ${starCount}점`}</span>
         </span>
-        {isShowAttendantCount && <span className="rating_attendant_count">({attendantCount}명 참여)</span>}
+        {isShowAttendantCount && attendantCount > 0 && <span className="rating_attendant_count">({attendantCount}명 참여)</span>}
       </p>
     );
   }, [isShowAttendantCount, isShowRatingTotal, starCount, attendantCount, rating]);
