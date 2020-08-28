@@ -4,7 +4,7 @@ import TagListStyled from "./TagList.styles";
 import Tag from "./Tag";
 import { ReactComponent as DropDownIcon } from "../../images/icon-dropdown.svg";
 
-const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContraction, isShowcount, isSelectable, onTagsChanged }) => {
+const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContraction, isShowCount, isSelectable, onTagsChanged }) => {
   /* prettier-ignore */
   const toggleTag = useCallback(index => {
     if(!onSetTags) return;
@@ -20,7 +20,7 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
   const [showDrop, setShowDrop] = useState(false);
 
   const makeTagList = useCallback(
-    (tags, hasMainShow, hasDropDownButton, isSelectable, isShowcount, isContraction, toggleTag) => {
+    (tags, hasMainShow, hasDropDownButton, isSelectable, isShowCount, isContraction, toggleTag) => {
       if (tags.length <= 0 || tags === null) {
         return hasMainShow ? <div className="main-non-tag">태그가 없습니다. 카페를 이용한 후 평가를 남겨주세요.</div> : <div className="non-tag">아직 등록된 태그가 없습니다</div>;
       }
@@ -40,7 +40,7 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
           {filteredTags.map((tag, i) => {
             return (
               <div className="tag_wrapper" key={i}>
-                <Tag tag={tag} isShowcount={isShowcount} isSelectable={isSelectable} isSelected={tag.isSelected} onClick={isSelectable && (() => toggleTag(i))} />
+                <Tag tag={tag} isShowCount={isShowCount} isSelectable={isSelectable} isSelected={tag.isSelected} onClick={isSelectable && (() => toggleTag(i))} />
               </div>
             );
           })}
@@ -53,7 +53,7 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
 
   return (
     <TagListStyled>
-      <div className="tag-list">{makeTagList(tags, hasMainShow, hasDropDownButton, isSelectable, isShowcount, isContraction, toggleTag)}</div>
+      <div className="tag-list">{makeTagList(tags, hasMainShow, hasDropDownButton, isSelectable, isShowCount, isContraction, toggleTag)}</div>
       {hasDropDownButton && tags.length > 4 && !showDrop ? (
         <button className="drop-down-button" onClick={() => setShowDrop(true)}>
           <DropDownIcon />
@@ -67,7 +67,7 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
 TagList.defaultProps = {
   isContraction: false,
   isSelectable: false,
-  isShowcount: true,
+  isShowCount: true,
   hasMainShow: true,
   hasDropDownButton: false,
   tags: [

@@ -19,7 +19,7 @@ const Detail = props => {
         <div className="tag-title">
           <h2 className="tag-text">태그</h2>
         </div>
-        <TagList tags={card.tags} hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} isShowcount={true} />
+        <TagList tags={card.tags} hasMainShow={hasMainShow} hasMoreTags={false} hasDropDownButton={true} isShowCount={true} />
       </div>
       <hr />
       <DetailLocation mapRef={mapRef} latitude={card.latitude} longitude={card.longitude} dataId={card.dataId} />
