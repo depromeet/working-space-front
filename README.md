@@ -1,6 +1,6 @@
 # 디지털 노마드들을 위한 위치 기반 주변 카페 알리미
 
-- website : https://workinspace.netlify.app  
+- website : https://workingspace.netlify.app  
 - android : https://play.google.com/store/apps/details?id=com.yonghochoi.nomadcafeapp
 - 발표자료 : https://drive.google.com/file/d/1txThGTWhUyNSn_zZAu-5jCaddLeAypRn/view?usp=sharing
 
