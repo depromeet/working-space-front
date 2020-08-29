@@ -17,11 +17,11 @@ class CardRepository {
     }
   }
 
-  getCardDetail = async cardId => {
+  getCardDetail = async (cardId, latitude, longitude) => {
     this.cancelGetCardDetail();
     this.getCardDetailCancelSource = createCancelSource();
 
-    const result = await AxiosUtils.get(`/cafes/${cardId}/`, { cancelToken: this.getCardDetailCancelSource.token });
+    const result = await AxiosUtils.get(`/cafes/${cardId}/?lat=${latitude}&lon=${longitude}`, { cancelToken: this.getCardDetailCancelSource.token });
     return result.data;
   };
 

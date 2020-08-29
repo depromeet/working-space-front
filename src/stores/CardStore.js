@@ -42,7 +42,7 @@ class CardStore {
     };
   }
 
-  *fetchCard(page) {
+  *fetchCard() {
     if (this.isLoading.fetchCard) return;
 
     this.isLoading.fetchCard = true;
@@ -62,9 +62,10 @@ class CardStore {
 
   *fetchCardDetail(cardId) {
     set(this, { cardDetailData: null });
+    const coordinates = yield GeoLocationUtils.getGeoLocation();
 
     try {
-      const cardDetail = yield CardRepository.getCardDetail(cardId);
+      const cardDetail = yield CardRepository.getCardDetail(cardId, coordinates.latitude, coordinates.longitude);
       const cardDetailModels = new CardModel(cardDetail);
       set(this, { cardDetailData: cardDetailModels });
     } catch (error) {
