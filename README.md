@@ -1,7 +1,7 @@
 # 디지털 노마드들을 위한 위치 기반 주변 카페 알리미
 [발표자료](https://drive.google.com/file/d/1txThGTWhUyNSn_zZAu-5jCaddLeAypRn/view?usp=sharing)
 
-![작업공간](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/40ae1475-4f47-45a8-ad52-c536b5c350e9/KakaoTalk_Photo_2020-08-28-00-20-40.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20200829%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20200829T004049Z&X-Amz-Expires=86400&X-Amz-Signature=665104e1251a8821a569ac46c85503f05ff1326cbf02a6c477e798074b6144a3&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22KakaoTalk_Photo_2020-08-28-00-20-40.gif%22)
+![작업공간](https://user-images.githubusercontent.com/29771088/91624724-cf680880-e9dc-11ea-8f6c-e0f887e5ccb5.gif)
 
 # FrontEnd Architecture
 
