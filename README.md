@@ -1,4 +1,7 @@
 # 디지털 노마드들을 위한 위치 기반 주변 카페 알리미
+발표자료 : https://www.notion.so/91af07cfbb984002a73362c6c56ae1bb#60fc58a464084c889595ef390ead6644
+
+시연영상 : https://www.notion.so/91af07cfbb984002a73362c6c56ae1bb#43780f0d0c68439f822539fafb2713c0
 
 # FrontEnd Architecture
 
