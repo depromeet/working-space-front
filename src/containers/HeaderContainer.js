@@ -45,17 +45,19 @@ const HeaderContainer = props => {
   const handleShareButtonClick = useCallback(() => {
     const currentUrl = window.location.href;
 
-    if ("share" in navigator) {
-      navigator
-        .share({
-          title: `<${CardStore.cardDetailData && CardStore.cardDetailData.name}>\r\n작업공간으로 이 카페를 추천합니다!\r\n`,
-          url: currentUrl,
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    } else {
-      urlClipCopy();
+    if (CardStore.cardDetailData) {
+      if ("share" in navigator) {
+        navigator
+          .share({
+            title: `<${CardStore.cardDetailData && CardStore.cardDetailData.name}>\r\n작업공간으로 이 카페를 추천합니다!\r\n`,
+            url: currentUrl,
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      } else {
+        urlClipCopy();
+      }
     }
   }, [CardStore.cardDetailData, urlClipCopy]);
 
@@ -69,7 +71,7 @@ const HeaderContainer = props => {
         title={currentAddress}
         hasBackgroundColor={hasBackgroundColor}
         hasBackButton={hasBackButton}
-        hasShareButton={hasShareButton}
+        hasShareButton={hasShareButton && CardStore.cardDetailData}
         hasMapButton={hasMapButton}
         hasLocalText={hasLocalText}
         hasLocationButton={hasLocationButton}
