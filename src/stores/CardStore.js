@@ -8,7 +8,6 @@ import RatingsModel from "../models/RatingsModel";
 
 class CardStore {
   @observable cardDatas = [];
-  @observable cards = null;
   @observable cardDetailData = null;
   @observable userRatingData = null;
   @observable isExistNearCafe = true;
@@ -30,7 +29,6 @@ class CardStore {
 
   @action.bound init() {
     this.cardDatas = [];
-    this.cards = null;
     this.cardDetailData = null;
     this.userRatingData = null;
     this.isUserRatingLoading = false;
@@ -47,13 +45,8 @@ class CardStore {
 
     this.isLoading.fetchCard = true;
     const coordinates = yield GeoLocationUtils.getGeoLocation();
-    const getCards = yield CardRepository.getCards(this.pageNumber, coordinates.latitude, coordinates.longitude);
-    this.cards = getCards;
-    if (isEmpty(this.cards)) {
-      const noneCards = yield CardRepository.getCards(this.pageNumber, 37.498095, 127.02761);
-      this.cards = noneCards;
-    }
-    const cardModels = this.cards.map(card => new CardModel(card));
+    const cards = yield CardRepository.getCards(this.pageNumber, coordinates.latitude, coordinates.longitude);
+    const cardModels = cards.map(card => new CardModel(card));
     if (isEmpty(cardModels)) this.isExistNearCafe = false;
     this.cardDatas = this.cardDatas.concat(cardModels);
     this.pageNumber++;
