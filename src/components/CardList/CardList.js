@@ -7,10 +7,20 @@ import LoadingBar from "../LoadingBar/LoadingBar";
 
 const CardList = props => {
   const { standard, cardDatas, onCardLinkClick, cardHeight, loadNextPage, LoadingIndicator, hasNextPage, isNextPageLoading, hasMainShow } = props;
-  /* prettier-ignore */
-  const Item = useCallback(({ data }) => {
-    return <Card cardData={data} onCardLinkClick={onCardLinkClick} hasMainShow={hasMainShow} />;
-	}, [onCardLinkClick, hasMainShow]);
+
+  const CardItem = useCallback(
+    ({ style, index, data }) => {
+      /* prettier-ignore */
+      if (!data[index]) (<div style={style}><LoadingIndicator /></div>);
+
+      return (
+        <div style={style}>
+          <Card cardData={data[index]} onCardLinkClick={onCardLinkClick} hasMainShow={hasMainShow} />
+        </div>
+      );
+    },
+    [onCardLinkClick, hasMainShow, LoadingIndicator],
+  );
 
   return (
     <CardListStyled>
@@ -25,7 +35,7 @@ const CardList = props => {
       </div>
       <InfiniteScroller
         datas={cardDatas}
-        Item={Item}
+        Item={CardItem}
         itemSize={cardHeight}
         hasNextPage={hasNextPage}
         isNextPageLoading={isNextPageLoading}
