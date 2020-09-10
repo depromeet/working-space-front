@@ -11,7 +11,7 @@ const CardList = props => {
   const CardItem = useCallback(
     ({ style, index, data }) => {
       /* prettier-ignore */
-      if (!data[index]) (<div style={style}><LoadingIndicator /></div>);
+      if (!data[index]) return <div style={style}><LoadingIndicator /></div>;
 
       return (
         <div style={style}>
