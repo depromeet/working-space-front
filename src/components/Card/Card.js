@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { isEmpty } from "lodash";
 import CardStyled from "./Card.styles";
 import CardView from "./CardView";
 import CardInfo from "./CardInfo";
