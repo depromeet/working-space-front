@@ -9,6 +9,7 @@ import useStore from "../hooks/useStore";
 import Map from "../components/Map/Map";
 import { ReactComponent as LocationIcon } from "../images/icon-locate.svg";
 import { ReactComponent as LocationActiveIcon } from "../images/icon-locate-active.svg";
+import CurrentLocationIcon from "../images/current-location.svg";
 import FloatingActionButton from "../components/FloatingActionButton/FloatingActionButton";
 import BlinkingLocationIcon from "../components/BlinkingLocationIcon/BlinkingLocationIcon";
 import Card from "../components/Card/Card";
@@ -24,6 +25,9 @@ const unselectedMarkerImage = new kakao.maps.MarkerImage(MapPickerSprite, new ka
   spriteOrigin: new kakao.maps.Point(0, 0),
   spriteSize: new kakao.maps.Size(72, 48),
 });
+const currentLocationMarkerImage = new kakao.maps.MarkerImage(CurrentLocationIcon, new kakao.maps.Size(36, 36), {
+  offset: new kakao.maps.Point(18, 18),
+});
 
 const MapContainer = () => {
   const history = useHistory();
@@ -35,6 +39,7 @@ const MapContainer = () => {
   const [mapInstance, setMapInstance] = useState(null);
   const [cafeData, setCafeData] = useState([]);
   const [nowSelectingCafe, setNowSelectingCafe] = useState(null);
+  const [currentLocationMarker, setCurrentLocationMarker] = useState(null);
   const [isOutOfCenter, setIsOutOfCenter] = useState(true);
 
   const getKakaoMapObject = useCallback(() => {
@@ -95,6 +100,18 @@ const MapContainer = () => {
     const lng = currentCoordinates.longitude;
     const nowLatLng = new kakao.maps.LatLng(lat, lng);
     mapInstance.setCenter(nowLatLng);
+    setCurrentLocationMarker(prevState => {
+      if (prevState) {
+        prevState.setMap(null);
+      }
+      return new kakao.maps.Marker({
+        title: "현위치",
+        position: nowLatLng,
+        map: mapInstance,
+        image: currentLocationMarkerImage,
+        clickable: false,
+      });
+    });
   }, [currentCoordinates, mapInstance]);
 
   const getCurrentCoordinates = useCallback(() => {
@@ -179,11 +196,20 @@ const MapContainer = () => {
       return;
     }
     setCafeData(toJS(CardStore.cardDatas));
+    setNowSelectingCafe(null);
   }, [CardStore.cardDatas, loadCafeData]);
 
   useEffect(() => {
     showAllMarkers();
-  }, [showAllMarkers]);
+
+    return () => {
+      cafeData.forEach(data => {
+        const { marker } = data;
+        marker.setImage(unselectedMarkerImage);
+      });
+      setNowSelectingCafe(null);
+    };
+  }, [showAllMarkers, cafeData]);
 
   useEffect(() => {
     setViewportHeight();
