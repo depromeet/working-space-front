@@ -1,10 +1,45 @@
 import React from "react";
 import { isEmpty } from "lodash";
 import DetailInfoStyled from "./DetailInfo.styles";
+import { ReactComponent as CopyIcon } from "../../images/icon-small-copy.svg";
 
 const DetailInfo = props => {
   const { address, hours, closed, phone } = props;
   const noneText = "정보없음";
+
+  const handleCopyToClipboard = address => {
+    const isIOS = () => {
+      return navigator.userAgent.match(/ipad|iphone/i) != null;
+    };
+
+    const focusingContainer = document.body;
+    const textArea = document.createElement("textArea");
+
+    textArea.value = address;
+    textArea.contentEditable = "true";
+    textArea.readOnly = false;
+    textArea.style.userSelect = "text";
+
+    focusingContainer.insertBefore(textArea, focusingContainer.firstChild);
+
+    if (isIOS()) {
+      const range = document.createRange();
+      range.selectNodeContents(textArea);
+      const selection = window.getSelection();
+
+      if (selection !== null) {
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+
+      textArea.setSelectionRange(0, 999999);
+    } else {
+      textArea.select();
+    }
+
+    document.execCommand("copy");
+    focusingContainer.removeChild(textArea);
+  };
 
   return (
     <DetailInfoStyled>
@@ -12,7 +47,16 @@ const DetailInfo = props => {
       <div className="info-text">
         <p className="info-item">
           <span className="info-item-title">주소</span>
-          <span className="info-item-text">{isEmpty(address) ? noneText : address}</span>
+          {isEmpty(address) ? (
+            <span className="info-item-text">{noneText}</span>
+          ) : (
+            <span className="info-item-box">
+              <span className="info-item-text">{address}</span>
+              <button className="info-item-icon" onClick={() => handleCopyToClipboard(address)}>
+                <CopyIcon />
+              </button>
+            </span>
+          )}
         </p>
         <div className="info-hours">
           <span className="info-item-title">영업시간</span>
