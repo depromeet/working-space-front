@@ -33,6 +33,14 @@ const DetailInfoStyled = styled.div`
   .info-item-text {
     font-size: 12px;
   }
+  .info-item-box {
+    display: inline-flex;
+  }
+  .info-item-icon {
+    display: flex;
+    margin-left: 4px;
+    background: none;
+  }
   .info-hours {
     display: flex;
     justify-content: flex-start;
