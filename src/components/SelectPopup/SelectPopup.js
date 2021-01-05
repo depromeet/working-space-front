@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SelectPopupStyled from "./SelectPopup.styles";
 
 const SelectPopup = props => {
   const { cafes, onClose, onSubmit } = props;
-  const [selectedCafeID, setSelectedCafeID] = useState(null);
+  const [selectedCafe, setSelectedCafe] = useState(null);
 
   const handleClose = () => {
     onClose();
   };
 
-  const handleSelect = id => {
-    setSelectedCafeID(id);
+  const handleSelect = cafe => {
+    setSelectedCafe(cafe);
   };
 
   const handleSubmit = () => {
-    console.log(selectedCafeID);
-    onSubmit(selectedCafeID);
+    onSubmit(selectedCafe);
   };
+
+  useEffect(() => {
+    setSelectedCafe(cafes[0]);
+  }, [setSelectedCafe, cafes]);
 
   return (
     <SelectPopupStyled>
@@ -27,7 +30,7 @@ const SelectPopup = props => {
           {cafes.map((cafe, index) => {
             const { id, name } = cafe;
             return (
-              <label className="select-list-item" key={id} onChange={() => handleSelect(id)}>
+              <label className="select-list-item" key={id} onChange={() => handleSelect(cafe)}>
                 <input type="radio" name="select-cafe" value={id} defaultChecked={index === 0 ? "checked" : ""} />
                 <span className="checkmark" />
                 <span className="cafe-name">{name}</span>

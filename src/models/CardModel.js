@@ -1,11 +1,5 @@
 /* global kakao */
 import { observable, set, action } from "mobx";
-import MapPickerSprite from "../images/icon-mappicker-sprite.png";
-
-const unselectedMarkerImage = new kakao.maps.MarkerImage(MapPickerSprite, new kakao.maps.Size(24, 24), {
-  spriteOrigin: new kakao.maps.Point(0, 0),
-  spriteSize: new kakao.maps.Size(72, 48),
-});
 
 class CardModel {
   @observable id = "Cafe";
@@ -40,8 +34,6 @@ class CardModel {
   ];
 
   constructor(data) {
-    const latlng = new kakao.maps.LatLng(data.location.coordinates[1], data.location.coordinates[0]);
-    const marker = new kakao.maps.Marker({ title: data.name, position: latlng, image: unselectedMarkerImage, clickable: true });
     let distance;
     if (data.dist) distance = data.dist.calculated < 1000 ? `${parseInt(data.dist.calculated, 10)}m` : `${(parseInt(data.dist.calculated, 10) / 1000).toFixed(1)}km`;
 
@@ -61,7 +53,6 @@ class CardModel {
       imageUrl: [`/images/${parseInt(Math.random() * 18, 10) + 1}.jpg`, `/images/1.jpg`, `/images/2.jpg`],
       latitude: data.location.coordinates[1],
       longitude: data.location.coordinates[0],
-      marker,
       imageAlt: `${data.name}이미지`,
       tags: data.tags,
       rating: data.points,
