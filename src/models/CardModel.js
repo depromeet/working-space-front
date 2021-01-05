@@ -1,4 +1,3 @@
-/* global kakao */
 import { observable, set, action } from "mobx";
 
 class CardModel {
