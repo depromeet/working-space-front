@@ -291,15 +291,20 @@ const MapContainer = () => {
     showAllMarkers();
 
     return () => {
-      Object.entries(cafeData).forEach(item => {
-        const cafe = item[1];
-        const { marker } = cafe[0];
-        marker.setImage(unselectedMarkerImage);
-
-        setNowSelectingCafe(null);
-      });
+      unselectMarker();
+      resetMarkers();
     };
-  }, [showAllMarkers, cafeData]);
+
+    // return () => {
+    //   Object.entries(cafeData).forEach(item => {
+    //     const cafe = item[1];
+    //     const { marker } = cafe[0];
+    //     marker.setImage(unselectedMarkerImage);
+
+    //     setNowSelectingCafe(null);
+    //   });
+    // };
+  }, [showAllMarkers, unselectMarker, resetMarkers]);
 
   useEffect(() => {
     setViewportHeight();
