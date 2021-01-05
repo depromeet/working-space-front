@@ -294,16 +294,6 @@ const MapContainer = () => {
       unselectMarker();
       resetMarkers();
     };
-
-    // return () => {
-    //   Object.entries(cafeData).forEach(item => {
-    //     const cafe = item[1];
-    //     const { marker } = cafe[0];
-    //     marker.setImage(unselectedMarkerImage);
-
-    //     setNowSelectingCafe(null);
-    //   });
-    // };
   }, [showAllMarkers, unselectMarker, resetMarkers]);
 
   useEffect(() => {
