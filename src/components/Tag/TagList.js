@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useState } from "react";
 import produce from "immer";
+import { isEmpty } from "lodash";
 import TagListStyled from "./TagList.styles";
 import Tag from "./Tag";
 import { ReactComponent as DropDownIcon } from "../../images/icon-dropdown.svg";
@@ -21,12 +22,11 @@ const TagList = ({ tags, onSetTags, hasMainShow, hasDropDownButton, isContractio
 
   const makeTagList = useCallback(
     (tags, hasMainShow, hasDropDownButton, isSelectable, isShowCount, isContraction, toggleTag) => {
-      if (tags.length <= 0 || tags === null) {
+      if (tags.length <= 0 || isEmpty(tags)) {
         return hasMainShow ? <div className="main-non-tag">태그가 없습니다. 카페를 이용한 후 평가를 남겨주세요.</div> : <div className="non-tag">아직 등록된 태그가 없습니다</div>;
       }
 
       let filteredTags = tags;
-
       if (isContraction) {
         filteredTags = tags.slice(0, 2);
       } else if (hasDropDownButton && tags.length > 4 && !showDrop) {
