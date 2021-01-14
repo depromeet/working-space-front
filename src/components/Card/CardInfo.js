@@ -1,4 +1,5 @@
 import React from "react";
+import { isEmpty } from "lodash";
 import CardInfoStyled from "./CardInfo.styles";
 import { ReactComponent as SmallMarkIcon } from "../../images/icon-small-location-fill.svg";
 import { ReactComponent as RatingIcon } from "../../images/icon-star-fill.svg";
@@ -7,7 +8,6 @@ import TagList from "../Tag/TagList";
 
 const CardInfo = props => {
   const { title, location, distance, rating, tags, hasMainShow, showOnlyInfo } = props;
-
   return (
     <CardInfoStyled showOnlyInfo={showOnlyInfo}>
       <div className="card-info">
@@ -23,11 +23,11 @@ const CardInfo = props => {
           <div className="info-middle">
             <p className="card-rating">
               <RatingIcon />
-              <span>{rating}점</span>
+              <span>{isEmpty(rating) ? "0.0" : rating}점</span>
             </p>
             <p className="card-tag-count">
               <SmallTagIcon />
-              <span>태그 {tags.length}개</span>
+              <span>태그 {isEmpty(tags) ? "0" : tags.length}개</span>
             </p>
           </div>
         )}
@@ -44,10 +44,7 @@ CardInfo.defaultProps = {
   location: "Location",
   distance: "2.2km",
   rating: 0.0,
-  tags: [
-    { id: "study", count: 12, isSelected: false },
-    { id: "concent", count: 23, isSelected: false },
-  ],
+  tags: null,
   showOnlyInfo: false,
 };
 

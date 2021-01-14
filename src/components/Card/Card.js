@@ -1,5 +1,4 @@
 import React, { useCallback } from "react";
-import { isEmpty } from "lodash";
 import CardStyled from "./Card.styles";
 import CardView from "./CardView";
 import CardInfo from "./CardInfo";
@@ -25,12 +24,9 @@ Card.defaultProps = {
     location: "Location",
     imageUrl: "https://placehold.it/360x160",
     imageAlt: "카드 이미지",
-    distance: "2.2km",
+    distance: "0.0km",
     rating: 0.0,
-    tags: [
-      { id: "study", count: 12, isSelected: false },
-      { id: "concent", count: 23, isSelected: false },
-    ],
+    tags: null,
   },
   showOnlyInfo: false,
 };

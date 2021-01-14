@@ -59,7 +59,7 @@ const RatingStar = props => {
 };
 
 RatingStar.defaultProps = {
-  rating: 4,
+  rating: 0.0,
   ratingCurrentTextColor: "#ccc",
   ratingTotalTextColor: "#222",
   ratingTextSize: 12,
