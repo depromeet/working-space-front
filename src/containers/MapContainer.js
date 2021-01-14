@@ -7,6 +7,7 @@ import { observer } from "mobx-react";
 import { isEmpty, debounce } from "lodash";
 import useStore from "../hooks/useStore";
 import Map from "../components/Map/Map";
+import SelectPopup from "../components/SelectPopup/SelectPopup";
 import { ReactComponent as LocationIcon } from "../images/icon-locate.svg";
 import { ReactComponent as LocationActiveIcon } from "../images/icon-locate-active.svg";
 import CurrentLocationIcon from "../images/current-location.svg";
@@ -38,7 +39,14 @@ const MapContainer = () => {
 
   const [mapInstance, setMapInstance] = useState(null);
   const [cafeData, setCafeData] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [markers, setMarkers] = useState([]);
   const [nowSelectingCafe, setNowSelectingCafe] = useState(null);
+  // eslint-disable-next-line no-unused-vars
+  const [nowSelectingMarker, setNowSelectingMarker] = useState(null);
+  const [nowSelectingCombineCafes, setNowSelectingCombineCafes] = useState(null);
+  const [nowSelectingCombineMarker, setNowSelectingCombineMarker] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [currentLocationMarker, setCurrentLocationMarker] = useState(null);
   const [isOutOfCenter, setIsOutOfCenter] = useState(true);
 
@@ -53,43 +61,97 @@ const MapContainer = () => {
     return kakaoMap;
   }, []);
 
-  const handleClickMarker = useCallback(data => {
-    setNowSelectingCafe(prevState => {
-      if (prevState && prevState.marker) {
-        prevState.marker.setImage(unselectedMarkerImage);
-      }
-      return data;
+  const unselectMarker = useCallback(() => {
+    setNowSelectingCombineCafes(null);
+    setNowSelectingCombineMarker(prevState => {
+      if (!prevState) return;
+      prevState.setImage(unselectedMarkerImage);
+      return null;
     });
-
-    data.marker.setImage(selectedMarkerImage);
+    setNowSelectingCafe(null);
+    setNowSelectingMarker(prevState => {
+      if (!prevState) return;
+      prevState.setImage(unselectedMarkerImage);
+      return null;
+    });
   }, []);
 
-  const deleteAllMarkers = useCallback(() => {
-    setCafeData(prevState => {
-      prevState.forEach(data => {
-        data.marker.setMap(null);
-        data.marker.setImage(unselectedMarkerImage);
+  const handleCloseSelectPopup = useCallback(() => {
+    setNowSelectingCombineCafes(null);
+  }, []);
+
+  const handleSubmitSelectPopup = useCallback(
+    cafe => {
+      setNowSelectingCafe(cafe);
+      nowSelectingCombineMarker.setImage(selectedMarkerImage);
+      handleCloseSelectPopup();
+    },
+    [handleCloseSelectPopup, nowSelectingCombineMarker],
+  );
+
+  const handleClickMarker = useCallback(
+    (cafe, marker) => {
+      unselectMarker();
+      setNowSelectingCafe(prevState => {
+        if (prevState && prevState.marker) {
+          prevState.marker.setImage(unselectedMarkerImage);
+        }
+        return cafe;
       });
+      setNowSelectingMarker(marker);
+      marker.setImage(selectedMarkerImage);
+    },
+    [unselectMarker],
+  );
+
+  const handleClickCombinedMarker = useCallback(
+    (cafes, marker) => {
+      unselectMarker();
+      setNowSelectingCombineCafes(cafes);
+      setNowSelectingCombineMarker(marker);
+    },
+    [unselectMarker],
+  );
+
+  const resetMarkers = useCallback(() => {
+    setMarkers(prevState => {
+      prevState.forEach(marker => {
+        marker.setMap(null);
+        marker.setImage(unselectedMarkerImage);
+      });
+
       return [];
     });
   }, []);
 
   const showAllMarkers = useCallback(() => {
-    if (!mapInstance || cafeData.length <= 0) {
-      return;
-    }
+    Object.entries(cafeData).forEach(item => {
+      const [location, cafe] = item;
+      const [longitude, latitude] = location.split(",");
+      const latlng = new kakao.maps.LatLng(latitude, longitude);
+      const marker = new kakao.maps.Marker({ title: item.name, position: latlng, image: unselectedMarkerImage, clickable: true });
 
-    cafeData.forEach(data => {
-      const { marker } = data;
-      kakao.maps.event.addListener(marker, "click", () => handleClickMarker(data));
+      if (cafe.length === 1) {
+        kakao.maps.event.addListener(marker, "click", () => handleClickMarker(cafe[0], marker));
+      } else if (cafe.length > 1) {
+        kakao.maps.event.addListener(marker, "click", () => handleClickCombinedMarker(cafe, marker));
+      } else {
+        return;
+      }
+
       kakao.maps.event.addListener(mapInstance, "click", () => {
-        marker.setImage(unselectedMarkerImage);
-        setNowSelectingCafe(null);
+        unselectMarker();
         mapInstance && mapInstance.relayout();
       });
       marker.setMap(mapInstance);
+
+      setMarkers(prevState => {
+        const nextState = [...prevState];
+        nextState.push(marker);
+        return nextState;
+      });
     });
-  }, [handleClickMarker, cafeData, mapInstance]);
+  }, [handleClickMarker, handleClickCombinedMarker, unselectMarker, cafeData, mapInstance]);
 
   const moveToCurrentCoordinates = useCallback(() => {
     if (!mapInstance || !currentCoordinates) {
@@ -115,10 +177,10 @@ const MapContainer = () => {
   }, [currentCoordinates, mapInstance]);
 
   const getCurrentCoordinates = useCallback(() => {
-    deleteAllMarkers();
-    setNowSelectingCafe(null);
+    unselectMarker();
+    resetMarkers();
     fetch();
-  }, [deleteAllMarkers, fetch]);
+  }, [resetMarkers, unselectMarker, fetch]);
 
   const loadCafeData = useCallback(async () => {
     await CardStore.fetchCard();
@@ -166,6 +228,25 @@ const MapContainer = () => {
     mapInstance && mapInstance.relayout();
   }, [mapInstance]);
 
+  const reformatCafeData = useCallback(() => {
+    const initialData = toJS(CardStore.cardDatas);
+    const cardData = {};
+
+    initialData.forEach(item => {
+      const { location } = item;
+      const locationKey = location.toString();
+
+      if (Object.keys(cardData).includes(locationKey)) {
+        cardData[locationKey].push(item);
+      } else {
+        cardData[locationKey] = [item];
+      }
+    });
+
+    setCafeData(cardData);
+    setNowSelectingCafe(null);
+  }, [CardStore.cardDatas]);
+
   useEffect(() => {
     const kakaoMap = getKakaoMapObject();
     setMapInstance(kakaoMap);
@@ -195,21 +276,25 @@ const MapContainer = () => {
       loadCafeData();
       return;
     }
-    setCafeData(toJS(CardStore.cardDatas));
-    setNowSelectingCafe(null);
-  }, [CardStore.cardDatas, loadCafeData]);
+    reformatCafeData();
+  }, [CardStore.cardDatas, loadCafeData, reformatCafeData]);
 
   useEffect(() => {
     showAllMarkers();
 
     return () => {
-      cafeData.forEach(data => {
-        const { marker } = data;
-        marker.setImage(unselectedMarkerImage);
-      });
-      setNowSelectingCafe(null);
+      unselectMarker();
     };
-  }, [showAllMarkers, cafeData]);
+  }, [showAllMarkers, unselectMarker, cafeData]);
+
+  useEffect(() => {
+    showAllMarkers();
+
+    return () => {
+      unselectMarker();
+      resetMarkers();
+    };
+  }, [showAllMarkers, unselectMarker, resetMarkers]);
 
   useEffect(() => {
     setViewportHeight();
@@ -223,6 +308,7 @@ const MapContainer = () => {
         </FloatingActionButton>
       </Map>
       {nowSelectingCafe && <Card showOnlyInfo={true} onCardLinkClick={() => handleCardLinkClick(nowSelectingCafe)} cardData={nowSelectingCafe} />}
+      {nowSelectingCombineCafes && <SelectPopup cafes={nowSelectingCombineCafes} onClose={handleCloseSelectPopup} onSubmit={handleSubmitSelectPopup} />}
     </>
   );
 };
