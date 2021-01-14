@@ -33,7 +33,7 @@ DetailTitle.defaultProps = {
   id: "Cafe",
   distance: "-",
   rating: 0.0,
-  tagCount: 10,
+  tagCount: 0,
 };
 
 export default DetailTitle;
