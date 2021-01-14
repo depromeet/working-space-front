@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import ReactStars from "react-rating-stars-component";
+import { isEmpty } from "lodash";
 import { ReactComponent as StarIcon } from "../../images/icon-star-fill.svg";
 import { ReactComponent as HalfStarIcon } from "../../images/icon-star-half.svg";
 import RatingStarStyled from "./RatingStar.styles";
@@ -7,7 +8,12 @@ import RatingStarStyled from "./RatingStar.styles";
 const RatingStar = props => {
   // prettier-ignore
   const { starSize, starActiveColor, isStarHalf, starColor, isStarEditable, starCount, attendantCount, FilledIcon, HalfIcon, EmptyIcon, isShowAttendantCount, attendantColor, isVertical, isRatingInteger, isShowRatingTotal, ratingTextSize, rowStarGutter, ratingCurrentTextColor, ratingTotalTextColor, onRatingChanged } = props;
-  const [rating, setRating] = useState(isRatingInteger ? parseInt(props.rating, 10) : parseFloat(props.rating).toFixed(1));
+  const [rating, setRating] = useState(() => {
+    if (isEmpty(props.rating)) {
+      return "0.0";
+    }
+    return isRatingInteger ? parseInt(props.rating, 10) : parseFloat(props.rating).toFixed(1);
+  });
 
   const handleRatingChanged = useCallback(
     newRating => {
@@ -67,7 +73,7 @@ RatingStar.defaultProps = {
   starSize: 30,
   starColor: "#f0f0f0",
   starActiveColor: "#ffbb44",
-  isStarHalf: false,
+  isStarHalf: true,
   isStarEditable: true,
   isShowAttendantCount: true,
   isShowRatingTotal: false,

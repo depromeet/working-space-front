@@ -23,7 +23,7 @@ const CardInfo = props => {
           <div className="info-middle">
             <p className="card-rating">
               <RatingIcon />
-              <span>{isEmpty(rating) ? "0.0" : rating}점</span>
+              <span>{isEmpty(rating) ? "0.0" : parseFloat(rating).toFixed(1)}점</span>
             </p>
             <p className="card-tag-count">
               <SmallTagIcon />
