@@ -15,17 +15,19 @@ import FloatingActionButton from "../components/FloatingActionButton/FloatingAct
 import BlinkingLocationIcon from "../components/BlinkingLocationIcon/BlinkingLocationIcon";
 import Card from "../components/Card/Card";
 import useGeoLocation from "../hooks/useGeoLocation";
-import MapPickerSprite from "../images/icon-mappicker-sprite.png";
+import MapPickerSprite from "../images/icon-mappicker-sprite.svg";
 
 const selectedMarkerImage = new kakao.maps.MarkerImage(MapPickerSprite, new kakao.maps.Size(48, 48), {
   spriteOrigin: new kakao.maps.Point(24, 0),
   spriteSize: new kakao.maps.Size(72, 48),
   offset: new kakao.maps.Point(23, 46),
 });
+
 const unselectedMarkerImage = new kakao.maps.MarkerImage(MapPickerSprite, new kakao.maps.Size(24, 24), {
   spriteOrigin: new kakao.maps.Point(0, 0),
   spriteSize: new kakao.maps.Size(72, 48),
 });
+
 const currentLocationMarkerImage = new kakao.maps.MarkerImage(CurrentLocationIcon, new kakao.maps.Size(36, 36), {
   offset: new kakao.maps.Point(18, 18),
 });
