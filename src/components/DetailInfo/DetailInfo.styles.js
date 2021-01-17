@@ -31,8 +31,6 @@ const DetailInfoStyled = styled.div`
     font-size: inherit;
   }
   .info-item-text {
-    width: calc(100% - 77px);
-    height: 100%;
     display: inline-flex;
     font-size: inherit;
   }
